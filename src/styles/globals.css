@@ -1,0 +1,524 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 32.6% 17.5%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 94.1%;
+    --sidebar-primary-foreground: 220.9 39.3% 11%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 32.6% 17.5%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  
+  body {
+    color: hsl(var(--foreground));
+    font-feature-settings: "rlig" 1, "calt" 1;
+    /* Mobile optimizations */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: manipulation;
+  }
+
+  /* Mobile viewport fixes */
+  html {
+    height: 100%;
+    /* Prevent iOS from zooming when focusing inputs */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Ensure proper mobile layout */
+  #__next {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  /* Mobile touch improvements */
+  button, [role="button"] {
+    touch-action: manipulation;
+  }
+
+  /* Prevent text selection on UI elements */
+  .no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}
+
+@layer utilities {
+  /* Animation utilities that may be missing */
+  .animate-in {
+    animation-duration: 0.15s;
+    animation-fill-mode: both;
+  }
+  
+  .animate-out {
+    animation-duration: 0.15s;
+    animation-fill-mode: both;
+  }
+  
+  .fade-in-0 {
+    animation-name: fade-in;
+  }
+  
+  .fade-out-0 {
+    animation-name: fade-out;
+  }
+  
+  .zoom-in-95 {
+    animation-name: zoom-in;
+  }
+  
+  .zoom-out-95 {
+    animation-name: zoom-out;
+  }
+  
+  .slide-in-from-top-2 {
+    animation-name: slide-in-from-top;
+  }
+  
+  .slide-in-from-bottom-2 {
+    animation-name: slide-in-from-bottom;
+  }
+  
+  .slide-in-from-left-2 {
+    animation-name: slide-in-from-left;
+  }
+  
+  .slide-in-from-right-2 {
+    animation-name: slide-in-from-right;
+  }
+}
+
+/* RTL Support */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="ltr"] {
+  direction: ltr;
+}
+
+/* Numbers and dates always in English */
+.numbers-ltr {
+  direction: ltr;
+  text-align: inherit;
+  unicode-bidi: embed;
+}
+
+/* Force English numerals */
+.force-english-numbers {
+  font-variant-numeric: tabular-nums;
+  unicode-bidi: isolate;
+}
+
+/* Arabic text support */
+.arabic-text {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Arial', 'Tahoma', 'DejaVu Sans', sans-serif;
+  unicode-bidi: embed;
+}
+
+/* English text within RTL context */
+.english-text {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+
+/* Mixed content support */
+.mixed-content {
+  unicode-bidi: plaintext;
+}
+
+/* Better Arabic font rendering */
+[lang="ar"] {
+  font-family: 'Segoe UI', 'Tahoma', 'Arial', 'DejaVu Sans', sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+/* Translation game specific styles */
+.translation-word {
+  direction: ltr;
+  text-align: center;
+  unicode-bidi: isolate;
+}
+
+.translation-answer {
+  direction: rtl;
+  text-align: center;
+  unicode-bidi: isolate;
+}
+
+/* Prevent text direction conflicts */
+.isolate-direction {
+  unicode-bidi: isolate;
+}
+
+/* Simple animations for mobile-friendly design */
+@keyframes simple-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-simple-bounce {
+  animation: simple-bounce 1s infinite;
+}
+
+/* Mobile-first design optimizations */
+@media (max-width: 768px) {
+  /* Ensure full viewport height on mobile devices */
+  .h-screen {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height for modern browsers */
+  }
+  
+  /* Safe area padding for iOS devices */
+  .mobile-safe-area {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Prevent zoom on input focus for iOS */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+  
+  /* Better touch targets */
+  button, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Optimize scrolling performance */
+  .scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Ensure no horizontal overflow */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Prevent text selection on game elements */
+.game-ui {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Better focus states for accessibility */
+button:focus-visible, 
+input:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Enhanced animations for better game experience */
+@keyframes slide-in-from-top-4 {
+  from {
+    transform: translateY(-1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes gentle-glow {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(34, 211, 238, 0.3);
+  }
+  50% {
+    box-shadow: 0 6px 25px rgba(34, 211, 238, 0.5);
+  }
+}
+
+.animate-in {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+.slide-in-from-top-4 {
+  animation-name: slide-in-from-top-4;
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+.scale-in {
+  animation-name: scale-in;
+}
+
+.animate-gentle-glow {
+  animation: gentle-glow 2s ease-in-out infinite;
+}
+
+/* Improved button interactions */
+.button-hover-lift {
+  transform: translateY(0);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.button-hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.button-hover-lift:active {
+  transform: translateY(0);
+}
+
+/* Enhanced button states for better visibility */
+.button-enhanced {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.button-enhanced:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.button-enhanced:active {
+  transform: translateY(0);
+  transition: all 0.1s ease;
+}
+
+.button-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.button-enhanced:hover::before {
+  left: 100%;
+}
+
+/* Game-specific enhancements */
+.game-card {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.drop-shadow-text {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Additional mobile optimizations for the improved interface */
+
+/* Better touch targets for avatar selection */
+@media (max-width: 768px) {
+  .avatar-grid button {
+    min-width: 48px;
+    min-height: 48px;
+  }
+  
+  /* Improve button spacing on small screens */
+  .game-mode-grid {
+    gap: 0.5rem;
+  }
+  
+  /* Better input font size to prevent zoom on iOS */
+  input[type="text"] {
+    font-size: 16px !important;
+  }
+  
+  /* Compact card padding on mobile */
+  .mobile-card {
+    padding: 1rem;
+  }
+  
+  /* Reduce vertical spacing on mobile */
+  .mobile-space-y-compact > * + * {
+    margin-top: 1rem;
+  }
+  
+  /* Better button height for touch */
+  .mobile-button {
+    min-height: 44px;
+  }
+  
+  /* Compact avatar grid for very small screens */
+  @media (max-width: 380px) {
+    .avatar-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.25rem;
+    }
+    
+    .avatar-grid button {
+      width: 40px;
+      height: 40px;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+/* Enhanced animations for better mobile experience */
+@keyframes mobile-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.mobile-bounce {
+  animation: mobile-bounce 0.2s ease-in-out;
+}
+
+/* Better focus states for mobile accessibility */
+@media (max-width: 768px) {
+  button:focus,
+  input:focus {
+    outline: 3px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  /* Remove webkit appearance on iOS */
+  input[type="text"] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  /* Better button active states */
+  button:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Improved gradient backgrounds that work well on mobile */
+.mobile-gradient-bg {
+  background: linear-gradient(135deg, #ffffff 0%, #dbeafe 50%, #bfdbfe 100%);
+  min-height: 100vh;
+  min-height: 100dvh; /* For browsers that support dynamic viewport */
+}
+
+/* Better card styling for mobile */
+.mobile-game-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Compact typography for mobile */
+@media (max-width: 768px) {
+  .mobile-title {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  .mobile-subtitle {
+    font-size: 0.875rem;
+  }
+  
+  .mobile-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}
