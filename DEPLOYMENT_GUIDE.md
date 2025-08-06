@@ -54,11 +54,7 @@ git push -u origin main
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
 
-### 2.4 Get Your Railway URL
-After deployment, Railway will provide a URL like:
-`https://your-project-name.up.railway.app`
 
-Copy this URL - you'll need it for the frontend.
 
 ## ☁️ Step 3: Frontend Deployment (Vercel)
 
@@ -72,7 +68,7 @@ Copy this URL - you'll need it for the frontend.
 1. In Vercel deployment settings, add environment variables:
    ```
    NEXT_PUBLIC_SOCKET_URL=https://your-project-name.up.railway.app
-   NODE_ENV=production
+   
    ```
    (Replace with your actual Railway URL from Step 2.4)
 

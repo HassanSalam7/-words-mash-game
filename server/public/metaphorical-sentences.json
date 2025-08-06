@@ -1,0 +1,686 @@
+{
+  "easy": [
+    {
+      "english": "Time is money",
+      "arabic": "الوقت من ذهب",
+      "metaphor": "Time has the same value as precious metal",
+      "wrongOptions": ["المال يشتري الوقت", "الذهب أهم من الوقت", "الوقت يصنع المال"]
+    },
+    {
+      "english": "Actions speak louder than words",
+      "arabic": "الأعمال أبلغ من الأقوال",
+      "metaphor": "What you do is more important than what you say",
+      "wrongOptions": ["الكلام فعل قوي", "الأقوال تحرك الجبال", "الصوت العالي يقنع الناس"]
+    },
+    {
+      "english": "Every cloud has a silver lining",
+      "arabic": "لا شر يخلو من خير",
+      "metaphor": "There is something good in every bad situation",
+      "wrongOptions": ["السحاب يحمل الفضة", "الخير دائماً موجود", "الشر أقوى من الخير"]
+    },
+    {
+      "english": "A picture is worth a thousand words",
+      "arabic": "الصورة تغني عن ألف كلمة",
+      "metaphor": "Visual representation can convey complex ideas quickly",
+      "wrongOptions": ["الكلمات أقوى من الصور", "ألف صورة تساوي كلمة", "الرسم مهنة مربحة"]
+    },
+    {
+      "english": "The early bird catches the worm",
+      "arabic": "من بكر بكر له",
+      "metaphor": "Those who start early have an advantage",
+      "wrongOptions": ["الطيور تأكل في الصباح", "النوم المبكر مفيد", "الدودة تختبئ من الطيور"]
+    },
+    {
+      "english": "Don't judge a book by its cover",
+      "arabic": "لا تحكم على الكتاب من غلافه",
+      "metaphor": "Don't judge based on appearances",
+      "wrongOptions": ["الكتب الجميلة مفيدة", "الغلاف يحمي الكتاب", "القراءة تبدأ من العنوان"]
+    },
+    {
+      "english": "Better late than never",
+      "arabic": "أولى من لا شيء",
+      "metaphor": "It's better to do something late than not at all",
+      "wrongOptions": ["التأخير أفضل من السرعة", "الوقت المناسب مهم", "لا شيء أفضل من شيء"]
+    },
+    {
+      "english": "Practice makes perfect",
+      "arabic": "الممارسة تؤدي إلى الإتقان",
+      "metaphor": "Repeated practice leads to mastery",
+      "wrongOptions": ["الكمال مستحيل", "الممارسة تضيع الوقت", "الموهبة أهم من التدريب"]
+    },
+    {
+      "english": "When life gives you lemons, make lemonade",
+      "arabic": "حول المحنة إلى منحة",
+      "metaphor": "Make the best of a bad situation",
+      "wrongOptions": ["الليمون مفيد للصحة", "المحن تدمر الحياة", "المنح تأتي بلا سبب"]
+    },
+    {
+      "english": "The grass is always greener on the other side",
+      "arabic": "عنب الجيران أحلى",
+      "metaphor": "Other people's situations seem better",
+      "wrongOptions": ["الجيران يزرعون العنب", "العنب الأحمر أحلى", "الحلاوة في الطعم"]
+    },
+    {
+      "english": "You can't have your cake and eat it too",
+      "arabic": "لا يمكن أن تحتفظ بالكعكة وتأكلها",
+      "metaphor": "You can't have everything",
+      "wrongOptions": ["الكعك للاحتفالات فقط", "الأكل والاحتفاظ ممكن", "الطعام يجب أكله سريعاً"]
+    },
+    {
+      "english": "Don't put all your eggs in one basket",
+      "arabic": "لا تضع كل البيض في سلة واحدة",
+      "metaphor": "Don't risk everything on one option",
+      "wrongOptions": ["السلة الواحدة أسهل", "البيض يكسر بسهولة", "السلال المتعددة مكلفة"]
+    },
+    {
+      "english": "Rome wasn't built in a day",
+      "arabic": "روما لم تُبن في يوم واحد",
+      "metaphor": "Great things take time",
+      "wrongOptions": ["البناء السريع أفضل", "روما مدينة قديمة", "اليوم الواحد كافي للبناء"]
+    },
+    {
+      "english": "When in Rome, do as the Romans do",
+      "arabic": "كن مع الناس في العيد ولو كنت صائماً",
+      "metaphor": "Adapt to local customs",
+      "wrongOptions": ["الرومان يحتفلون كثيراً", "العيد للجميع", "الصيام في العيد صعب"]
+    },
+    {
+      "english": "A penny saved is a penny earned",
+      "arabic": "القرش الأبيض ينفع في اليوم الأسود",
+      "metaphor": "Saving money is like earning money",
+      "wrongOptions": ["الأموال البيضاء نظيفة", "الأيام السوداء نادرة", "القروش القديمة قيمة"]
+    },
+    {
+      "english": "The squeaky wheel gets the grease",
+      "arabic": "العجلة الصارخة تحصل على الزيت",
+      "metaphor": "Those who complain get attention",
+      "wrongOptions": ["العجلات تحتاج زيت", "الصراخ مزعج", "الزيت يهدئ الأصوات"]
+    },
+    {
+      "english": "You reap what you sow",
+      "arabic": "كما تزرع تحصد",
+      "metaphor": "You get results based on your actions",
+      "wrongOptions": ["الزراعة مهنة صعبة", "الحصاد موسم محدد", "البذور تنمو وحدها"]
+    },
+    {
+      "english": "Don't bite the hand that feeds you",
+      "arabic": "لا تعض اليد التي تطعمك",
+      "metaphor": "Don't harm those who help you",
+      "wrongOptions": ["الطعام باليد أفضل", "العض ردة فعل طبيعية", "اليد تحتاج حماية"]
+    },
+    {
+      "english": "A bird in the hand is worth two in the bush",
+      "arabic": "عصفور في اليد خير من عشرة على الشجرة",
+      "metaphor": "Something certain is better than something uncertain",
+      "wrongOptions": ["الطيور على الأشجار جميلة", "اليد تحمي العصافير", "العشرة أكثر من الواحد"]
+    },
+    {
+      "english": "Don't cry over spilled milk",
+      "arabic": "لا تبك على اللبن المسكوب",
+      "metaphor": "Don't regret what's already done",
+      "wrongOptions": ["اللبن المسكوب يمكن جمعه", "البكاء يحل المشاكل", "الحليب غالي الثمن"]
+    },
+    {
+      "english": "The pen is mightier than the sword",
+      "arabic": "القلم أقوى من السيف",
+      "metaphor": "Words are more powerful than violence",
+      "wrongOptions": ["الأقلام مصنوعة من معدن", "السيوف للحروب فقط", "الكتابة تحتاج قوة"]
+    },
+    {
+      "english": "Curiosity killed the cat",
+      "arabic": "الفضول قتل الهرة",
+      "metaphor": "Too much curiosity can be dangerous",
+      "wrongOptions": ["القطط فضولية بطبيعتها", "الموت يأتي فجأة", "الهررة تحب الاستطلاع"]
+    },
+    {
+      "english": "All that glitters is not gold",
+      "arabic": "ليس كل ما يلمع ذهباً",
+      "metaphor": "Appearances can be deceiving",
+      "wrongOptions": ["الذهب يلمع دائماً", "اللمعان جميل", "المعادن تشبه بعضها"]
+    },
+    {
+      "english": "Strike while the iron is hot",
+      "arabic": "اضرب الحديد وهو ساخن",
+      "metaphor": "Act when the opportunity is right",
+      "wrongOptions": ["الحديد البارد أقوى", "الضرب يشكل المعدن", "الحرارة تلين الحديد"]
+    },
+    {
+      "english": "Two heads are better than one",
+      "arabic": "رأسان خير من رأس",
+      "metaphor": "Working together is better than working alone",
+      "wrongOptions": ["الرؤوس الكثيرة مشكلة", "التفكير الفردي أفضل", "رأس واحد يكفي"]
+    },
+    {
+      "english": "The apple doesn't fall far from the tree",
+      "arabic": "هذا الشبل من ذاك الأسد",
+      "metaphor": "Children resemble their parents",
+      "wrongOptions": ["الأشبال صغار الأسود", "الأسود تعيش في الغابة", "الشبل أقوى من الأسد"]
+    },
+    {
+      "english": "You can't make an omelet without breaking eggs",
+      "arabic": "لا تصنع عجة بدون كسر البيض",
+      "metaphor": "You can't achieve something without sacrifice",
+      "wrongOptions": ["البيض الكامل أجمل", "العجة طعام لذيذ", "كسر البيض مهارة"]
+    },
+    {
+      "english": "A watched pot never boils",
+      "arabic": "القدر المراقب لا يغلي",
+      "metaphor": "Time seems slower when you're waiting",
+      "wrongOptions": ["المراقبة تمنع الغليان", "القدور تحتاج انتباه", "الماء يغلي بسرعة"]
+    },
+    {
+      "english": "Don't count your chickens before they hatch",
+      "arabic": "لا تقل فول حتى يصير في المكيول",
+      "metaphor": "Don't assume success before it happens",
+      "wrongOptions": ["الفول يُزرع في الربيع", "المكيال يقيس الحبوب", "الدجاج يبيض يومياً"]
+    },
+    {
+      "english": "Beauty is in the eye of the beholder",
+      "arabic": "الجمال في عين الناظر",
+      "metaphor": "Beauty is subjective",
+      "wrongOptions": ["العيون تعكس الجمال", "النظر يحسن الأشياء", "الناظر يرى كل شيء"]
+    },
+    {
+      "english": "A stitch in time saves nine",
+      "arabic": "غرزة في وقتها تغني عن تسع",
+      "metaphor": "Fixing problems early prevents bigger problems",
+      "wrongOptions": ["الخياطة تحتاج صبر", "التسعة رقم محظوظ", "الغرز المتعددة أقوى"]
+    },
+    {
+      "english": "Where there's smoke, there's fire",
+      "arabic": "لا دخان بلا نار",
+      "metaphor": "Rumors usually have some truth",
+      "wrongOptions": ["الدخان مضر بالصحة", "النار تحتاج وقود", "الإطفاء ضروري"]
+    },
+    {
+      "english": "The best things in life are free",
+      "arabic": "أجمل الأشياء في الحياة مجانية",
+      "metaphor": "The most valuable things cost nothing",
+      "wrongOptions": ["المجاني قليل القيمة", "الجمال يُشترى بالمال", "الحياة غالية الثمن"]
+    },
+    {
+      "english": "Honesty is the best policy",
+      "arabic": "الصدق أفضل سياسة",
+      "metaphor": "Being truthful is always the right choice",
+      "wrongOptions": ["السياسة تحتاج مكر", "الصدق يضر أحياناً", "أفضل الأمور وسطها"]
+    },
+    {
+      "english": "If you can't beat them, join them",
+      "arabic": "إن لم تستطع هزيمتهم فانضم إليهم",
+      "metaphor": "Sometimes it's better to cooperate than compete",
+      "wrongOptions": ["الانتصار مستحيل", "الانضمام ضعف", "الهزيمة خيار سيء"]
+    },
+    {
+      "english": "The customer is always right",
+      "arabic": "الزبون دائماً على حق",
+      "metaphor": "In business, satisfy the customer",
+      "wrongOptions": ["الحق واضح للجميع", "الزبائن يعرفون كل شيء", "الخطأ مستحيل في التجارة"]
+    },
+    {
+      "english": "Don't look a gift horse in the mouth",
+      "arabic": "لا تفتش في أسنان الهدية",
+      "metaphor": "Don't criticize something you received for free",
+      "wrongOptions": ["أسنان الخيل تدل على عمرها", "الهدايا تحتاج فحص", "الأفواه مكان خطير"]
+    },
+    {
+      "english": "A rolling stone gathers no moss",
+      "arabic": "الحجر المتدحرج لا ينبت عليه الطحلب",
+      "metaphor": "People who keep moving don't get stuck in routines",
+      "wrongOptions": ["الطحلب ينمو على الصخور", "التدحرج ينظف الحجر", "الحركة تمنع النمو"]
+    },
+    {
+      "english": "Good things come to those who wait",
+      "arabic": "الصبر مفتاح الفرج",
+      "metaphor": "Patience leads to good results",
+      "wrongOptions": ["المفاتيح تفتح الأبواب", "الصبر صعب", "الفرج يأتي سريعاً"]
+    },
+    {
+      "english": "Money doesn't grow on trees",
+      "arabic": "المال لا ينبت على الأشجار",
+      "metaphor": "Money is not easy to get",
+      "wrongOptions": ["الأشجار تحتاج ماء", "النمو يحتاج وقت", "المال من ورق"]
+    },
+    {
+      "english": "The road to hell is paved with good intentions",
+      "arabic": "طريق جهنم مفروش بالنوايا الحسنة",
+      "metaphor": "Good intentions alone are not enough",
+      "wrongOptions": ["النوايا تبني الطرق", "جهنم مكان مخيف", "الفراش يريح المسافر"]
+    },
+    {
+      "english": "You can lead a horse to water, but you can't make it drink",
+      "arabic": "تستطيع أن تقود الحصان للماء لكن لا تستطيع إجباره على الشرب",
+      "metaphor": "You can provide opportunities but can't force someone to use them",
+      "wrongOptions": ["الخيول تشرب كثيراً", "القيادة أسهل من الإجبار", "الماء ضروري للحياة"]
+    },
+    {
+      "english": "Necessity is the mother of invention",
+      "arabic": "الحاجة أم الاختراع",
+      "metaphor": "Need drives creativity and innovation",
+      "wrongOptions": ["الاختراع يحتاج أم", "الأمهات مبدعات", "الحاجة تخلق المشاكل"]
+    },
+    {
+      "english": "A chain is only as strong as its weakest link",
+      "arabic": "السلسلة بقوة أضعف حلقاتها",
+      "metaphor": "A group is only as strong as its weakest member",
+      "wrongOptions": ["الحلقات المعدنية قوية", "الضعف ينتشر", "السلاسل للزينة"]
+    },
+    {
+      "english": "When the cat's away, the mice will play",
+      "arabic": "إذا غاب القط لعبت الفئران",
+      "metaphor": "People misbehave when authority is absent",
+      "wrongOptions": ["القطط تطارد الفئران", "اللعب مفيد للصحة", "الغياب يريح الجميع"]
+    },
+    {
+      "english": "You scratch my back, I'll scratch yours",
+      "arabic": "يد تغسل يد والاثنتان تغسلان الوجه",
+      "metaphor": "Mutual help benefits everyone",
+      "wrongOptions": ["الحكة مزعجة", "اليدان تحتاجان غسيل", "الوجه أهم من اليدين"]
+    },
+    {
+      "english": "Actions speak louder than words",
+      "arabic": "أفعالك أبلغ من أقوالك",
+      "metaphor": "What you do matters more than what you say",
+      "wrongOptions": ["الكلام بصوت عالي", "الأفعال تحدث ضجيج", "البلاغة في القول"]
+    }
+  ],
+  "medium": [
+    {
+      "english": "Don't throw the baby out with the bathwater",
+      "arabic": "لا ترم الطفل مع ماء الاستحمام",
+      "metaphor": "Don't discard something valuable while getting rid of something unwanted",
+      "wrongOptions": ["الأطفال يحبون الماء", "الاستحمام يومي", "الماء المتسخ يُرمى"]
+    },
+    {
+      "english": "The devil is in the details",
+      "arabic": "الشيطان في التفاصيل",
+      "metaphor": "Small details can cause big problems",
+      "wrongOptions": ["الشيطان يحب الخفاء", "التفاصيل مملة", "الوضوح أفضل من التعقيد"]
+    },
+    {
+      "english": "Don't bite off more than you can chew",
+      "arabic": "لا تأخذ لقمة أكبر من فمك",
+      "metaphor": "Don't take on more than you can handle",
+      "wrongOptions": ["المضغ مهم للهضم", "الفم صغير الحجم", "اللقمة الكبيرة لذيذة"]
+    },
+    {
+      "english": "The grass is always greener on the other side",
+      "arabic": "الحديقة المجاورة أجمل",
+      "metaphor": "Other people's situations seem better than yours",
+      "wrongOptions": ["الجيران يهتمون بحدائقهم", "الجمال في العين", "المقارنة صعبة"]
+    },
+    {
+      "english": "You can't judge a book by its cover",
+      "arabic": "لا تحكم على المرء من مظهره",
+      "metaphor": "Don't judge people by their appearance",
+      "wrongOptions": ["المظهر يعكس الشخصية", "الأحكام سريعة", "الناس يحبون الجمال"]
+    },
+    {
+      "english": "A leopard can't change its spots",
+      "arabic": "النمر لا يغير خطوطه",
+      "metaphor": "People don't change their basic nature",
+      "wrongOptions": ["النمور حيوانات جميلة", "الخطوط للتمويه", "التغيير صعب للحيوانات"]
+    },
+    {
+      "english": "Don't put the cart before the horse",
+      "arabic": "لا تضع العربة أمام الحصان",
+      "metaphor": "Do things in the right order",
+      "wrongOptions": ["الخيول تسحب العربات", "الترتيب للجمال", "العربة أثقل من الحصان"]
+    },
+    {
+      "english": "You can't make a silk purse out of a sow's ear",
+      "arabic": "لا تصنع كيس حرير من أذن خنزير",
+      "metaphor": "You can't make something fine from poor materials",
+      "wrongOptions": ["الحرير نسيج فاخر", "الخنازير حيوانات قذرة", "الأكياس للحفظ"]
+    },
+    {
+      "english": "Don't count your chickens before they hatch",
+      "arabic": "لا تحتفل بالنصر قبل المعركة",
+      "metaphor": "Don't assume success before it happens",
+      "wrongOptions": ["المعارك تحتاج استعداد", "النصر نتيجة الجهد", "الاحتفالات تحتاج تنظيم"]
+    },
+    {
+      "english": "The pot calling the kettle black",
+      "arabic": "قال الطنجرة للمقلاة: وجهك أسود",
+      "metaphor": "Criticizing someone for a fault you also have",
+      "wrongOptions": ["أدوات الطبخ تتكلم", "اللون الأسود من الحرق", "المطبخ يحتاج تنظيف"]
+    },
+    {
+      "english": "Don't wash your dirty linen in public",
+      "arabic": "ل تغسل ملابسك المتسخة أمام الناس",
+      "metaphor": "Don't discuss private problems publicly",
+      "wrongOptions": ["الغسيل يحتاج خصوصية", "الملابس المتسخة محرجة", "الناس يحبون النظافة"]
+    },
+    {
+      "english": "You can't have your cake and eat it too",
+      "arabic": "لا يمكن الجمع بين النقيضين",
+      "metaphor": "You can't have two contradictory things",
+      "wrongOptions": ["النقائض تتنافر", "الجمع صعب", "الأشياء لها قوانين"]
+    },
+    {
+      "english": "The squeaky wheel gets the grease",
+      "arabic": "من طلب العلا سهر الليالي",
+      "metaphor": "Those who ask for attention get it",
+      "wrongOptions": ["العلا مكان عالي", "السهر مضر بالصحة", "الليالي للراحة"]
+    },
+    {
+      "english": "A bird in the hand is worth two in the bush",
+      "arabic": "خذ الدجاجة ولو طارت",
+      "metaphor": "A sure thing is better than possibilities",
+      "wrongOptions": ["الدجاج يطير أحياناً", "الأخذ أفضل من الترك", "الطيران صعب للدجاج"]
+    },
+    {
+      "english": "Don't look a gift horse in the mouth",
+      "arabic": "لا تطعن في هدية مجانية",
+      "metaphor": "Don't criticize free gifts",
+      "wrongOptions": ["الطعن يؤذي", "الهدايا المجانية نادرة", "النقد يحسن الأشياء"]
+    },
+    {
+      "english": "Strike while the iron is hot",
+      "arabic": "اغتنم الفرصة وهي سانحة",
+      "metaphor": "Act when conditions are favorable",
+      "wrongOptions": ["الفرص تأتي وتذهب", "السنوح حالة جوية", "الاغتنام يحتاج سرعة"]
+    },
+    {
+      "english": "Too many cooks spoil the broth",
+      "arabic": "كثرة الطباخين تفسد الطبخة",
+      "metaphor": "Too many people managing something ruins it",
+      "wrongOptions": ["الطبخ فن صعب", "الكثرة تعني الخبرة", "الفساد من التلوث"]
+    },
+    {
+      "english": "You can't teach an old dog new tricks",
+      "arabic": "لا تعلم الديك السباحة",
+      "metaphor": "Older people resist learning new things",
+      "wrongOptions": ["الديوك تخاف الماء", "السباحة للأسماك فقط", "التعليم يحتاج صبر"]
+    },
+    {
+      "english": "The early bird catches the worm",
+      "arabic": "من جد وجد ومن زرع حصد",
+      "metaphor": "Hard work leads to success",
+      "wrongOptions": ["الجد صفة محمودة", "الزراعة مهنة شريفة", "الحصاد موسم سنوي"]
+    },
+    {
+      "english": "Don't cry over spilled milk",
+      "arabic": "ما فات مات",
+      "metaphor": "Don't regret things you can't change",
+      "wrongOptions": ["الماضي تاريخ", "الموت نهاية الحياة", "الفوات يحزن القلب"]
+    },
+    {
+      "english": "A penny saved is a penny earned",
+      "arabic": "من أمن العذاب هان عليه السهر",
+      "metaphor": "Saving prevents future hardship",
+      "wrongOptions": ["الأمان مطلب الجميع", "العذاب أشكال مختلفة", "السهر يضر بالصحة"]
+    },
+    {
+      "english": "The pen is mightier than the sword",
+      "arabic": "لسان العاقل وراء قلبه",
+      "metaphor": "Wisdom is more powerful than force",
+      "wrongOptions": ["اللسان عضو مهم", "القلب مركز الحياة", "العقل يسيطر على الكلام"]
+    },
+    {
+      "english": "All that glitters is not gold",
+      "arabic": "ليس كل أبيض شحم",
+      "metaphor": "Appearances can be deceiving",
+      "wrongOptions": ["الشحم أبيض اللون", "البياض لون جميل", "الألوان تخدع أحياناً"]
+    },
+    {
+      "english": "Beauty is in the eye of the beholder",
+      "arabic": "لكل ساقطة لاقطة",
+      "metaphor": "Everyone has different preferences",
+      "wrongOptions": ["السقوط يحتاج التقاط", "اللقط مهارة", "الساقطات كثيرة"]
+    },
+    {
+      "english": "Curiosity killed the cat",
+      "arabic": "من أعجب هلك",
+      "metaphor": "Too much curiosity can be dangerous",
+      "wrongOptions": ["الإعجاب شعور جميل", "الهلاك نتيجة طبيعية", "العجب من طبع البشر"]
+    },
+    {
+      "english": "When in Rome, do as Romans do",
+      "arabic": "من دخل بلد عبد أهلها",
+      "metaphor": "Adapt to local customs when visiting",
+      "wrongOptions": ["الدخول يحتاج إذن", "البلاد لها حكام", "العبادة واجب ديني"]
+    },
+    {
+      "english": "A watched pot never boils",
+      "arabic": "إذا أردت أن تطاع فاطلب المستطاع",
+      "metaphor": "Reasonable requests are more likely to be fulfilled",
+      "wrongOptions": ["الطاعة واجب", "الطلب حق للجميع", "الاستطاعة تختلف بين الناس"]
+    },
+    {
+      "english": "You reap what you sow",
+      "arabic": "الجزاء من جنس العمل",
+      "metaphor": "You get results that match your actions",
+      "wrongOptions": ["الجزاء في الآخرة", "الجنس يحدد الصفة", "العمل عبادة"]
+    },
+    {
+      "english": "Where there's smoke, there's fire",
+      "arabic": "وراء كل عظيم امرأة",
+      "metaphor": "Every successful person has support",
+      "wrongOptions": ["العظمة تحتاج مساعدة", "النساء داعمات", "الوراء مكان مخفي"]
+    },
+    {
+      "english": "The best things in life are free",
+      "arabic": "خير الأمور أوسطها",
+      "metaphor": "Moderation is best in everything",
+      "wrongOptions": ["الخير موجود دائماً", "الوسط مكان آمن", "الأمور لها درجات"]
+    },
+    {
+      "english": "Honesty is the best policy",
+      "arabic": "قل الحق ولو كان مراً",
+      "metaphor": "Truth should be told even if it's unpleasant",
+      "wrongOptions": ["الحق واضح للجميع", "المرارة في الطعم", "القول أسهل من الفعل"]
+    },
+    {
+      "english": "If you can't beat them, join them",
+      "arabic": "لا تيأس من روح الله",
+      "metaphor": "Never lose hope in God's mercy",
+      "wrongOptions": ["اليأس مرض نفسي", "الروح جزء من الإنسان", "الله رحيم بعباده"]
+    },
+    {
+      "english": "The customer is always right",
+      "arabic": "ليس بالضرورة أن يكون المشتري محقاً",
+      "metaphor": "Buyers are not always correct in their judgment",
+      "wrongOptions": ["الضرورة أم الاختراع", "الحق لا يضيع", "الشراء يحتاج تفكير"]
+    },
+    {
+      "english": "A rolling stone gathers no moss",
+      "arabic": "الراكد آسن",
+      "metaphor": "Stagnation leads to decay",
+      "wrongOptions": ["الركود حالة اقتصادية", "الأسن رائحة كريهة", "الماء يحتاج حركة"]
+    },
+    {
+      "english": "Good things come to those who wait",
+      "arabic": "إذا لم تكن ذئباً أكلتك الذئاب",
+      "metaphor": "You must be strong to survive",
+      "wrongOptions": ["الذئاب حيوانات مفترسة", "القوة تحمي الضعيف", "البقاء للأصلح"]
+    },
+    {
+      "english": "Money doesn't grow on trees",
+      "arabic": "ليس المال في الشجر",
+      "metaphor": "Money doesn't come easily",
+      "wrongOptions": ["الأشجار لا تحمل مال", "المال ورق أخضر", "النمو يحتاج وقت"]
+    }
+  ],
+  "hard": [
+    {
+      "english": "The road to hell is paved with good intentions",
+      "arabic": "إن الله لا يغير ما بقوم حتى يغيروا ما بأنفسهم",
+      "metaphor": "Change must come from within",
+      "wrongOptions": ["الله يساعد من يساعد نفسه", "التغيير عملية صعبة", "الشعوب تقاوم التغيير"]
+    },
+    {
+      "english": "You can lead a horse to water, but you can't make it drink",
+      "arabic": "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه",
+      "metaphor": "True faith requires caring for others",
+      "wrongOptions": ["الإيمان درجات", "الحب شعور قوي", "الأخوة رابطة مقدسة"]
+    },
+    {
+      "english": "Necessity is the mother of invention",
+      "arabic": "العبقرية واحد بالمائة إلهام وتسعة وتسعون بالمائة جهد",
+      "metaphor": "Success is mostly hard work, not just talent",
+      "wrongOptions": ["الإل��ام يأتي فجأة", "الجهد يؤتي ثماره", "العبقرية موهبة نادرة"]
+    },
+    {
+      "english": "A chain is only as strong as its weakest link",
+      "arabic": "المؤمن للمؤمن كالبنيان يشد بعضه بعضا",
+      "metaphor": "Unity makes people stronger",
+      "wrongOptions": ["البناء يحتاج أساس قوي", "الشد يقوي الهيكل", "المؤمنون إخوة"]
+    },
+    {
+      "english": "When the cat's away, the mice will play",
+      "arabic": "الوقاية خير من العلاج",
+      "metaphor": "Prevention is better than cure",
+      "wrongOptions": ["الوقاية تحتاج تخطيط", "العلاج مكلف", "الخير في التبكير"]
+    },
+    {
+      "english": "You scratch my back, I'll scratch yours",
+      "arabic": "التعاون أساس النجاح",
+      "metaphor": "Working together leads to success",
+      "wrongOptions": ["التعاون مبدأ إنساني", "النجاح هدف الجميع", "الأساس يحمل البناء"]
+    },
+    {
+      "english": "Don't bite the hand that feeds you",
+      "arabic": "من علمني حرفاً صرت له عبداً",
+      "metaphor": "Be grateful to those who teach you",
+      "wrongOptions": ["التعليم مهنة شريفة", "العبودية نظام قديم", "الحرف مهارات مفيدة"]
+    },
+    {
+      "english": "The pen is mightier than the sword",
+      "arabic": "العلم نور والجهل ظلام",
+      "metaphor": "Knowledge illuminates while ignorance darkens",
+      "wrongOptions": ["النور يبدد الظلام", "العلم يحتاج دراسة", "الجهل مشكلة المجتمعات"]
+    },
+    {
+      "english": "Rome wasn't built in a day",
+      "arabic": "الطريق إلى القمة يبدأ بخطوة",
+      "metaphor": "Great achievements start with small steps",
+      "wrongOptions": ["القمم عالية ومخيفة", "الخطوة بداية المشوار", "الطرق تحتاج صيانة"]
+    },
+    {
+      "english": "Too many cooks spoil the broth",
+      "arabic": "رأي الجماعة أصوب من رأي الفرد",
+      "metaphor": "Collective wisdom is better than individual opinion",
+      "wrongOptions": ["الجماعة تحتاج قائد", "الصواب نسبي", "الفرد جزء من الكل"]
+    },
+    {
+      "english": "You can't make an omelet without breaking eggs",
+      "arabic": "لا تحزن إن الله معنا",
+      "metaphor": "Don't despair, divine help is always present",
+      "wrongOptions": ["الحزن شعور طبيعي", "الله يحب عباده", "المعية تجلب الطمأنينة"]
+    },
+    {
+      "english": "A leopard can't change its spots",
+      "arabic": "الطبع يغلب التطبع",
+      "metaphor": "Natural character overcomes learned behavior",
+      "wrongOptions": ["الطبيعة أقوى من التعلم", "الغلبة للأقوى", "السلوك يمكن تعديله"]
+    },
+    {
+      "english": "Don't put the cart before the horse",
+      "arabic": "لكل مقام مقال",
+      "metaphor": "Every situation requires appropriate words",
+      "wrongOptions": ["المقامات تختلف", "الكلام له آداب", "المناسبة تحدد الأسلوب"]
+    },
+    {
+      "english": "You can't make a silk purse out of a sow's ear",
+      "arabic": "فاقد الشيء لا يعطيه",
+      "metaphor": "You cannot give what you don't have",
+      "wrongOptions": ["الفقدان يسبب الألم", "العطاء فضيلة", "الشيء له قيمة"]
+    },
+    {
+      "english": "The devil is in the details",
+      "arabic": "الله في عون العبد ما دام العبد في عون أخيه",
+      "metaphor": "Divine help comes to those who help others",
+      "wrongOptions": ["العون واجب إنساني", "الأخوة رابطة قوية", "العبد يحتاج رحمة"]
+    },
+    {
+      "english": "Don't throw the baby out with the bathwater",
+      "arabic": "خذ الحكمة من أفواه المجانين",
+      "metaphor": "Wisdom can come from unexpected sources",
+      "wrongOptions": ["الحكمة نادرة", "المجانين يقولون الحق", "الأفواه تنطق بالكلام"]
+    },
+    {
+      "english": "Strike while the iron is hot",
+      "arabic": "بين المطرقة والسندان",
+      "metaphor": "Caught between two difficult choices",
+      "wrongOptions": ["المطرقة أداة حداد", "السندان يحمل المعدن", "البين مكان وسط"]
+    },
+    {
+      "english": "A bird in the hand is worth two in the bush",
+      "arabic": "في الاتحاد قوة",
+      "metaphor": "Unity brings strength",
+      "wrongOptions": ["الاتحاد منظمة دولية", "القوة تحتاج تدريب", "التجمع يخلق الطاقة"]
+    },
+    {
+      "english": "Don't count your chickens before they hatch",
+      "arabic": "من طلب العلا سهر الليالي",
+      "metaphor": "Achieving excellence requires sacrifice",
+      "wrongOptions": ["العلا أماكن مرتفعة", "السهر يضر بالصحة", "الليالي للراحة والنوم"]
+    },
+    {
+      "english": "Beauty is in the eye of the beholder",
+      "arabic": "الناس معادن كمعادن الذهب والفضة",
+      "metaphor": "People have different inherent values",
+      "wrongOptions": ["المعادن لها أسعار", "الذهب أغلى من الفضة", "الناس يحبون المعادن"]
+    },
+    {
+      "english": "Curiosity killed the cat",
+      "arabic": "من جهل شيئاً عاداه",
+      "metaphor": "People oppose what they don't understand",
+      "wrongOptions": ["الجهل آفة العقل", "العداوة تفرق الناس", "الشيء له وجود"]
+    },
+    {
+      "english": "A watched pot never boils",
+      "arabic": "الصبر مفتاح الفرج",
+      "metaphor": "Patience opens the door to relief",
+      "wrongOptions": ["المفاتيح تفتح الأقفال", "الفرج يأتي بعد الشدة", "الصبر صفة الأنبياء"]
+    },
+    {
+      "english": "You reap what you sow",
+      "arabic": "كن في الدنيا كأنك غريب أو عابر سبيل",
+      "metaphor": "Live in this world as a temporary visitor",
+      "wrongOptions": ["الغرباء يحتاجون مساعدة", "السبيل طريق المسافر", "العبور يحتاج جواز"]
+    },
+    {
+      "english": "Where there's smoke, there's fire",
+      "arabic": "إنما الأعمال بالنيات",
+      "metaphor": "Actions are judged by intentions",
+      "wrongOptions": ["النيات تختلف بين الناس", "الأعمال تحتاج جهد", "الحكم يحتاج عدالة"]
+    },
+    {
+      "english": "The best things in life are free",
+      "arabic": "ما قل وكفى خير مما كثر وألهى",
+      "metaphor": "Simple sufficiency is better than abundant distraction",
+      "wrongOptions": ["القلة تعني الفقر", "الكثرة بركة", "الإلهاء يضيع الوقت"]
+    },
+    {
+      "english": "Honesty is the best policy",
+      "arabic": "الصادق من صدق في أقواله وأفعاله",
+      "metaphor": "True honesty includes both words and actions",
+      "wrongOptions": ["الصدق في القول فقط", "الأفعال أهم من الأقوال", "التطابق بين القول والفعل"]
+    },
+    {
+      "english": "A rolling stone gathers no moss",
+      "arabic": "الحركة بركة",
+      "metaphor": "Being active brings blessings",
+      "wrongOptions": ["البركة من الله", "الحركة تحتاج طاقة", "النشاط صحة"]
+    },
+    {
+      "english": "Good things come to those who wait",
+      "arabic": "وفي السماء رزقكم وما توعدون",
+      "metaphor": "Divine provision is guaranteed from above",
+      "wrongOptions": ["السماء عالية وبعيدة", "الرزق مقسوم", "الوعد يجب الوفاء به"]
+    },
+    {
+      "english": "Money doesn't grow on trees",
+      "arabic": "المال والبنون زينة الحياة الدنيا",
+      "metaphor": "Wealth and children are worldly decorations",
+      "wrongOptions": ["الزينة تجمل المكان", "البنون نعمة من الله", "الحياة تحتاج تجميل"]
+    },
+    {
+      "english": "The customer is always right",
+      "arabic": "ليس من العدل أن تكون دائماً محقاً",
+      "metaphor": "It's not fair to always be right",
+      "wrongOptions": ["العدل أساس الملك", "الحق لا يخفى", "الخطأ من طبيعة البشر"]
+    }
+  ]
+}

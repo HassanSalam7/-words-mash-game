@@ -1,0 +1,1918 @@
+{
+  "easy": [
+    {
+      "english": "house",
+      "arabic": "بيت",
+      "wrongOptions": ["مدرسة", "سيارة", "شجرة"]
+    },
+    {
+      "english": "water",
+      "arabic": "ماء",
+      "wrongOptions": ["نار", "هواء", "أرض"]
+    },
+    {
+      "english": "book",
+      "arabic": "كتاب",
+      "wrongOptions": ["قلم", "طاولة", "كرسي"]
+    },
+    {
+      "english": "friend",
+      "arabic": "صديق",
+      "wrongOptions": ["عدو", "أخ", "أب"]
+    },
+    {
+      "english": "family",
+      "arabic": "عائلة",
+      "wrongOptions": ["مدرسة", "شركة", "فريق"]
+    },
+    {
+      "english": "school",
+      "arabic": "مدرسة",
+      "wrongOptions": ["بيت", "مستشفى", "مطعم"]
+    },
+    {
+      "english": "food",
+      "arabic": "طعام",
+      "wrongOptions": ["شراب", "ماء", "هواء"]
+    },
+    {
+      "english": "music",
+      "arabic": "موسيقى",
+      "wrongOptions": ["رقص", "غناء", "صوت"]
+    },
+    {
+      "english": "love",
+      "arabic": "حب",
+      "wrongOptions": ["كره", "خوف", "فرح"]
+    },
+    {
+      "english": "time",
+      "arabic": "وقت",
+      "wrongOptions": ["مكان", "شخص", "شيء"]
+    },
+    {
+      "english": "car",
+      "arabic": "سيارة",
+      "wrongOptions": ["طائرة", "قطار", "باص"]
+    },
+    {
+      "english": "tree",
+      "arabic": "شجرة",
+      "wrongOptions": ["زهرة", "عشب", "ورقة"]
+    },
+    {
+      "english": "sun",
+      "arabic": "شمس",
+      "wrongOptions": ["قمر", "نجم", "سماء"]
+    },
+    {
+      "english": "moon",
+      "arabic": "قمر",
+      "wrongOptions": ["شمس", "نجم", "كوكب"]
+    },
+    {
+      "english": "money",
+      "arabic": "مال",
+      "wrongOptions": ["ذهب", "فضة", "جواهر"]
+    },
+    {
+      "english": "work",
+      "arabic": "عمل",
+      "wrongOptions": ["لعب", "راحة", "نوم"]
+    },
+    {
+      "english": "happy",
+      "arabic": "سعيد",
+      "wrongOptions": ["حزين", "غاضب", "خائف"]
+    },
+    {
+      "english": "big",
+      "arabic": "كبير",
+      "wrongOptions": ["صغير", "متوسط", "ضخم"]
+    },
+    {
+      "english": "small",
+      "arabic": "صغير",
+      "wrongOptions": ["كبير", "عملاق", "ضخم"]
+    },
+    {
+      "english": "good",
+      "arabic": "جيد",
+      "wrongOptions": ["سيء", "ممتاز", "رديء"]
+    },
+    {
+      "english": "bad",
+      "arabic": "سيء",
+      "wrongOptions": ["جيد", "ممتاز", "رائع"]
+    },
+    {
+      "english": "new",
+      "arabic": "جديد",
+      "wrongOptions": ["قديم", "عتيق", "أثري"]
+    },
+    {
+      "english": "old",
+      "arabic": "قديم",
+      "wrongOptions": ["جديد", "حديث", "عصري"]
+    },
+    {
+      "english": "hot",
+      "arabic": "حار",
+      "wrongOptions": ["بارد", "معتدل", "دافئ"]
+    },
+    {
+      "english": "cold",
+      "arabic": "بارد",
+      "wrongOptions": ["حار", "دافئ", "ساخن"]
+    },
+    {
+      "english": "fast",
+      "arabic": "سريع",
+      "wrongOptions": ["بطيء", "متوسط", "عادي"]
+    },
+    {
+      "english": "slow",
+      "arabic": "بطيء",
+      "wrongOptions": ["سريع", "خفيف", "عاجل"]
+    },
+    {
+      "english": "strong",
+      "arabic": "قوي",
+      "wrongOptions": ["ضعيف", "هش", "لين"]
+    },
+    {
+      "english": "weak",
+      "arabic": "ضعيف",
+      "wrongOptions": ["قوي", "صلب", "متين"]
+    },
+    {
+      "english": "light",
+      "arabic": "خفيف",
+      "wrongOptions": ["ثقيل", "وزين", "صعب"]
+    },
+    {
+      "english": "heavy",
+      "arabic": "ثقيل",
+      "wrongOptions": ["خفيف", "هين", "سهل"]
+    },
+    {
+      "english": "easy",
+      "arabic": "سهل",
+      "wrongOptions": ["صعب", "معقد", "مستحيل"]
+    },
+    {
+      "english": "difficult",
+      "arabic": "صعب",
+      "wrongOptions": ["سهل", "بسيط", "يسير"]
+    },
+    {
+      "english": "beautiful",
+      "arabic": "جميل",
+      "wrongOptions": ["قبيح", "سيء", "مخيف"]
+    },
+    {
+      "english": "ugly",
+      "arabic": "قبيح",
+      "wrongOptions": ["جميل", "حسن", "رائع"]
+    },
+    {
+      "english": "clean",
+      "arabic": "نظيف",
+      "wrongOptions": ["وسخ", "قذر", "ملوث"]
+    },
+    {
+      "english": "dirty",
+      "arabic": "وسخ",
+      "wrongOptions": ["نظيف", "طاهر", "صافي"]
+    },
+    {
+      "english": "safe",
+      "arabic": "آمن",
+      "wrongOptions": ["خطر", "مضر", "مؤذي"]
+    },
+    {
+      "english": "dangerous",
+      "arabic": "خطير",
+      "wrongOptions": ["آمن", "سليم", "محمي"]
+    },
+    {
+      "english": "rich",
+      "arabic": "غني",
+      "wrongOptions": ["فقير", "محتاج", "معدم"]
+    },
+    {
+      "english": "poor",
+      "arabic": "فقير",
+      "wrongOptions": ["غني", "ثري", "موسر"]
+    },
+    {
+      "english": "healthy",
+      "arabic": "صحي",
+      "wrongOptions": ["مريض", "سقيم", "عليل"]
+    },
+    {
+      "english": "sick",
+      "arabic": "مريض",
+      "wrongOptions": ["صحي", "معافى", "سليم"]
+    },
+    {
+      "english": "tired",
+      "arabic": "متعب",
+      "wrongOptions": ["نشط", "حيوي", "قوي"]
+    },
+    {
+      "english": "fresh",
+      "arabic": "طازج",
+      "wrongOptions": ["فاسد", "قديم", "معطن"]
+    },
+    {
+      "english": "smart",
+      "arabic": "ذكي",
+      "wrongOptions": ["غبي", "أحمق", "جاهل"]
+    },
+    {
+      "english": "stupid",
+      "arabic": "غبي",
+      "wrongOptions": ["ذكي", "عاقل", "حكيم"]
+    },
+    {
+      "english": "kind",
+      "arabic": "لطيف",
+      "wrongOptions": ["قاسي", "شرير", "عنيف"]
+    },
+    {
+      "english": "mean",
+      "arabic": "لئيم",
+      "wrongOptions": ["كريم", "سخي", "نبيل"]
+    },
+    {
+      "english": "honest",
+      "arabic": "صادق",
+      "wrongOptions": ["كاذب", "منافق", "مخادع"]
+    },
+    {
+      "english": "liar",
+      "arabic": "كاذب",
+      "wrongOptions": ["صادق", "أمين", "مخلص"]
+    },
+    {
+      "english": "brave",
+      "arabic": "شجاع",
+      "wrongOptions": ["جبان", "خائف", "ضعيف"]
+    },
+    {
+      "english": "coward",
+      "arabic": "جبان",
+      "wrongOptions": ["شجاع", "بطل", "مقدام"]
+    },
+    {
+      "english": "young",
+      "arabic": "شاب",
+      "wrongOptions": ["عجوز", "كبير", "مسن"]
+    },
+    {
+      "english": "old",
+      "arabic": "عجوز",
+      "wrongOptions": ["شاب", "صغير", "فتي"]
+    },
+    {
+      "english": "tall",
+      "arabic": "طويل",
+      "wrongOptions": ["قصير", "متوسط", "صغير"]
+    },
+    {
+      "english": "short",
+      "arabic": "قصير",
+      "wrongOptions": ["طويل", "عالي", "مرتفع"]
+    },
+    {
+      "english": "fat",
+      "arabic": "سمين",
+      "wrongOptions": ["نحيف", "رقيق", "ضعيف"]
+    },
+    {
+      "english": "thin",
+      "arabic": "نحيف",
+      "wrongOptions": ["سمين", "ممتلئ", "بدين"]
+    },
+    {
+      "english": "hungry",
+      "arabic": "جائع",
+      "wrongOptions": ["شبعان", "ممتلئ", "راضي"]
+    },
+    {
+      "english": "thirsty",
+      "arabic": "عطشان",
+      "wrongOptions": ["روي", "مرتوي", "شبعان"]
+    },
+    {
+      "english": "angry",
+      "arabic": "غاضب",
+      "wrongOptions": ["هادئ", "مرتاح", "سعيد"]
+    },
+    {
+      "english": "calm",
+      "arabic": "هادئ",
+      "wrongOptions": ["غاضب", "متوتر", "قلق"]
+    },
+    {
+      "english": "worried",
+      "arabic": "قلق",
+      "wrongOptions": ["مرتاح", "هادئ", "آمن"]
+    },
+    {
+      "english": "excited",
+      "arabic": "متحمس",
+      "wrongOptions": ["محبط", "كسول", "يائس"]
+    },
+    {
+      "english": "bored",
+      "arabic": "ملل",
+      "wrongOptions": ["متحمس", "مهتم", "نشط"]
+    },
+    {
+      "english": "surprised",
+      "arabic": "مندهش",
+      "wrongOptions": ["متوقع", "عادي", "طبيعي"]
+    },
+    {
+      "english": "confused",
+      "arabic": "محتار",
+      "wrongOptions": ["واضح", "متأكد", "عارف"]
+    },
+    {
+      "english": "sure",
+      "arabic": "متأكد",
+      "wrongOptions": ["شاك", "محتار", "غير واثق"]
+    },
+    {
+      "english": "ready",
+      "arabic": "جاهز",
+      "wrongOptions": ["غير مستعد", "متأخر", "ناقص"]
+    },
+    {
+      "english": "busy",
+      "arabic": "مشغول",
+      "wrongOptions": ["فارغ", "متاح", "حر"]
+    },
+    {
+      "english": "free",
+      "arabic": "حر",
+      "wrongOptions": ["مشغول", "مقيد", "مربوط"]
+    },
+    {
+      "english": "open",
+      "arabic": "مفتوح",
+      "wrongOptions": ["مغلق", "مقفل", "محكم"]
+    },
+    {
+      "english": "closed",
+      "arabic": "مغلق",
+      "wrongOptions": ["مفتوح", "مكشوف", "ظاهر"]
+    },
+    {
+      "english": "empty",
+      "arabic": "فارغ",
+      "wrongOptions": ["ممتلئ", "مكتمل", "مشبع"]
+    },
+    {
+      "english": "full",
+      "arabic": "ممتلئ",
+      "wrongOptions": ["فارغ", "ناقص", "قليل"]
+    },
+    {
+      "english": "loud",
+      "arabic": "صاخب",
+      "wrongOptions": ["هادئ", "صامت", "خافت"]
+    },
+    {
+      "english": "quiet",
+      "arabic": "هادئ",
+      "wrongOptions": ["صاخب", "مزعج", "عالي"]
+    },
+    {
+      "english": "dark",
+      "arabic": "مظلم",
+      "wrongOptions": ["مضيء", "لامع", "ساطع"]
+    },
+    {
+      "english": "bright",
+      "arabic": "مضيء",
+      "wrongOptions": ["مظلم", "خافت", "معتم"]
+    },
+    {
+      "english": "wide",
+      "arabic": "واسع",
+      "wrongOptions": ["ضيق", "محدود", "صغير"]
+    },
+    {
+      "english": "narrow",
+      "arabic": "ضيق",
+      "wrongOptions": ["واسع", "عريض", "كبير"]
+    },
+    {
+      "english": "thick",
+      "arabic": "سميك",
+      "wrongOptions": ["رقيق", "رفيع", "نحيل"]
+    },
+    {
+      "english": "thin",
+      "arabic": "رقيق",
+      "wrongOptions": ["سميك", "غليظ", "عريض"]
+    },
+    {
+      "english": "soft",
+      "arabic": "ناعم",
+      "wrongOptions": ["خشن", "صلب", "قاسي"]
+    },
+    {
+      "english": "hard",
+      "arabic": "صلب",
+      "wrongOptions": ["ناعم", "لين", "طري"]
+    },
+    {
+      "english": "smooth",
+      "arabic": "أملس",
+      "wrongOptions": ["خشن", "متعرج", "مسنن"]
+    },
+    {
+      "english": "rough",
+      "arabic": "خشن",
+      "wrongOptions": ["ناعم", "أملس", "طري"]
+    },
+    {
+      "english": "sharp",
+      "arabic": "حاد",
+      "wrongOptions": ["كليل", "منفرج", "دائري"]
+    },
+    {
+      "english": "dull",
+      "arabic": "كليل",
+      "wrongOptions": ["حاد", "مدبب", "مسنن"]
+    },
+    {
+      "english": "sweet",
+      "arabic": "حلو",
+      "wrongOptions": ["مر", "حامض", "مالح"]
+    },
+    {
+      "english": "bitter",
+      "arabic": "مر",
+      "wrongOptions": ["حلو", "عذب", "لذيذ"]
+    },
+    {
+      "english": "sour",
+      "arabic": "حامض",
+      "wrongOptions": ["حلو", "عذب", "طيب"]
+    },
+    {
+      "english": "salty",
+      "arabic": "مالح",
+      "wrongOptions": ["حلو", "عذب", "طري"]
+    },
+    {
+      "english": "fresh",
+      "arabic": "طري",
+      "wrongOptions": ["يابس", "قاسي", "فاسد"]
+    },
+    {
+      "english": "dry",
+      "arabic": "جاف",
+      "wrongOptions": ["رطب", "مبلل", "منقوع"]
+    },
+    {
+      "english": "wet",
+      "arabic": "مبلل",
+      "wrongOptions": ["جاف", "ناشف", "يابس"]
+    },
+    {
+      "english": "clean",
+      "arabic": "طاهر",
+      "wrongOptions": ["نجس", "قذر", "ملوث"]
+    },
+    {
+      "english": "comfortable",
+      "arabic": "مريح",
+      "wrongOptions": ["مؤلم", "متعب", "صعب"]
+    },
+    {
+      "english": "uncomfortable",
+      "arabic": "غير مريح",
+      "wrongOptions": ["مريح", "هانئ", "لذيذ"]
+    },
+    {
+      "english": "possible",
+      "arabic": "ممكن",
+      "wrongOptions": ["مستحيل", "صعب", "متعذر"]
+    },
+    {
+      "english": "impossible",
+      "arabic": "مستحيل",
+      "wrongOptions": ["ممكن", "سهل", "بسيط"]
+    },
+    {
+      "english": "necessary",
+      "arabic": "ضروري",
+      "wrongOptions": ["اختياري", "غير مهم", "ثانوي"]
+    },
+    {
+      "english": "important",
+      "arabic": "مهم",
+      "wrongOptions": ["غير مهم", "تافه", "ثانوي"]
+    },
+    {
+      "english": "useful",
+      "arabic": "مفيد",
+      "wrongOptions": ["ضار", "عديم الفائدة", "مؤذي"]
+    },
+    {
+      "english": "useless",
+      "arabic": "عديم الفائدة",
+      "wrongOptions": ["مفيد", "نافع", "مؤثر"]
+    },
+    {
+      "english": "normal",
+      "arabic": "طبيعي",
+      "wrongOptions": ["غريب", "شاذ", "غير عادي"]
+    },
+    {
+      "english": "strange",
+      "arabic": "غريب",
+      "wrongOptions": ["طبيعي", "عادي", "مألوف"]
+    },
+    {
+      "english": "famous",
+      "arabic": "مشهور",
+      "wrongOptions": ["مجهول", "غامض", "خفي"]
+    },
+    {
+      "english": "unknown",
+      "arabic": "مجهول",
+      "wrongOptions": ["معروف", "مشهور", "واضح"]
+    },
+    {
+      "english": "popular",
+      "arabic": "محبوب",
+      "wrongOptions": ["مكروه", "منبوذ", "مرفوض"]
+    },
+    {
+      "english": "private",
+      "arabic": "خاص",
+      "wrongOptions": ["عام", "مشترك", "علني"]
+    },
+    {
+      "english": "public",
+      "arabic": "عام",
+      "wrongOptions": ["خاص", "سري", "محدود"]
+    },
+    {
+      "english": "simple",
+      "arabic": "بسيط",
+      "wrongOptions": ["معقد", "صعب", "مركب"]
+    },
+    {
+      "english": "complex",
+      "arabic": "معقد",
+      "wrongOptions": ["بسيط", "سهل", "واضح"]
+    },
+    {
+      "english": "modern",
+      "arabic": "حديث",
+      "wrongOptions": ["قديم", "عتيق", "تقليدي"]
+    },
+    {
+      "english": "ancient",
+      "arabic": "قديم",
+      "wrongOptions": ["حديث", "جديد", "معاصر"]
+    },
+    {
+      "english": "natural",
+      "arabic": "طبيعي",
+      "wrongOptions": ["صناعي", "مصطنع", "كيميائي"]
+    },
+    {
+      "english": "artificial",
+      "arabic": "صناعي",
+      "wrongOptions": ["طبيعي", "حقيقي", "أصلي"]
+    },
+    {
+      "english": "wild",
+      "arabic": "بري",
+      "wrongOptions": ["أليف", "مدجن", "وديع"]
+    },
+    {
+      "english": "domestic",
+      "arabic": "أليف",
+      "wrongOptions": ["بري", "وحشي", "متوحش"]
+    }
+  ],
+  "medium": [
+    {
+      "english": "adventure",
+      "arabic": "مغامرة",
+      "wrongOptions": ["رحلة", "قصة", "حلم"]
+    },
+    {
+      "english": "challenge",
+      "arabic": "تحدي",
+      "wrongOptions": ["مشكلة", "فرصة", "خطر"]
+    },
+    {
+      "english": "mystery",
+      "arabic": "غموض",
+      "wrongOptions": ["وضوح", "سر", "حقيقة"]
+    },
+    {
+      "english": "journey",
+      "arabic": "رحلة",
+      "wrongOptions": ["وجهة", "طريق", "مكان"]
+    },
+    {
+      "english": "discovery",
+      "arabic": "اكتشاف",
+      "wrongOptions": ["اختراع", "إنشاء", "تطوير"]
+    },
+    {
+      "english": "education",
+      "arabic": "تعليم",
+      "wrongOptions": ["تدريب", "تطوير", "تحسين"]
+    },
+    {
+      "english": "technology",
+      "arabic": "تكنولوجيا",
+      "wrongOptions": ["علم", "هندسة", "رياضيات"]
+    },
+    {
+      "english": "computer",
+      "arabic": "حاسوب",
+      "wrongOptions": ["هاتف", "جهاز", "آلة"]
+    },
+    {
+      "english": "internet",
+      "arabic": "إنترنت",
+      "wrongOptions": ["شبكة", "اتصال", "موقع"]
+    },
+    {
+      "english": "hospital",
+      "arabic": "مستشفى",
+      "wrongOptions": ["عيادة", "صيدلية", "مختبر"]
+    },
+    {
+      "english": "restaurant",
+      "arabic": "مطعم",
+      "wrongOptions": ["مقهى", "فندق", "متجر"]
+    },
+    {
+      "english": "library",
+      "arabic": "مكتبة",
+      "wrongOptions": ["متحف", "مسرح", "سينما"]
+    },
+    {
+      "english": "culture",
+      "arabic": "ثقافة",
+      "wrongOptions": ["تقليد", "عادة", "تاريخ"]
+    },
+    {
+      "english": "language",
+      "arabic": "لغة",
+      "wrongOptions": ["كلام", "حديث", "كلمة"]
+    },
+    {
+      "english": "business",
+      "arabic": "تجارة",
+      "wrongOptions": ["وظيفة", "مهنة", "شركة"]
+    },
+    {
+      "english": "environment",
+      "arabic": "بيئة",
+      "wrongOptions": ["طبيعة", "مناخ", "جو"]
+    },
+    {
+      "english": "government",
+      "arabic": "حكومة",
+      "wrongOptions": ["دولة", "نظام", "إدارة"]
+    },
+    {
+      "english": "science",
+      "arabic": "علم",
+      "wrongOptions": ["بحث", "دراسة", "معرفة"]
+    },
+    {
+      "english": "freedom",
+      "arabic": "حرية",
+      "wrongOptions": ["عبودية", "قيد", "منع"]
+    },
+    {
+      "english": "peace",
+      "arabic": "سلام",
+      "wrongOptions": ["حرب", "صراع", "نزاع"]
+    },
+    {
+      "english": "victory",
+      "arabic": "انتصار",
+      "wrongOptions": ["هزيمة", "خسارة", "فشل"]
+    },
+    {
+      "english": "defeat",
+      "arabic": "هزيمة",
+      "wrongOptions": ["انتصار", "فوز", "نجاح"]
+    },
+    {
+      "english": "success",
+      "arabic": "نجاح",
+      "wrongOptions": ["فشل", "خسارة", "إخفاق"]
+    },
+    {
+      "english": "failure",
+      "arabic": "فشل",
+      "wrongOptions": ["نجاح", "فوز", "إنجاز"]
+    },
+    {
+      "english": "progress",
+      "arabic": "تقدم",
+      "wrongOptions": ["تراجع", "توقف", "انحدار"]
+    },
+    {
+      "english": "development",
+      "arabic": "تطوير",
+      "wrongOptions": ["تدهور", "تراجع", "انحطاط"]
+    },
+    {
+      "english": "improvement",
+      "arabic": "تحسين",
+      "wrongOptions": ["تدهور", "تراجع", "سوء"]
+    },
+    {
+      "english": "achievement",
+      "arabic": "إنجاز",
+      "wrongOptions": ["فشل", "إخفاق", "خسارة"]
+    },
+    {
+      "english": "opportunity",
+      "arabic": "فرصة",
+      "wrongOptions": ["عائق", "مانع", "حاجز"]
+    },
+    {
+      "english": "problem",
+      "arabic": "مشكلة",
+      "wrongOptions": ["حل", "إجابة", "علاج"]
+    },
+    {
+      "english": "solution",
+      "arabic": "حل",
+      "wrongOptions": ["مشكلة", "عقدة", "صعوبة"]
+    },
+    {
+      "english": "experience",
+      "arabic": "تجربة",
+      "wrongOptions": ["نظرية", "فكرة", "رأي"]
+    },
+    {
+      "english": "knowledge",
+      "arabic": "معرفة",
+      "wrongOptions": ["جهل", "غباء", "أمية"]
+    },
+    {
+      "english": "wisdom",
+      "arabic": "حكمة",
+      "wrongOptions": ["جهل", "حماقة", "طيش"]
+    },
+    {
+      "english": "decision",
+      "arabic": "قرار",
+      "wrongOptions": ["تردد", "تأجيل", "إلغاء"]
+    },
+    {
+      "english": "choice",
+      "arabic": "اختيار",
+      "wrongOptions": ["إجبار", "فرض", "إلزام"]
+    },
+    {
+      "english": "opinion",
+      "arabic": "رأي",
+      "wrongOptions": ["حقيقة", "واقع", "برهان"]
+    },
+    {
+      "english": "belief",
+      "arabic": "اعتقاد",
+      "wrongOptions": ["شك", "ريبة", "إنكار"]
+    },
+    {
+      "english": "truth",
+      "arabic": "حقيقة",
+      "wrongOptions": ["كذب", "خداع", "وهم"]
+    },
+    {
+      "english": "lie",
+      "arabic": "كذبة",
+      "wrongOptions": ["حقيقة", "صدق", "واقع"]
+    },
+    {
+      "english": "secret",
+      "arabic": "سر",
+      "wrongOptions": ["علانية", "وضوح", "إعلان"]
+    },
+    {
+      "english": "surprise",
+      "arabic": "مفاجأة",
+      "wrongOptions": ["توقع", "انتظار", "ترقب"]
+    },
+    {
+      "english": "memory",
+      "arabic": "ذاكرة",
+      "wrongOptions": ["نسيان", "غفلة", "سهو"]
+    },
+    {
+      "english": "dream",
+      "arabic": "حلم",
+      "wrongOptions": ["واقع", "حقيقة", "يقظة"]
+    },
+    {
+      "english": "nightmare",
+      "arabic": "كابوس",
+      "wrongOptions": ["حلم جميل", "رؤيا", "أمنية"]
+    },
+    {
+      "english": "hope",
+      "arabic": "أمل",
+      "wrongOptions": ["يأس", "قنوط", "إحباط"]
+    },
+    {
+      "english": "fear",
+      "arabic": "خوف",
+      "wrongOptions": ["شجاعة", "جرأة", "إقدام"]
+    },
+    {
+      "english": "courage",
+      "arabic": "شجاعة",
+      "wrongOptions": ["جبن", "خوف", "تردد"]
+    },
+    {
+      "english": "patience",
+      "arabic": "صبر",
+      "wrongOptions": ["عجلة", "تسرع", "استعجال"]
+    },
+    {
+      "english": "anger",
+      "arabic": "غضب",
+      "wrongOptions": ["هدوء", "سكينة", "طمأنينة"]
+    },
+    {
+      "english": "sadness",
+      "arabic": "حزن",
+      "wrongOptions": ["فرح", "سرور", "بهجة"]
+    },
+    {
+      "english": "joy",
+      "arabic": "فرح",
+      "wrongOptions": ["حزن", "كآبة", "سوداوية"]
+    },
+    {
+      "english": "pride",
+      "arabic": "فخر",
+      "wrongOptions": ["خجل", "عار", "ذل"]
+    },
+    {
+      "english": "shame",
+      "arabic": "خجل",
+      "wrongOptions": ["فخر", "عزة", "كرامة"]
+    },
+    {
+      "english": "jealousy",
+      "arabic": "غيرة",
+      "wrongOptions": ["رضا", "قناعة", "سعادة"]
+    },
+    {
+      "english": "trust",
+      "arabic": "ثقة",
+      "wrongOptions": ["شك", "ريبة", "عدم يقين"]
+    },
+    {
+      "english": "doubt",
+      "arabic": "شك",
+      "wrongOptions": ["يقين", "ثقة", "تأكد"]
+    },
+    {
+      "english": "respect",
+      "arabic": "احترام",
+      "wrongOptions": ["ازدراء", "احتقار", "استخفاف"]
+    },
+    {
+      "english": "kindness",
+      "arabic": "لطف",
+      "wrongOptions": ["قسوة", "غلظة", "عنف"]
+    },
+    {
+      "english": "generosity",
+      "arabic": "كرم",
+      "wrongOptions": ["بخل", "شح", "لؤم"]
+    },
+    {
+      "english": "selfishness",
+      "arabic": "أنانية",
+      "wrongOptions": ["إيثار", "كرم", "سخاء"]
+    },
+    {
+      "english": "loyalty",
+      "arabic": "إخلاص",
+      "wrongOptions": ["خيانة", "غدر", "نكران"]
+    },
+    {
+      "english": "betrayal",
+      "arabic": "خيانة",
+      "wrongOptions": ["إخلاص", "وفاء", "أمانة"]
+    },
+    {
+      "english": "friendship",
+      "arabic": "صداقة",
+      "wrongOptions": ["عداوة", "خصومة", "بغضاء"]
+    },
+    {
+      "english": "enemy",
+      "arabic": "عدو",
+      "wrongOptions": ["صديق", "حبيب", "رفيق"]
+    },
+    {
+      "english": "neighbor",
+      "arabic": "جار",
+      "wrongOptions": ["غريب", "بعيد", "أجنبي"]
+    },
+    {
+      "english": "stranger",
+      "arabic": "غريب",
+      "wrongOptions": ["معروف", "مألوف", "قريب"]
+    },
+    {
+      "english": "visitor",
+      "arabic": "زائر",
+      "wrongOptions": ["مضيف", "ساكن", "مقيم"]
+    },
+    {
+      "english": "guest",
+      "arabic": "ضيف",
+      "wrongOptions": ["مضيف", "صاحب البيت", "مالك"]
+    },
+    {
+      "english": "host",
+      "arabic": "مضيف",
+      "wrongOptions": ["ضيف", "زائر", "عابر"]
+    },
+    {
+      "english": "teacher",
+      "arabic": "معلم",
+      "wrongOptions": ["طالب", "تلميذ", "دارس"]
+    },
+    {
+      "english": "student",
+      "arabic": "طالب",
+      "wrongOptions": ["معلم", "أستاذ", "مدرس"]
+    },
+    {
+      "english": "doctor",
+      "arabic": "طبيب",
+      "wrongOptions": ["مريض", "ممرض", "صيدلي"]
+    },
+    {
+      "english": "patient",
+      "arabic": "مريض",
+      "wrongOptions": ["طبيب", "طبيعي", "سليم"]
+    },
+    {
+      "english": "nurse",
+      "arabic": "ممرض",
+      "wrongOptions": ["طبيب", "مريض", "زائر"]
+    },
+    {
+      "english": "engineer",
+      "arabic": "مهندس",
+      "wrongOptions": ["طبيب", "معلم", "محامي"]
+    },
+    {
+      "english": "lawyer",
+      "arabic": "محامي",
+      "wrongOptions": ["قاضي", "مهندس", "طبيب"]
+    },
+    {
+      "english": "judge",
+      "arabic": "قاضي",
+      "wrongOptions": ["محامي", "شاهد", "متهم"]
+    },
+    {
+      "english": "police",
+      "arabic": "شرطة",
+      "wrongOptions": ["لص", "مجرم", "منتهك"]
+    },
+    {
+      "english": "soldier",
+      "arabic": "جندي",
+      "wrongOptions": ["مدني", "عدو", "قائد"]
+    },
+    {
+      "english": "artist",
+      "arabic": "فنان",
+      "wrongOptions": ["جاهل", "عادي", "تقني"]
+    },
+    {
+      "english": "writer",
+      "arabic": "كاتب",
+      "wrongOptions": ["قارئ", "أمي", "جاهل"]
+    },
+    {
+      "english": "musician",
+      "arabic": "موسيقي",
+      "wrongOptions": ["صامت", "أصم", "كاره للموسيقى"]
+    },
+    {
+      "english": "singer",
+      "arabic": "مغني",
+      "wrongOptions": ["صامت", "أبكم", "هامس"]
+    },
+    {
+      "english": "dancer",
+      "arabic": "راقص",
+      "wrongOptions": ["جالس", "ثابت", "ساكن"]
+    },
+    {
+      "english": "actor",
+      "arabic": "ممثل",
+      "wrongOptions": ["مشاهد", "جمهور", "ناقد"]
+    },
+    {
+      "english": "director",
+      "arabic": "مخرج",
+      "wrongOptions": ["ممثل", "مشاهد", "ناقد"]
+    },
+    {
+      "english": "manager",
+      "arabic": "مدير",
+      "wrongOptions": ["موظف", "عامل", "خادم"]
+    },
+    {
+      "english": "employee",
+      "arabic": "موظف",
+      "wrongOptions": ["مدير", "رئيس", "مالك"]
+    },
+    {
+      "english": "boss",
+      "arabic": "رئيس",
+      "wrongOptions": ["موظف", "تابع", "مرؤوس"]
+    },
+    {
+      "english": "customer",
+      "arabic": "زبون",
+      "wrongOptions": ["بائع", "تاجر", "مالك"]
+    },
+    {
+      "english": "seller",
+      "arabic": "بائع",
+      "wrongOptions": ["مشتري", "زبون", "عميل"]
+    },
+    {
+      "english": "buyer",
+      "arabic": "مشتري",
+      "wrongOptions": ["بائع", "تاجر", "مالك"]
+    },
+    {
+      "english": "owner",
+      "arabic": "مالك",
+      "wrongOptions": ["مستأجر", "عامل", "ضيف"]
+    },
+    {
+      "english": "driver",
+      "arabic": "سائق",
+      "wrongOptions": ["راكب", "ماشي", "واقف"]
+    },
+    {
+      "english": "passenger",
+      "arabic": "راكب",
+      "wrongOptions": ["سائق", "ماشي", "واقف"]
+    },
+    {
+      "english": "pilot",
+      "arabic": "طيار",
+      "wrongOptions": ["راكب", "مضيف", "مسافر"]
+    },
+    {
+      "english": "captain",
+      "arabic": "قبطان",
+      "wrongOptions": ["راكب", "مسافر", "بحار"]
+    },
+    {
+      "english": "sailor",
+      "arabic": "بحار",
+      "wrongOptions": ["براي", "جبلي", "صحراوي"]
+    },
+    {
+      "english": "farmer",
+      "arabic": "مزارع",
+      "wrongOptions": ["تاجر", "صناعي", "خدمي"]
+    },
+    {
+      "english": "hunter",
+      "arabic": "صياد",
+      "wrongOptions": ["فريسة", "مطارد", "هارب"]
+    },
+    {
+      "english": "chef",
+      "arabic": "طباخ",
+      "wrongOptions": ["آكل", "جائع", "نباتي"]
+    },
+    {
+      "english": "waiter",
+      "arabic": "نادل",
+      "wrongOptions": ["زبون", "طباخ", "مدير"]
+    },
+    {
+      "english": "cleaner",
+      "arabic": "منظف",
+      "wrongOptions": ["مقذر", "ملوث", "مخرب"]
+    },
+    {
+      "english": "mechanic",
+      "arabic": "ميكانيكي",
+      "wrongOptions": ["كاسر", "مخرب", "مهدم"]
+    },
+    {
+      "english": "electrician",
+      "arabic": "كهربائي",
+      "wrongOptions": ["مطفئ", "مضيء", "مظلم"]
+    },
+    {
+      "english": "plumber",
+      "arabic": "سباك",
+      "wrongOptions": ["مكسر", "مخرب", "مسدود"]
+    },
+    {
+      "english": "carpenter",
+      "arabic": "نجار",
+      "wrongOptions": ["هادم", "مكسر", "محطم"]
+    },
+    {
+      "english": "painter",
+      "arabic": "رسام",
+      "wrongOptions": ["ماسح", "مزيل", "مخفي"]
+    },
+    {
+      "english": "photographer",
+      "arabic": "مصور",
+      "wrongOptions": ["ماسح", "مخفي", "مغطي"]
+    },
+    {
+      "english": "journalist",
+      "arabic": "صحفي",
+      "wrongOptions": ["صامت", "كاتم", "مخفي"]
+    },
+    {
+      "english": "translator",
+      "arabic": "مترجم",
+      "wrongOptions": ["أحادي اللغة", "صامت", "أبكم"]
+    },
+    {
+      "english": "guide",
+      "arabic": "دليل",
+      "wrongOptions": ["تائه", "ضائع", "مضلل"]
+    },
+    {
+      "english": "guard",
+      "arabic": "حارس",
+      "wrongOptions": ["لص", "متسلل", "مهاجم"]
+    },
+    {
+      "english": "secretary",
+      "arabic": "سكرتير",
+      "wrongOptions": ["رئيس", "مدير", "قائد"]
+    },
+    {
+      "english": "assistant",
+      "arabic": "مساعد",
+      "wrongOptions": ["رئيس", "قائد", "مستقل"]
+    },
+    {
+      "english": "volunteer",
+      "arabic": "متطوع",
+      "wrongOptions": ["مجبر", "مرغم", "مأجور"]
+    },
+    {
+      "english": "expert",
+      "arabic": "خبير",
+      "wrongOptions": ["مبتدئ", "جاهل", "عديم الخبرة"]
+    },
+    {
+      "english": "specialist",
+      "arabic": "متخصص",
+      "wrongOptions": ["عام", "شامل", "عمومي"]
+    },
+    {
+      "english": "professional",
+      "arabic": "محترف",
+      "wrongOptions": ["هاوي", "مبتدئ", "متدرب"]
+    },
+    {
+      "english": "amateur",
+      "arabic": "هاوي",
+      "wrongOptions": ["محترف", "خبير", "متمرس"]
+    },
+    {
+      "english": "beginner",
+      "arabic": "مبتدئ",
+      "wrongOptions": ["خبير", "محترف", "متمرس"]
+    },
+    {
+      "english": "leader",
+      "arabic": "قائد",
+      "wrongOptions": ["تابع", "مرؤوس", "خادم"]
+    },
+    {
+      "english": "follower",
+      "arabic": "تابع",
+      "wrongOptions": ["قائد", "رئيس", "مدير"]
+    },
+    {
+      "english": "competitor",
+      "arabic": "منافس",
+      "wrongOptions": ["حليف", "شريك", "متعاون"]
+    },
+    {
+      "english": "partner",
+      "arabic": "شريك",
+      "wrongOptions": ["منافس", "عدو", "خصم"]
+    },
+    {
+      "english": "teammate",
+      "arabic": "زميل فريق",
+      "wrongOptions": ["منافس", "خصم", "عدو"]
+    },
+    {
+      "english": "opponent",
+      "arabic": "خصم",
+      "wrongOptions": ["حليف", "شريك", "صديق"]
+    },
+    {
+      "english": "winner",
+      "arabic": "فائز",
+      "wrongOptions": ["خاسر", "مهزوم", "فاشل"]
+    },
+    {
+      "english": "loser",
+      "arabic": "خاسر",
+      "wrongOptions": ["فائز", "ناجح", "منتصر"]
+    },
+    {
+      "english": "champion",
+      "arabic": "بطل",
+      "wrongOptions": ["مهزوم", "فاشل", "آخر"]
+    },
+    {
+      "english": "hero",
+      "arabic": "بطل",
+      "wrongOptions": ["جبان", "خائف", "هارب"]
+    },
+    {
+      "english": "villain",
+      "arabic": "شرير",
+      "wrongOptions": ["بطل", "خير", "نبيل"]
+    },
+    {
+      "english": "victim",
+      "arabic": "ضحية",
+      "wrongOptions": ["جاني", "مهاجم", "معتدي"]
+    },
+    {
+      "english": "criminal",
+      "arabic": "مجرم",
+      "wrongOptions": ["بريء", "شريف", "نظيف"]
+    },
+    {
+      "english": "innocent",
+      "arabic": "بريء",
+      "wrongOptions": ["مذنب", "جاني", "مخطئ"]
+    },
+    {
+      "english": "witness",
+      "arabic": "شاهد",
+      "wrongOptions": ["غائب", "جاهل", "أعمى"]
+    },
+    {
+      "english": "suspect",
+      "arabic": "مشتبه",
+      "wrongOptions": ["بريء", "واضح", "مؤكد"]
+    }
+  ],
+  "hard": [
+    {
+      "english": "philosophy",
+      "arabic": "فلسفة",
+      "wrongOptions": ["منطق", "تفكير", "حكمة"]
+    },
+    {
+      "english": "psychology",
+      "arabic": "علم النفس",
+      "wrongOptions": ["علم الاجتماع", "علم الأحياء", "علم الطب"]
+    },
+    {
+      "english": "democracy",
+      "arabic": "ديمقراطية",
+      "wrongOptions": ["دكتاتورية", "ملكية", "جمهورية"]
+    },
+    {
+      "english": "economy",
+      "arabic": "اقتصاد",
+      "wrongOptions": ["تجارة", "مال", "سوق"]
+    },
+    {
+      "english": "revolution",
+      "arabic": "ثورة",
+      "wrongOptions": ["تطور", "تغيير", "إصلاح"]
+    },
+    {
+      "english": "civilization",
+      "arabic": "حضارة",
+      "wrongOptions": ["مدنية", "تقدم", "تطور"]
+    },
+    {
+      "english": "architecture",
+      "arabic": "هندسة معمارية",
+      "wrongOptions": ["بناء", "تصميم", "إنشاء"]
+    },
+    {
+      "english": "literature",
+      "arabic": "أدب",
+      "wrongOptions": ["شعر", "نثر", "قصة"]
+    },
+    {
+      "english": "mathematics",
+      "arabic": "رياضيات",
+      "wrongOptions": ["حساب", "جبر", "هندسة"]
+    },
+    {
+      "english": "intelligence",
+      "arabic": "ذكاء",
+      "wrongOptions": ["فهم", "إدراك", "وعي"]
+    },
+    {
+      "english": "consciousness",
+      "arabic": "وعي",
+      "wrongOptions": ["إدراك", "انتباه", "تركيز"]
+    },
+    {
+      "english": "entrepreneurship",
+      "arabic": "ريادة الأعمال",
+      "wrongOptions": ["إدارة", "قيادة", "تطوير"]
+    },
+    {
+      "english": "globalization",
+      "arabic": "العولمة",
+      "wrongOptions": ["دولية", "عالمية", "شمولية"]
+    },
+    {
+      "english": "sustainability",
+      "arabic": "استدامة",
+      "wrongOptions": ["دوام", "بقاء", "استمرار"]
+    },
+    {
+      "english": "innovation",
+      "arabic": "ابتكار",
+      "wrongOptions": ["اختراع", "إبداع", "تطوير"]
+    },
+    {
+      "english": "methodology",
+      "arabic": "منهجية",
+      "wrongOptions": ["طريقة", "أسلوب", "نهج"]
+    },
+    {
+      "english": "phenomenon",
+      "arabic": "ظاهرة",
+      "wrongOptions": ["حدث", "واقعة", "أمر"]
+    },
+    {
+      "english": "hypothesis",
+      "arabic": "فرضية",
+      "wrongOptions": ["نظرية", "قانون", "قاعدة"]
+    },
+    {
+      "english": "infrastructure",
+      "arabic": "بنية تحتية",
+      "wrongOptions": ["أساس", "قاعدة", "هيكل"]
+    },
+    {
+      "english": "bureaucracy",
+      "arabic": "بيروقراطية",
+      "wrongOptions": ["إدارة", "نظام", "حكومة"]
+    },
+    {
+      "english": "capitalism",
+      "arabic": "رأسمالية",
+      "wrongOptions": ["اشتراكية", "شيوعية", "إقطاعية"]
+    },
+    {
+      "english": "socialism",
+      "arabic": "اشتراكية",
+      "wrongOptions": ["رأسمالية", "فردية", "ليبرالية"]
+    },
+    {
+      "english": "imperialism",
+      "arabic": "إمبريالية",
+      "wrongOptions": ["استقلالية", "تحرر", "سيادة"]
+    },
+    {
+      "english": "nationalism",
+      "arabic": "قومية",
+      "wrongOptions": ["عالمية", "دولية", "كونية"]
+    },
+    {
+      "english": "patriotism",
+      "arabic": "وطنية",
+      "wrongOptions": ["خيانة", "عمالة", "انتهازية"]
+    },
+    {
+      "english": "totalitarianism",
+      "arabic": "شمولية",
+      "wrongOptions": ["ديمقراطية", "حرية", "تعددية"]
+    },
+    {
+      "english": "authoritarianism",
+      "arabic": "استبداد",
+      "wrongOptions": ["ديمقراطية", "حرية", "تسامح"]
+    },
+    {
+      "english": "liberalism",
+      "arabic": "ليبرالية",
+      "wrongOptions": ["محافظة", "تقليدية", "جمود"]
+    },
+    {
+      "english": "conservatism",
+      "arabic": "محافظة",
+      "wrongOptions": ["تقدمية", "تحررية", "راديكالية"]
+    },
+    {
+      "english": "radicalism",
+      "arabic": "راديكالية",
+      "wrongOptions": ["اعتدال", "وسطية", "تقليدية"]
+    },
+    {
+      "english": "fundamentalism",
+      "arabic": "أصولية",
+      "wrongOptions": ["تحديث", "تطوير", "تجديد"]
+    },
+    {
+      "english": "secularism",
+      "arabic": "علمانية",
+      "wrongOptions": ["دينية", "روحانية", "مقدسة"]
+    },
+    {
+      "english": "pluralism",
+      "arabic": "تعددية",
+      "wrongOptions": ["أحادية", "واحدية", "فردية"]
+    },
+    {
+      "english": "relativism",
+      "arabic": "نسبية",
+      "wrongOptions": ["مطلقية", "ثابتة", "قطعية"]
+    },
+    {
+      "english": "absolutism",
+      "arabic": "مطلقية",
+      "wrongOptions": ["نسبية", "متغيرة", "مرنة"]
+    },
+    {
+      "english": "determinism",
+      "arabic": "حتمية",
+      "wrongOptions": ["حرية", "اختيار", "إرادة"]
+    },
+    {
+      "english": "existentialism",
+      "arabic": "وجودية",
+      "wrongOptions": ["جوهرية", "مثالية", "عقلانية"]
+    },
+    {
+      "english": "pragmatism",
+      "arabic": "براجماتية",
+      "wrongOptions": ["مثالية", "نظرية", "تجريدية"]
+    },
+    {
+      "english": "rationalism",
+      "arabic": "عقلانية",
+      "wrongOptions": ["عاطفية", "غريزية", "حدسية"]
+    },
+    {
+      "english": "empiricism",
+      "arabic": "تجريبية",
+      "wrongOptions": ["نظرية", "تجريدية", "فلسفية"]
+    },
+    {
+      "english": "idealism",
+      "arabic": "مثالية",
+      "wrongOptions": ["واقعية", "مادية", "عملية"]
+    },
+    {
+      "english": "materialism",
+      "arabic": "مادية",
+      "wrongOptions": ["روحانية", "مثالية", "معنوية"]
+    },
+    {
+      "english": "spiritualism",
+      "arabic": "روحانية",
+      "wrongOptions": ["مادية", "حسية", "ملموسة"]
+    },
+    {
+      "english": "metaphysics",
+      "arabic": "ما وراء الطبيعة",
+      "wrongOptions": ["فيزياء", "طبيعة", "مادة"]
+    },
+    {
+      "english": "epistemology",
+      "arabic": "نظرية المعرفة",
+      "wrongOptions": ["جهل", "أمية", "غباء"]
+    },
+    {
+      "english": "ontology",
+      "arabic": "علم الوجود",
+      "wrongOptions": ["عدم", "فناء", "انعدام"]
+    },
+    {
+      "english": "ethics",
+      "arabic": "أخلاق",
+      "wrongOptions": ["رذيلة", "فساد", "انحلال"]
+    },
+    {
+      "english": "aesthetics",
+      "arabic": "علم الجمال",
+      "wrongOptions": ["قبح", "بشاعة", "تشويه"]
+    },
+    {
+      "english": "logic",
+      "arabic": "منطق",
+      "wrongOptions": ["تناقض", "فوضى", "عبثية"]
+    },
+    {
+      "english": "dialectic",
+      "arabic": "جدلية",
+      "wrongOptions": ["أحادية", "ثبات", "جمود"]
+    },
+    {
+      "english": "synthesis",
+      "arabic": "تركيب",
+      "wrongOptions": ["تحليل", "تفكيك", "تفتيت"]
+    },
+    {
+      "english": "analysis",
+      "arabic": "تحليل",
+      "wrongOptions": ["تركيب", "تجميع", "توحيد"]
+    },
+    {
+      "english": "paradigm",
+      "arabic": "نموذج",
+      "wrongOptions": ["فوضى", "عشوائية", "خلط"]
+    },
+    {
+      "english": "algorithm",
+      "arabic": "خوارزمية",
+      "wrongOptions": ["عشوائية", "فوضى", "اعتباطية"]
+    },
+    {
+      "english": "hierarchy",
+      "arabic": "تدرج",
+      "wrongOptions": ["مساواة", "تسطح", "توازي"]
+    },
+    {
+      "english": "taxonomy",
+      "arabic": "تصنيف",
+      "wrongOptions": ["خلط", "عشوائية", "فوضى"]
+    },
+    {
+      "english": "chronology",
+      "arabic": "تسلسل زمني",
+      "wrongOptions": ["عشوائية", "فوضى", "اختلاط"]
+    },
+    {
+      "english": "genealogy",
+      "arabic": "علم الأنساب",
+      "wrongOptions": ["يتم", "انقطاع", "جهل النسب"]
+    },
+    {
+      "english": "etymology",
+      "arabic": "علم أصل الكلمات",
+      "wrongOptions": ["جهل", "ضياع الأصل", "نسيان"]
+    },
+    {
+      "english": "terminology",
+      "arabic": "مصطلحات",
+      "wrongOptions": ["عامية", "لهجة", "كلام عادي"]
+    },
+    {
+      "english": "nomenclature",
+      "arabic": "نظام التسمية",
+      "wrongOptions": ["إخفاء الأسماء", "كتمان", "سرية"]
+    },
+    {
+      "english": "anthropology",
+      "arabic": "علم الإنسان",
+      "wrongOptions": ["علم الحيوان", "علم النبات", "علم الجماد"]
+    },
+    {
+      "english": "sociology",
+      "arabic": "علم الاجتماع",
+      "wrongOptions": ["انعزالية", "فردية", "وحدة"]
+    },
+    {
+      "english": "archaeology",
+      "arabic": "علم الآثار",
+      "wrongOptions": ["هدم", "تدمير", "طمس"]
+    },
+    {
+      "english": "paleontology",
+      "arabic": "علم الحفريات",
+      "wrongOptions": ["حداثة", "معاصرة", "جديد"]
+    },
+    {
+      "english": "meteorology",
+      "arabic": "علم الطقس",
+      "wrongOptions": ["جهل بالطقس", "تجاهل المناخ", "إهمال الجو"]
+    },
+    {
+      "english": "seismology",
+      "arabic": "علم الزلازل",
+      "wrongOptions": ["ثبات", "استقرار", "سكون"]
+    },
+    {
+      "english": "oceanography",
+      "arabic": "علم المحيطات",
+      "wrongOptions": ["صحراء", "يابسة", "جفاف"]
+    },
+    {
+      "english": "astronomy",
+      "arabic": "علم الفلك",
+      "wrongOptions": ["جهل بالنجوم", "عمى فلكي", "تجاهل السماء"]
+    },
+    {
+      "english": "cosmology",
+      "arabic": "علم الكون",
+      "wrongOptions": ["جهل بالكون", "إنكار الوجود", "عدمية"]
+    },
+    {
+      "english": "quantum",
+      "arabic": "كمي",
+      "wrongOptions": ["كلاسيكي", "تقليدي", "قديم"]
+    },
+    {
+      "english": "relativity",
+      "arabic": "نسبية",
+      "wrongOptions": ["مطلقية", "ثبات", "قطعية"]
+    },
+    {
+      "english": "entropy",
+      "arabic": "انتروبيا",
+      "wrongOptions": ["نظام", "ترتيب", "تنظيم"]
+    },
+    {
+      "english": "thermodynamics",
+      "arabic": "ديناميكا حرارية",
+      "wrongOptions": ["سكون بارد", "جمود مجمد", "ثبات متجمد"]
+    },
+    {
+      "english": "electromagnetic",
+      "arabic": "كهرومغناطيسي",
+      "wrongOptions": ["معزول", "منفصل", "غير موصل"]
+    },
+    {
+      "english": "photosynthesis",
+      "arabic": "تمثيل ضوئي",
+      "wrongOptions": ["تحلل ظلامي", "تفكك ليلي", "انهيار مظلم"]
+    },
+    {
+      "english": "metabolism",
+      "arabic": "أيض",
+      "wrongOptions": ["خمول", "سكون", "موت"]
+    },
+    {
+      "english": "chromosome",
+      "arabic": "كروموسوم",
+      "wrongOptions": ["خلية مفردة", "نواة فارغة", "جين مفقود"]
+    },
+    {
+      "english": "enzyme",
+      "arabic": "إنزيم",
+      "wrongOptions": ["مثبط", "معطل", "مانع"]
+    },
+    {
+      "english": "protein",
+      "arabic": "بروتين",
+      "wrongOptions": ["دهون", "سكريات", "أملاح"]
+    },
+    {
+      "english": "molecule",
+      "arabic": "جزيء",
+      "wrongOptions": ["كتلة واحدة", "وحدة صلبة", "قطعة متماسكة"]
+    },
+    {
+      "english": "atom",
+      "arabic": "ذرة",
+      "wrongOptions": ["كتلة", "مجموعة", "تجمع"]
+    },
+    {
+      "english": "nucleus",
+      "arabic": "نواة",
+      "wrongOptions": ["قشرة", "غلاف", "سطح"]
+    },
+    {
+      "english": "electron",
+      "arabic": "إلكترون",
+      "wrongOptions": ["بروتون", "نيوترون", "فوتون"]
+    },
+    {
+      "english": "neutron",
+      "arabic": "نيوترون",
+      "wrongOptions": ["إلكترون", "بروتون", "فوتون"]
+    },
+    {
+      "english": "proton",
+      "arabic": "بروتون",
+      "wrongOptions": ["إلكترون", "نيوترون", "فوتون"]
+    },
+    {
+      "english": "photon",
+      "arabic": "فوتون",
+      "wrongOptions": ["إلكترون", "بروتون", "نيوترون"]
+    },
+    {
+      "english": "velocity",
+      "arabic": "سرعة",
+      "wrongOptions": ["سكون", "ثبات", "وقوف"]
+    },
+    {
+      "english": "acceleration",
+      "arabic": "تسارع",
+      "wrongOptions": ["تباطؤ", "ثبات", "سكون"]
+    },
+    {
+      "english": "momentum",
+      "arabic": "زخم",
+      "wrongOptions": ["سكون", "ثبات", "توقف"]
+    },
+    {
+      "english": "frequency",
+      "arabic": "تردد",
+      "wrongOptions": ["ثبات", "استقرار", "سكون"]
+    },
+    {
+      "english": "amplitude",
+      "arabic": "مطال",
+      "wrongOptions": ["صفر", "سكون", "ثبات"]
+    },
+    {
+      "english": "wavelength",
+      "arabic": "طول موجي",
+      "wrongOptions": ["خط مستقيم", "نقطة", "سكون"]
+    },
+    {
+      "english": "interference",
+      "arabic": "تداخل",
+      "wrongOptions": ["انفصال", "عزلة", "انقطاع"]
+    },
+    {
+      "english": "diffraction",
+      "arabic": "حيود",
+      "wrongOptions": ["استقامة", "مباشرة", "خط مستقيم"]
+    },
+    {
+      "english": "reflection",
+      "arabic": "انعكاس",
+      "wrongOptions": ["امتصاص", "اختراق", "نفاذ"]
+    },
+    {
+      "english": "refraction",
+      "arabic": "انكسار",
+      "wrongOptions": ["استقامة", "مباشرة", "عدم انحناء"]
+    },
+    {
+      "english": "polarization",
+      "arabic": "استقطاب",
+      "wrongOptions": ["تشتت", "عشوائية", "فوضى"]
+    },
+    {
+      "english": "magnetism",
+      "arabic": "مغناطيسية",
+      "wrongOptions": ["تنافر", "عدم جذب", "انفصال"]
+    },
+    {
+      "english": "gravity",
+      "arabic": "جاذبية",
+      "wrongOptions": ["تنافر", "طفو", "انتفاء الوزن"]
+    },
+    {
+      "english": "inertia",
+      "arabic": "قصور ذاتي",
+      "wrongOptions": ["حركة دائمة", "نشاط مستمر", "تغيير مستمر"]
+    },
+    {
+      "english": "equilibrium",
+      "arabic": "توازن",
+      "wrongOptions": ["اختلال", "عدم استقرار", "ميل"]
+    },
+    {
+      "english": "turbulence",
+      "arabic": "اضطراب",
+      "wrongOptions": ["سكون", "هدوء", "استقرار"]
+    },
+    {
+      "english": "viscosity",
+      "arabic": "لزوجة",
+      "wrongOptions": ["سيولة", "رقة", "خفة"]
+    },
+    {
+      "english": "density",
+      "arabic": "كثافة",
+      "wrongOptions": ["خفة", "رقة", "قلة"]
+    },
+    {
+      "english": "conductivity",
+      "arabic": "توصيلية",
+      "wrongOptions": ["عزل", "منع", "إعاقة"]
+    },
+    {
+      "english": "resistance",
+      "arabic": "مقاومة",
+      "wrongOptions": ["توصيل", "تسهيل", "تمرير"]
+    },
+    {
+      "english": "capacitance",
+      "arabic": "سعة",
+      "wrongOptions": ["إفراغ", "تصريف", "تفريغ"]
+    },
+    {
+      "english": "inductance",
+      "arabic": "حثية",
+      "wrongOptions": ["منع", "إعاقة", "رفض"]
+    },
+    {
+      "english": "resonance",
+      "arabic": "رنين",
+      "wrongOptions": ["صمت", "سكوت", "خرس"]
+    },
+    {
+      "english": "amplitude",
+      "arabic": "سعة",
+      "wrongOptions": ["ضيق", "قلة", "نقص"]
+    },
+    {
+      "english": "oscillation",
+      "arabic": "اهتزاز",
+      "wrongOptions": ["سكون", "ثبات", "استقرار"]
+    },
+    {
+      "english": "vibration",
+      "arabic": "اهتزاز",
+      "wrongOptions": ["سكون", "هدوء", "ثبات"]
+    },
+    {
+      "english": "crystallization",
+      "arabic": "تبلور",
+      "wrongOptions": ["انصهار", "ذوبان", "تسييل"]
+    },
+    {
+      "english": "sublimation",
+      "arabic": "تسامي",
+      "wrongOptions": ["انصهار", "تكثف", "تجمد"]
+    },
+    {
+      "english": "evaporation",
+      "arabic": "تبخر",
+      "wrongOptions": ["تكثف", "تجمد", "تصلب"]
+    },
+    {
+      "english": "condensation",
+      "arabic": "تكثف",
+      "wrongOptions": ["تبخر", "تسامي", "تبدد"]
+    },
+    {
+      "english": "precipitation",
+      "arabic": "ترسب",
+      "wrongOptions": ["ذوبان", "انصهار", "تطاير"]
+    },
+    {
+      "english": "dissolution",
+      "arabic": "ذوبان",
+      "wrongOptions": ["تجمد", "تصلب", "ترسب"]
+    },
+    {
+      "english": "oxidation",
+      "arabic": "أكسدة",
+      "wrongOptions": ["اختزال", "تنقية", "حماية"]
+    },
+    {
+      "english": "reduction",
+      "arabic": "اختزال",
+      "wrongOptions": ["أكسدة", "تفاعل", "احتراق"]
+    },
+    {
+      "english": "catalysis",
+      "arabic": "حفز",
+      "wrongOptions": ["تثبيط", "منع", "إعاقة"]
+    },
+    {
+      "english": "inhibition",
+      "arabic": "تثبيط",
+      "wrongOptions": ["تسريع", "حفز", "تنشيط"]
+    }
+  ]
+}
