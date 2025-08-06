@@ -81,9 +81,9 @@ const waitingPlayers = [];
 const privateRooms = new Map(); // roomCode -> room data
 
 // Load words data
-const wordsPath = path.join(__dirname, '..', 'public', 'words.json');
-const translationWordsPath = path.join(__dirname, '..', 'public', 'translation-words.json');
-const metaphoricalSentencesPath = path.join(__dirname, '..', 'public', 'metaphorical-sentences.json');
+const wordsPath = path.join(__dirname, 'public', 'words.json');
+const translationWordsPath = path.join(__dirname, 'public', 'translation-words.json');
+const metaphoricalSentencesPath = path.join(__dirname, 'public', 'metaphorical-sentences.json');
 let wordsData = [];
 let translationWordsData = [];
 let metaphoricalSentencesData = [];
