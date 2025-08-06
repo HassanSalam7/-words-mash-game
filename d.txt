@@ -1,0 +1,11 @@
+> tell me step by step guide how can i deploy my project on vercel and railway , i already try it but i goth and issue , i think i missed in
+  the naming my envirments variable in vercel or railway or on my .env flies , i want from you to tell 
+me what is the correct naming for it ,
+  these are what i got and set ... , for the railway: FRONTEND_URL=https://words-mash-game.vercel.app 
+& NODE_ENV=production , and for vercel:
+   NEXT_PUBLIC_SOCKET_URL=https://words-mash-game-production.up.railway.app &  NODE_ENV=production, this is what i done , so chick every thing
+   and try to fix the issue that i get 321-aa0734af91454102.js:1 GET 
+  https://words-mash-game-production.up.railway.app/socket.io/?EIO=4&transport=polling&t=9bpwy8pg net::ERR_FAILED 200 (OK)(connection lost)
+
+
+chick my whole code if there is an problems and chick evry thing to make this issue gone and the game works

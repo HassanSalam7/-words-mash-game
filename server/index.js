@@ -10,7 +10,7 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: process.env.NODE_ENV === 'production' 
-      ? [process.env.FRONTEND_URL, 'https://words-mash-game.vercel.app', 'https://*.vercel.app'].filter(Boolean)
+      ? process.env.FRONTEND_URL || ["https://*.vercel.app"] 
       : (origin, callback) => {
           // Allow all localhost and local network origins in development
           if (!origin || 
@@ -23,8 +23,7 @@ const io = socketIo(server, {
           }
         },
     methods: ["GET", "POST"],
-    credentials: false,
-    allowedHeaders: ["Content-Type"]
+    credentials: false
   },
   transports: ['polling', 'websocket'],
   allowEIO3: true,
