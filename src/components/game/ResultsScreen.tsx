@@ -32,11 +32,12 @@ interface GameResults {
 interface ResultsScreenProps {
   results: GameResults;
   onPlayAgain: () => void;
+  onBackToHome?: () => void;
   onShare?: (shareText: string) => void;
   incomingReactions?: Record<number, string[]>;
 }
 
-export default function ResultsScreen({ results, onPlayAgain, onShare, incomingReactions = {} }: ResultsScreenProps) {
+export default function ResultsScreen({ results, onPlayAgain, onBackToHome, onShare, incomingReactions = {} }: ResultsScreenProps) {
   // Safety check for results
   if (!results) {
     return (
@@ -95,13 +96,24 @@ export default function ResultsScreen({ results, onPlayAgain, onShare, incomingR
                   ))}
               </div>
 
-              <div className="text-center">
-                <Button 
-                  onClick={onPlayAgain}
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg"
-                >
-                  Play Again 🔄
-                </Button>
+              <div className="text-center space-y-4">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button 
+                    onClick={onPlayAgain}
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg"
+                  >
+                    Play Again 🔄
+                  </Button>
+                  {onBackToHome && (
+                    <Button 
+                      onClick={onBackToHome}
+                      variant="outline"
+                      className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-800 px-8 py-3 rounded-xl font-bold"
+                    >
+                      🏠 Back to Home
+                    </Button>
+                  )}
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -325,19 +337,29 @@ export default function ResultsScreen({ results, onPlayAgain, onShare, incomingR
         {/* Action Buttons */}
         <div className="text-center space-y-4">
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
+         {/*   <Button
               onClick={shareResults}
               className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600 text-white px-8 py-3 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               📤 Share Results
             </Button>
-            
+            */}
             <Button
               onClick={onPlayAgain}
               className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               🎮 Play Again
             </Button>
+            
+            {onBackToHome && (
+              <Button
+                onClick={onBackToHome}
+                variant="outline"
+                className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 hover:text-gray-800 px-8 py-3 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+              >
+                🏠 Back to Home
+              </Button>
+            )}
           </div>
           
           <p className="text-gray-500 text-sm">
@@ -345,44 +367,6 @@ export default function ResultsScreen({ results, onPlayAgain, onShare, incomingR
           </p>
         </div>
 
-        {/* Fun Stats */}
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="bg-white/60 backdrop-blur-sm border-0 shadow-lg">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-purple-600">
-                {results.stories.reduce((total, story) => total + story.wordsCount, 0)}
-              </div>
-              <div className="text-sm text-gray-600">Total Words Used</div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-white/60 backdrop-blur-sm border-0 shadow-lg">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-cyan-600">
-                {results.stories.reduce((total, story) => total + story.story.length, 0)}
-              </div>
-              <div className="text-sm text-gray-600">Total Characters</div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-white/60 backdrop-blur-sm border-0 shadow-lg">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">
-                {results.stories.filter(story => story.wordsCount === 5).length}
-              </div>
-              <div className="text-sm text-gray-600">Perfect Scores</div>
-            </CardContent>
-          </Card>
-          
-          <Card className="bg-white/60 backdrop-blur-sm border-0 shadow-lg">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-yellow-600">
-                {Object.values(reactions).flat().length}
-              </div>
-              <div className="text-sm text-gray-600">Reactions Given</div>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </div>
   );

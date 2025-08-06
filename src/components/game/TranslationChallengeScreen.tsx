@@ -127,7 +127,7 @@ export default function TranslationChallengeScreen({
   }
 
   return (
-    <div className="h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-white flex flex-col game-ui mobile-safe-area relative">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-white flex flex-col game-ui mobile-safe-area relative overflow-y-auto">
       {/* Result Notification Overlay - doesn't break the flow */}
       {showResultNotification && (
         <div className="absolute top-20 left-4 right-4 z-50 animate-in slide-in-from-top-4 duration-300">
@@ -194,7 +194,7 @@ export default function TranslationChallengeScreen({
       </div>
 
       {/* Main Content - enhanced visibility */}
-      <div className="flex-1 flex flex-col p-6 min-h-0">
+      <div className="flex-1 flex flex-col p-4 sm:p-6 min-h-0 overflow-y-auto">
         {/* Word Display - enhanced contrast */}
         <div className="text-center mb-6">
           <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold mb-4 ${
@@ -211,8 +211,8 @@ export default function TranslationChallengeScreen({
               {currentWord.english}
             </h2>
             {answerMode === 'metaphorical' && currentWord.metaphor && (
-              <div className="mb-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                <p className="text-blue-700 text-sm font-medium">
+              <div className="mb-3 p-3 bg-blue-50 rounded-lg border border-blue-200 max-w-full overflow-hidden">
+                <p className="text-blue-700 text-sm font-medium break-words">
                   💡 <strong>Meaning:</strong> {currentWord.metaphor}
                 </p>
               </div>
@@ -224,15 +224,15 @@ export default function TranslationChallengeScreen({
         </div>
 
         {/* Answer Input - enhanced visibility */}
-        <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex-1 flex flex-col min-h-0 overflow-y-auto">
           {answerMode === 'multiple-choice' || answerMode === 'metaphorical' ? (
-            <div className="flex-1 flex flex-col gap-3">
+            <div className="flex-1 flex flex-col gap-3 max-h-full overflow-y-auto pb-4">
               {allOptions.map((option, index) => (
                 <button
                   key={`option-${index}-${option}`}
                   onClick={() => !hasAnswered && handleSubmitAnswer(option)}
                   disabled={hasAnswered}
-                  className={`flex-1 min-h-[60px] px-6 py-4 rounded-2xl border-2 text-lg font-bold transition-all duration-200 active:scale-95 shadow-lg button-enhanced ${
+                  className={`flex-shrink-0 min-h-[60px] max-h-[80px] px-4 sm:px-6 py-4 rounded-2xl border-2 text-base sm:text-lg font-bold transition-all duration-200 active:scale-95 shadow-lg button-enhanced overflow-hidden ${
                     hasAnswered
                       ? 'cursor-not-allowed opacity-40 bg-white/10 border-white/20 text-white/60'
                       : answerMode === 'metaphorical' 
@@ -249,7 +249,7 @@ export default function TranslationChallengeScreen({
                     }`}>
                       {String.fromCharCode(65 + index)}
                     </span>
-                    <span className="arabic-text flex-1 text-center px-3 text-xl">{option}</span>
+                    <span className="arabic-text flex-1 text-center px-2 sm:px-3 text-lg sm:text-xl break-words leading-tight">{option}</span>
                     <div className="w-8"></div>
                   </div>
                 </button>

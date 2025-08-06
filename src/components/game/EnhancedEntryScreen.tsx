@@ -454,70 +454,83 @@ export default function EnhancedEntryScreen({
           />
 
           {/* Room Mode Selection - Compact */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-800 text-center">
-              How to Play
-            </h3>
-            
-            <div className="grid grid-cols-3 gap-2">
-              <Button
-                type="button"
-                variant={mode === 'random' ? 'default' : 'outline'}
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  setMode('random')
-                }}
-                className="py-2 text-xs"
-              >
-                🎲 Random
-              </Button>
+          {/* Room Mode Selection - Compact */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold text-gray-800 text-center">
+                How to Play
+              </h3>
               
-              <Button
-                type="button"
-                variant={mode === 'create' ? 'default' : 'outline'}
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  setMode('create')
-                }}
-                className="py-2 text-xs"
-              >
-                🏠 Create
-              </Button>
-              
-              <Button
-                type="button"
-                variant={mode === 'join' ? 'default' : 'outline'}
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  setMode('join')
-                }}
-                className="py-2 text-xs"
-              >
-                🔗 Join
-              </Button>
-            </div>
-
-            {mode === 'join' && (
-              <div className="animate-in slide-in-from-top-4">
-                <Input
-                  type="text"
-                  value={roomCode}
-                  onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && canSubmit && !isJoining) {
-                      handleSubmit()
-                    }
+              <div className="grid grid-cols-3 gap-2">
+                <Button
+                  type="button"
+                  variant={mode === 'random' ? 'default' : 'outline'}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setMode('random')
                   }}
-                  placeholder="Enter room code"
-                  className="text-center text-base font-mono h-10"
-                  maxLength={6}
-                />
+                  className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                    mode === 'random' 
+                      ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
+                      : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
+                  }`}
+                >
+                  🎲 Random
+                </Button>
+                
+                <Button
+                  type="button"
+                  variant={mode === 'create' ? 'default' : 'outline'}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setMode('create')
+                  }}
+                  className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                    mode === 'create' 
+                      ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
+                      : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
+                  }`}
+                >
+                  🏠 Create
+                </Button>
+                
+                <Button
+                  type="button"
+                  variant={mode === 'join' ? 'default' : 'outline'}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setMode('join')
+                  }}
+                  className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                    mode === 'join' 
+                      ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
+                      : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
+                  }`}
+                >
+                  🔗 Join
+                </Button>
               </div>
-            )}
-          </div>
+
+              {mode === 'join' && (
+                <div className="animate-in slide-in-from-top-4">
+                  <Input
+                    type="text"
+                    value={roomCode}
+                    onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && canSubmit && !isJoining) {
+                        handleSubmit()
+                      }
+                    }}
+                    placeholder="Enter room code"
+                    className="text-center text-base font-mono h-10 border-2 border-gray-800 focus:border-black"
+                    maxLength={6}
+                  />
+                </div>
+              )}
+            </div>
 
           {/* Submit Button */}
           <Button

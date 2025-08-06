@@ -346,6 +346,18 @@ export default function Home() {
     }
   }
 
+  const handleBackToHome = () => {
+    setGameState('entry')
+    setGameData(null)
+    setGameResults(null)
+    setIncomingReactions({})
+    setPlayerName('')
+    setPlayerAvatar('👤')
+    setGameMode('story-writing')
+    setTranslationMode(undefined)
+    setPrivateRoom(null)
+  }
+
   const renderGameState = () => {
     switch (gameState) {
       case 'entry':
@@ -409,6 +421,7 @@ export default function Home() {
           <ResultsScreen 
             results={gameResults}
             onPlayAgain={handlePlayAgain}
+            onBackToHome={handleBackToHome}
             incomingReactions={incomingReactions}
           />
         ) : null
