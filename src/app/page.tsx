@@ -109,10 +109,7 @@ export default function Home() {
     }
     
     // Initialize socket connection
-    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 
-      (process.env.NODE_ENV === 'production'
-        ? `https://${window.location.hostname}` // Fallback for production
-        : 'http://localhost:4569') // Development fallback
+    const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4569'
     
     console.log('Socket URL:', socketUrl)
     const newSocket = io(socketUrl, {
