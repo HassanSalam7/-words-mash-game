@@ -10,8 +10,14 @@ import AnswerModeSelector from '@/components/game/AnswerModeSelector'
 import ResultsScreen from '@/components/game/ResultsScreen'
 import PrivateRoom from '@/components/game/PrivateRoom'
 import { GameMode, TranslationMode } from '@/components/game/EnhancedGameModeSelector'
+import { ComputerPlayer, createComputerPlayerByDifficulty } from '@/lib/computerPlayer'
+import SinglePlayerStoryScreen from '@/components/game/SinglePlayerStoryScreen'
+import SinglePlayerTranslationScreen from '@/components/game/SinglePlayerTranslationScreen'
+import SpeechTrainingScreen from '@/components/game/SpeechTrainingScreen'
+import ConversationGeneratorScreen from '@/components/game/ConversationGeneratorScreen'
+import MultiplayerConversationScreen from '@/components/game/MultiplayerConversationScreen'
 
-export type GameState = 'entry' | 'waiting' | 'private-room' | 'answer-mode-selection' | 'challenge' | 'results'
+export type GameState = 'entry' | 'waiting' | 'private-room' | 'answer-mode-selection' | 'challenge' | 'results' | 'single-player' | 'speech-training' | 'conversation-generator'
 
 interface Word {
   word: string;
@@ -68,6 +74,7 @@ interface GameData {
     color: string;
   } | null;
   correctAnswer?: string;
+  isPlayer1?: boolean;
 }
 
 interface GameResults {
@@ -81,6 +88,100 @@ interface GameResults {
   }[];
 }
 
+// Helper functions to load game data
+const loadStoryWords = async () => {
+  try {
+    const response = await fetch('/words.json')
+    const wordsData = await response.json()
+    
+    // Combine words from all difficulty levels
+    const allWords: { word: string, difficulty: 'easy' | 'medium' | 'hard' }[] = []
+    
+    if (wordsData.easy && Array.isArray(wordsData.easy)) {
+      allWords.push(...wordsData.easy.map((word: string) => ({ word, difficulty: 'easy' as const })))
+    }
+    if (wordsData.medium && Array.isArray(wordsData.medium)) {
+      allWords.push(...wordsData.medium.map((word: string) => ({ word, difficulty: 'medium' as const })))
+    }
+    if (wordsData.hard && Array.isArray(wordsData.hard)) {
+      allWords.push(...wordsData.hard.map((word: string) => ({ word, difficulty: 'hard' as const })))
+    }
+    
+    // Select 5 random words for story writing
+    const selectedWords = allWords.sort(() => Math.random() - 0.5).slice(0, 5)
+    return selectedWords
+  } catch (error) {
+    console.error('Error loading words:', error)
+    // Fallback words
+    return [
+      { word: 'adventure', difficulty: 'easy' as const },
+      { word: 'magic', difficulty: 'easy' as const },
+      { word: 'forest', difficulty: 'easy' as const },
+      { word: 'mysterious', difficulty: 'medium' as const },
+      { word: 'journey', difficulty: 'medium' as const }
+    ]
+  }
+}
+
+const loadTranslationWords = async (mode: string) => {
+  try {
+    if (mode === 'metaphorical') {
+      const response = await fetch('/metaphorical-sentences.json')
+      const data = await response.json()
+      
+      // Handle both array and object structures
+      let sentences = []
+      if (Array.isArray(data)) {
+        sentences = data
+      } else if (data.sentences && Array.isArray(data.sentences)) {
+        sentences = data.sentences
+      } else {
+        // If it's an object with difficulty levels, combine them
+        const allSentences: any[] = []
+        Object.keys(data).forEach(key => {
+          if (Array.isArray(data[key])) {
+            allSentences.push(...data[key].map((item: any) => ({ ...item, difficulty: key })))
+          }
+        })
+        sentences = allSentences
+      }
+      
+      return sentences.sort(() => Math.random() - 0.5).slice(0, 15).map((item: any) => ({
+        ...item,
+        options: [item.arabic, ...item.wrongOptions].sort(() => Math.random() - 0.5)
+      }))
+    } else {
+      const response = await fetch('/translation-words.json')
+      const data = await response.json()
+      
+      // Handle object structure with difficulty levels
+      const allWords: any[] = []
+      
+      if (data.easy && Array.isArray(data.easy)) {
+        allWords.push(...data.easy.map((item: any) => ({ ...item, difficulty: 'easy' })))
+      }
+      if (data.medium && Array.isArray(data.medium)) {
+        allWords.push(...data.medium.map((item: any) => ({ ...item, difficulty: 'medium' })))
+      }
+      if (data.hard && Array.isArray(data.hard)) {
+        allWords.push(...data.hard.map((item: any) => ({ ...item, difficulty: 'hard' })))
+      }
+      
+      return allWords.sort(() => Math.random() - 0.5).slice(0, 15).map((item: any) => ({
+        ...item,
+        options: [item.arabic, ...item.wrongOptions].sort(() => Math.random() - 0.5)
+      }))
+    }
+  } catch (error) {
+    console.error('Error loading translation words:', error)
+    // Fallback translation words
+    return [
+      { english: 'cat', arabic: 'قطة', wrongOptions: ['كلب', 'طائر', 'سمكة'], difficulty: 'easy', options: ['قطة', 'كلب', 'طائر', 'سمكة'] },
+      { english: 'house', arabic: 'بيت', wrongOptions: ['مدرسة', 'سيارة', 'شجرة'], difficulty: 'easy', options: ['بيت', 'مدرسة', 'سيارة', 'شجرة'] }
+    ]
+  }
+}
+
 export default function Home() {
   const [gameState, setGameState] = useState<GameState>('entry')
   const [playerName, setPlayerName] = useState('')
@@ -90,12 +191,16 @@ export default function Home() {
   const [waitingPlayers, setWaitingPlayers] = useState<Array<{name: string, avatar: string}>>([])
   const [incomingReactions, setIncomingReactions] = useState<Record<number, string[]>>({})
   const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'connected' | 'disconnected' | 'reconnecting'>('connecting')
-  const [playerAvatar, setPlayerAvatar] = useState('👤')
+  const [playerAvatar, setPlayerAvatar] = useState('https://api.dicebear.com/9.x/adventurer/svg?seed=Jude&flip=false')
   const [gameMode, setGameMode] = useState<GameMode['id']>('story-writing')
   const [translationMode, setTranslationMode] = useState<TranslationMode['id'] | undefined>(undefined)
   const [isHost, setIsHost] = useState(false)
   const [privateRoom, setPrivateRoom] = useState<{code: string, players: Array<{name: string, avatar: string}>, isHost: boolean} | null>(null)
   const [roomError, setRoomError] = useState<string | null>(null)
+  const [isSinglePlayer, setIsSinglePlayer] = useState(false)
+  const [computerPlayer, setComputerPlayer] = useState<ComputerPlayer | null>(null)
+  const [singlePlayerWords, setSinglePlayerWords] = useState<any[]>([])
+  const [singlePlayerScore, setSinglePlayerScore] = useState({ player: 0, computer: 0 })
 
   useEffect(() => {
     // Check for room parameter in URL
@@ -176,7 +281,12 @@ export default function Home() {
 
     newSocket.on('game-start', (data: GameData) => {
       setGameData(data)
-      setGameState('challenge')
+      // For conversation-generator mode, handle it differently
+      if (data.gameMode === 'conversation-generator') {
+        setGameState('challenge') // We'll use challenge state but render conversation screen
+      } else {
+        setGameState('challenge')
+      }
     })
 
     newSocket.on('game-update', (data: GameData) => {
@@ -205,6 +315,12 @@ export default function Home() {
       setGameState('results')
     })
 
+    newSocket.on('join-error', (error: { message: string }) => {
+      console.error('Join error:', error)
+      alert(`Error joining game: ${error.message}`)
+      setGameState('entry')
+    })
+
     newSocket.on('opponent-finished', () => {
       console.log('Opponent has finished their story!')
     })
@@ -229,7 +345,12 @@ export default function Home() {
       setConnectionStatus('connected')
       // Rejoin game if we were in one
       if (playerName && gameState === 'waiting') {
-        newSocket.emit('join-game', { name: playerName, avatar: playerAvatar })
+        newSocket.emit('join-game', { 
+          name: playerName, 
+          avatar: playerAvatar,
+          gameMode: gameMode,
+          translationMode: translationMode 
+        })
       }
     })
 
@@ -268,12 +389,20 @@ export default function Home() {
   }, [])
 
   const handleStartGame = (name: string, avatar: string, selectedGameMode: GameMode['id'], selectedTranslationMode?: TranslationMode['id']) => {
+    console.log('🔵 FRONTEND: handleStartGame called with:', {
+      name,
+      selectedGameMode,
+      selectedTranslationMode
+    });
+    
     setPlayerName(name)
     setPlayerAvatar(avatar)
     setGameMode(selectedGameMode)
     setTranslationMode(selectedTranslationMode)
     if (socket) {
-      socket.emit('join-game', { name, avatar, gameMode: selectedGameMode, translationMode: selectedTranslationMode })
+      const joinData = { name, avatar, gameMode: selectedGameMode, translationMode: selectedTranslationMode };
+      console.log('🔵 FRONTEND: Emitting join-game with data:', joinData);
+      socket.emit('join-game', joinData)
       setGameState('waiting')
     }
   }
@@ -302,6 +431,35 @@ export default function Home() {
       })
       setGameState('private-room')
     }
+  }
+
+  const handleStartSinglePlayer = async (name: string, avatar: string, selectedGameMode: GameMode['id'], selectedTranslationMode?: TranslationMode['id'], difficulty: 'easy' | 'medium' | 'hard' = 'medium') => {
+    setPlayerName(name)
+    setPlayerAvatar(avatar)
+    setGameMode(selectedGameMode)
+    setTranslationMode(selectedTranslationMode)
+    setIsSinglePlayer(true)
+    
+    const computer = createComputerPlayerByDifficulty(difficulty)
+    setComputerPlayer(computer)
+    
+    // Generate game data based on mode
+    if (selectedGameMode === 'story-writing') {
+      // Load story writing words
+      const words = await loadStoryWords()
+      setSinglePlayerWords(words)
+    } else if (selectedGameMode === 'translation') {
+      // Load translation words based on mode
+      const translationWords = await loadTranslationWords(selectedTranslationMode || 'multiple-choice')
+      setSinglePlayerWords(translationWords)
+    }
+    
+    setGameState('single-player')
+  }
+
+  const handleSinglePlayerGameEnd = (results: any) => {
+    setGameResults(results)
+    setGameState('results')
   }
 
   const handleLeaveRoom = () => {
@@ -346,16 +504,27 @@ export default function Home() {
     }
   }
 
+  const handleStartSpeechTraining = (name: string, avatar: string) => {
+    setPlayerName(name)
+    setPlayerAvatar(avatar)
+    setGameState('speech-training')
+  }
+
+
   const handleBackToHome = () => {
     setGameState('entry')
     setGameData(null)
     setGameResults(null)
     setIncomingReactions({})
     setPlayerName('')
-    setPlayerAvatar('👤')
+    setPlayerAvatar('https://api.dicebear.com/9.x/adventurer/svg?seed=Jude&flip=false')
     setGameMode('story-writing')
     setTranslationMode(undefined)
     setPrivateRoom(null)
+    setIsSinglePlayer(false)
+    setComputerPlayer(null)
+    setSinglePlayerWords([])
+    setSinglePlayerScore({ player: 0, computer: 0 })
   }
 
   const renderGameState = () => {
@@ -366,6 +535,8 @@ export default function Home() {
             onStartGame={handleStartGame}
             onCreatePrivateRoom={handleCreatePrivateRoom}
             onJoinPrivateRoom={handleJoinPrivateRoom}
+            onStartSinglePlayer={handleStartSinglePlayer}
+            onStartSpeechTraining={handleStartSpeechTraining}
           />
         )
       case 'waiting':
@@ -374,6 +545,7 @@ export default function Home() {
             playerName={playerName}
             waitingPlayers={waitingPlayers}
             onGameStart={() => setGameState('challenge')}
+            onBack={() => setGameState('entry')}
           />
         )
       case 'private-room':
@@ -394,7 +566,19 @@ export default function Home() {
         )
       case 'challenge':
         return gameData ? (
-          gameData.gameMode === 'translation' ? (
+          gameData.gameMode === 'conversation-generator' ? (
+            <MultiplayerConversationScreen
+              socket={socket}
+              gameData={{
+                gameId: gameData.gameId,
+                currentPlayer: gameData.currentPlayer || { id: '', name: playerName, avatar: playerAvatar, score: 0, color: '#8B5CF6' },
+                opponent: gameData.isPlayer1 ? gameData.opponent.player1 : gameData.opponent.player2,
+                gameStatus: gameData.gameStatus || 'waiting_for_player1',
+                isPlayer1: gameData.isPlayer1 || false
+              }}
+              onBackToHome={handleBackToHome}
+            />
+          ) : gameData.gameMode === 'translation' ? (
             <TranslationChallengeScreen
               words={gameData.answerMode === 'metaphorical' ? gameData.metaphoricalSentences || [] : gameData.translationWords || []}
               players={gameData.players || []}
@@ -425,12 +609,49 @@ export default function Home() {
             incomingReactions={incomingReactions}
           />
         ) : null
+      case 'single-player':
+        return singlePlayerWords.length > 0 && computerPlayer ? (
+          gameMode === 'translation' ? (
+            <SinglePlayerTranslationScreen
+              words={singlePlayerWords}
+              computerPlayer={computerPlayer}
+              playerName={playerName}
+              playerAvatar={playerAvatar}
+              translationMode={translationMode || 'multiple-choice'}
+              onGameEnd={handleSinglePlayerGameEnd}
+              onBackToHome={handleBackToHome}
+            />
+          ) : (
+            <SinglePlayerStoryScreen
+              words={singlePlayerWords}
+              computerPlayer={computerPlayer}
+              playerName={playerName}
+              playerAvatar={playerAvatar}
+              onGameEnd={handleSinglePlayerGameEnd}
+              onBackToHome={handleBackToHome}
+            />
+          )
+        ) : null
+      case 'speech-training':
+        return (
+          <SpeechTrainingScreen
+            onBackToHome={handleBackToHome}
+          />
+        )
+      case 'conversation-generator':
+        return (
+          <ConversationGeneratorScreen
+            onBackToHome={handleBackToHome}
+          />
+        )
       default:
         return (
           <EnhancedEntryScreen 
             onStartGame={handleStartGame}
             onCreatePrivateRoom={handleCreatePrivateRoom}
             onJoinPrivateRoom={handleJoinPrivateRoom}
+            onStartSinglePlayer={handleStartSinglePlayer}
+            onStartSpeechTraining={handleStartSpeechTraining}
           />
         )
     }

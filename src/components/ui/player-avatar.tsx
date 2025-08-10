@@ -5,8 +5,8 @@ interface PlayerAvatarProps {
 }
 
 export function PlayerAvatar({ avatar, className = '', size = 'md' }: PlayerAvatarProps) {
-  // Check if avatar is a data URL (base64 image)
-  const isImage = avatar.startsWith('data:image/')
+  // Check if avatar is a data URL (base64 image) or HTTP URL (Dicebear)
+  const isImage = avatar.startsWith('data:image/') || avatar.startsWith('http')
   
   // Size classes
   const sizeClasses = {
@@ -25,6 +25,14 @@ export function PlayerAvatar({ avatar, className = '', size = 'md' }: PlayerAvat
           src={avatar}
           alt="Player avatar"
           className="w-full h-full rounded-full object-cover"
+          onError={(e) => {
+            // Fallback to default emoji if image fails to load
+            e.currentTarget.style.display = 'none'
+            const parent = e.currentTarget.parentElement
+            if (parent) {
+              parent.innerHTML = '<span class="text-2xl">👤</span>'
+            }
+          }}
         />
       </div>
     )

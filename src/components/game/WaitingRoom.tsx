@@ -5,14 +5,16 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
 import { PlayerAvatar } from '@/components/ui/player-avatar'
+import { ArrowLeft } from 'lucide-react'
 
 interface WaitingRoomProps {
   playerName: string
   waitingPlayers: Array<{name: string, avatar: string}>
   onGameStart: () => void
+  onBack: () => void
 }
 
-export default function WaitingRoom({ playerName, waitingPlayers, onGameStart }: WaitingRoomProps) {
+export default function WaitingRoom({ playerName, waitingPlayers, onGameStart, onBack }: WaitingRoomProps) {
   const [isWaiting, setIsWaiting] = useState(true)
 
   useEffect(() => {
@@ -23,6 +25,18 @@ export default function WaitingRoom({ playerName, waitingPlayers, onGameStart }:
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <Card className="w-full max-w-2xl p-8 bg-white/90 backdrop-blur-sm shadow-2xl">
+        {/* Back Button */}
+        <div className="mb-6">
+          <Button
+            onClick={onBack}
+            variant="outline"
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-800 border-gray-300 hover:border-gray-400"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Home
+          </Button>
+        </div>
+        
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4">
             Game Lobby

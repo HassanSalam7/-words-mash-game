@@ -1,243 +1,143 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
+import useEmblaCarousel from 'embla-carousel-react'
+import type { EmblaOptionsType } from 'embla-carousel'
+import { Bot } from 'lucide-react'
 
-// Import the improved avatar selector
+// Avatar data with Dicebear Adventurer avatars - Boys and Girls
 const cartoonAvatars = [
-  { id: 'wizard', fallback: '🧙‍♂️', name: 'Wizard' },
-  { id: 'superhero', fallback: '🦸‍♂️', name: 'Hero' },
-  { id: 'cat', fallback: '🐱', name: 'Cat' },
-  { id: 'panda', fallback: '🐼', name: 'Panda' },
-  { id: 'unicorn', fallback: '🦄', name: 'Unicorn' }
+  // Boys
+  { id: 'boy1', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Jude&flip=false', name: 'Jude' },
+  { id: 'boy2', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Leo&flip=false', name: 'Leo' },
+  { id: 'boy3', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=George&flip=false', name: 'George' },
+  { id: 'boy4', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Alex&flip=false', name: 'Alex' },
+  { id: 'boy5', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Charlie&flip=false', name: 'Charlie' },
+  { id: 'boy6', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Jordan&flip=false', name: 'Jordan' },
+  // Girls
+  { id: 'girl1', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Emma&flip=false', name: 'Emma' },
+  { id: 'girl2', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Jocelyn&flip=false', name: 'Jocelyn' },
+  { id: 'girl3', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Mackenzie&flip=false', name: 'Mackenzie' },
+  { id: 'girl4', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Sophia&flip=false', name: 'Sophia' },
+  { id: 'girl5', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Taylor&flip=false', name: 'Taylor' },
+  { id: 'girl6', fallback: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Morgan&flip=false', name: 'Morgan' }
 ]
 
-// Compact Avatar Selector Component
-function CompactAvatarSelector({ selectedAvatar, onAvatarChange }: { selectedAvatar: string, onAvatarChange: (avatar: string) => void }) {
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null)
-  const [isUploading, setIsUploading] = useState(false)
+// Embla Avatar Carousel Selector Component
+function EmblaAvatarCarousel({ selectedAvatar, onAvatarChange }: { selectedAvatar: string, onAvatarChange: (avatar: string) => void }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (!file) return
-
-    // Better file type validation for mobile
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp']
-    if (!validTypes.includes(file.type.toLowerCase())) {
-      alert('Please select a valid image file (JPEG, PNG, GIF, or WebP)')
-      event.target.value = '' // Reset file input
-      return
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      alert('Image size should be less than 5MB')
-      event.target.value = '' // Reset file input
-      return
-    }
-
-    setIsUploading(true)
-
-    try {
-      const canvas = document.createElement('canvas')
-      const ctx = canvas.getContext('2d')
-      
-      if (!ctx) {
-        alert('Canvas not supported by browser')
-        setIsUploading(false)
-        return
-      }
-
-      const img = new Image()
-      
-      // Add CORS support for mobile
-      img.crossOrigin = 'anonymous'
-      
-      img.onload = () => {
-        try {
-          canvas.width = 64
-          canvas.height = 64
-
-          const size = Math.min(img.width, img.height)
-          const x = (img.width - size) / 2
-          const y = (img.height - size) / 2
-
-          // Clear canvas first
-          ctx.clearRect(0, 0, 64, 64)
-          
-          // Draw image with better quality settings for mobile
-          ctx.imageSmoothingEnabled = true
-          ctx.imageSmoothingQuality = 'high'
-          ctx.drawImage(img, x, y, size, size, 0, 0, 64, 64)
-
-          // Try different formats for better mobile compatibility
-          let resizedImage: string
-          try {
-            resizedImage = canvas.toDataURL('image/jpeg', 0.8)
-          } catch (jpegError) {
-            console.warn('JPEG conversion failed, trying PNG:', jpegError)
-            resizedImage = canvas.toDataURL('image/png')
-          }
-          
-          setUploadedImage(resizedImage)
-          onAvatarChange(resizedImage)
-          setIsUploading(false)
-          // Reset file input
-          const fileInput = document.getElementById('file-input') as HTMLInputElement
-          if (fileInput) fileInput.value = ''
-        } catch (error) {
-          console.error('Error processing image:', error)
-          alert('Failed to process image. Try a different image.')
-          setIsUploading(false)
-          // Reset file input
-          const fileInput = document.getElementById('file-input') as HTMLInputElement
-          if (fileInput) fileInput.value = ''
-        }
-      }
-
-      img.onerror = (error) => {
-        console.error('Image load error:', error)
-        alert('Failed to load image. Please try a different image.')
-        setIsUploading(false)
-        // Reset file input
-        const fileInput = document.getElementById('file-input') as HTMLInputElement
-        if (fileInput) fileInput.value = ''
-      }
-
-      // Use FileReader for better mobile compatibility
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        if (e.target?.result) {
-          img.src = e.target.result as string
-        }
-      }
-      reader.onerror = () => {
-        alert('Failed to read image file')
-        setIsUploading(false)
-        const fileInput = document.getElementById('file-input') as HTMLInputElement
-        if (fileInput) fileInput.value = ''
-      }
-      reader.readAsDataURL(file)
-    } catch (error) {
-      console.error('Error processing image:', error)
-      alert('Failed to process image')
-      setIsUploading(false)
-      // Reset file input
-      const fileInput = document.getElementById('file-input') as HTMLInputElement
-      if (fileInput) fileInput.value = ''
-    }
+  // Embla Carousel Options - Optimized for mobile touch
+  const options: EmblaOptionsType = {
+    align: 'center',
+    loop: true,
+    slidesToScroll: 1,
+    containScroll: 'trimSnaps',
+    dragFree: true,
+    skipSnaps: false,
+    dragThreshold: 10,
+    inViewThreshold: 0.7
   }
 
-  const handleRemoveUploadedImage = () => {
-    setUploadedImage(null)
-    onAvatarChange(cartoonAvatars[0].fallback)
-  }
+  // Initialize Embla Carousel without AutoScroll plugin
+  const [emblaRef, emblaApi] = useEmblaCarousel(options)
 
-  const isAvatarSelected = (avatar: any) => {
-    if (uploadedImage) {
-      return selectedAvatar === uploadedImage
+  // Track current index for visual selection indicator only
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return
+    const selectedIndex = emblaApi.selectedScrollSnap()
+    setCurrentIndex(selectedIndex)
+    // No auto avatar change - only manual selection through clicks
+  }, [emblaApi])
+
+  useEffect(() => {
+    if (!emblaApi) return
+    onSelect()
+    emblaApi.on('select', onSelect).on('reInit', onSelect)
+  }, [emblaApi, onSelect])
+
+  // Handle avatar click - Only way to select an avatar
+  const handleAvatarClick = (index: number) => {
+    if (!emblaApi) return
+    emblaApi.scrollTo(index)
+    setCurrentIndex(index)
+    
+    // Update avatar selection only on manual click
+    if (index < cartoonAvatars.length && cartoonAvatars[index]) {
+      onAvatarChange(cartoonAvatars[index].fallback)
     }
-    return selectedAvatar === avatar.fallback
   }
-
-  const isUploadSelected = uploadedImage && selectedAvatar === uploadedImage
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-5 gap-2 mb-2">
-        {cartoonAvatars.map((avatar) => (
-          <button
-            key={avatar.id}
-            type="button"
-            onClick={() => {
-              setUploadedImage(null)
-              onAvatarChange(avatar.fallback)
-            }}
-            className={`relative w-12 h-12 rounded-full border-2 transition-all duration-200 flex items-center justify-center text-2xl hover:scale-110 active:scale-95 ${
-              isAvatarSelected(avatar) && !uploadedImage
-                ? 'border-blue-500 bg-blue-50 shadow-lg scale-110'
-                : 'border-gray-200 hover:border-blue-300'
-            }`}
-          >
-            {avatar.fallback}
-            {isAvatarSelected(avatar) && !uploadedImage && (
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">✓</span>
-              </div>
-            )}
-          </button>
-        ))}
-
+      {/* Main Avatar Display */}
+      <div className="flex items-center justify-center mb-2">
         <div className="relative">
-          <button
-            type="button"
-            onClick={() => document.getElementById('file-input')?.click()}
-            disabled={isUploading}
-            className={`relative w-12 h-12 rounded-full border-2 transition-all duration-200 flex items-center justify-center hover:scale-110 active:scale-95 ${
-              isUploadSelected
-                ? 'border-green-500 bg-green-50 shadow-lg scale-110'
-                : 'border-dashed border-gray-300 hover:border-blue-300'
-            }`}
-          >
-            {uploadedImage && isUploadSelected ? (
-              <>
-                <img
-                  src={uploadedImage}
-                  alt="Your avatar"
-                  className="w-full h-full rounded-full object-cover"
-                />
-                <div className="absolute -top-0.5 -left-0.5 w-3 h-3 md:w-4 md:h-4 bg-green-500 rounded-full flex items-center justify-center shadow-sm">
-                  <span className="text-white text-xs md:text-xs leading-none">✓</span>
-                </div>
-              </>
-            ) : (
-              <span className={`text-lg ${isUploading ? 'animate-spin' : ''}`}>
-                {isUploading ? '⏳' : '📷'}
-              </span>
-            )}
-          </button>
-          {uploadedImage && isUploadSelected && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleRemoveUploadedImage()
-              }}
-              className="absolute -top-0.5 -right-0.5 w-3 h-3 md:w-4 md:h-4 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 z-10 shadow-sm"
-            >
-              <span className="text-white text-xs md:text-xs leading-none">×</span>
-            </button>
-          )}
+          
+          
+          {/* Floating Animation Ring */}
+          <div className="absolute inset-0 rounded-full border-4 border-transparent bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 animate-spin opacity-20" style={{animationDuration: '3s'}}></div>
         </div>
       </div>
 
-      <div className="text-center">
-        <p className="text-xs text-gray-600">
-          {uploadedImage && isUploadSelected ? (
-            <span className="font-medium text-green-600">Custom Photo</span>
-          ) : (
-            cartoonAvatars.find(a => a.fallback === selectedAvatar)?.name || 'Select avatar'
-          )}
-        </p>
-      </div>
+  
 
-      <input
-        id="file-input"
-        type="file"
-        accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
-        onChange={handleImageUpload}
-        className="hidden"
-        disabled={isUploading}
-        capture="environment"
-      />
+      {/* Embla Carousel Container */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-50 via-purple-50 to-cyan-50 p-4 shadow-inner">
+
+
+        {/* Embla Viewport */}
+        <div className="overflow-hidden touch-pan-x" ref={emblaRef}>
+          <div className="flex will-change-transform">
+            {/* Avatar Slides */}
+            {cartoonAvatars.map((avatar, index) => (
+              <div key={avatar.id} className="flex-none w-20 sm:w-24 min-w-0 pl-6 first:pl-8">
+                <button
+                  type="button"
+                  onClick={() => handleAvatarClick(index)}
+                  className={`relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-3 transition-colors duration-200 overflow-hidden active:scale-95 mx-auto block touch-manipulation ${
+                    currentIndex === index && currentIndex < cartoonAvatars.length
+                      ? 'border-blue-500 shadow-xl scale-110 z-10'
+                      : 'border-gray-200 shadow-md'
+                  }`}
+                >
+                  <img
+                    src={avatar.fallback}
+                    alt={`Avatar ${index + 1}`}
+                    className="w-full h-full object-cover rounded-full select-none pointer-events-none"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      const parent = e.currentTarget.parentElement
+                      if (parent) {
+                        parent.innerHTML = parent.innerHTML + '<div class="w-full h-full flex items-center justify-center text-2xl bg-gray-100 rounded-full">👤</div>'
+                      }
+                    }}
+                  />
+                  
+                  {/* Selection Indicator */}
+                  {currentIndex === index && currentIndex < cartoonAvatars.length && (
+                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs">✓</span>
+                    </div>
+                  )}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+
+      </div>
     </div>
   )
 }
 
-// Game Mode Types
+// Game Mode Types (keeping existing structure)
 interface GameMode {
-  id: 'story-writing' | 'translation'
+  id: 'story-writing' | 'translation' | 'speech-training' | 'conversation-generator'
 }
 
 interface TranslationMode {
@@ -245,10 +145,10 @@ interface TranslationMode {
 }
 
 interface UnifiedGameMode {
-  id: 'story-writing' | 'translation-multiple-choice' | 'translation-typing' | 'translation-metaphorical'
+  id: 'story-writing' | 'translation-multiple-choice' | 'translation-typing' | 'translation-metaphorical' | 'speech-training' | 'conversation-generator'
   name: string
   icon: string
-  gameType: 'story-writing' | 'translation'
+  gameType: 'story-writing' | 'translation' | 'speech-training' | 'conversation-generator'
   translationMode?: 'multiple-choice' | 'typing' | 'metaphorical'
   difficulty?: 'Easy' | 'Medium' | 'Hard'
   description: string
@@ -285,10 +185,24 @@ const unifiedGameModes: UnifiedGameMode[] = [
     gameType: 'translation',
     translationMode: 'metaphorical',
     description: 'Complex metaphorical sentences'
+  },
+  {
+    id: 'speech-training',
+    name: 'Speech Training',
+    icon: '🎤',
+    gameType: 'speech-training',
+    description: 'Practice public speaking skills'
+  },
+  {
+    id: 'conversation-generator',
+    name: 'AI Conversations',
+    icon: '🤖',
+    gameType: 'conversation-generator',
+    description: 'Generate AI-powered dialogues'
   }
 ]
 
-// Compact Game Mode Selector
+// Compact Game Mode Selector (keeping existing)
 function CompactGameModeSelector({ 
   selectedMode, 
   onModeSelect 
@@ -302,7 +216,7 @@ function CompactGameModeSelector({
         <h3 className="text-lg font-bold text-gray-800 mb-1">Choose Game Mode</h3>
       </div>
       
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {unifiedGameModes.map((mode) => (
           <button
             key={mode.id}
@@ -339,17 +253,22 @@ interface EnhancedEntryScreenProps {
   onStartGame: (playerName: string, avatar: string, gameMode: GameMode['id'], translationMode?: TranslationMode['id']) => void
   onCreatePrivateRoom: (playerName: string, avatar: string, gameMode: GameMode['id'], translationMode?: TranslationMode['id']) => void
   onJoinPrivateRoom: (playerName: string, avatar: string, roomCode: string, gameMode: GameMode['id'], translationMode?: TranslationMode['id']) => void
+  onStartSinglePlayer: (playerName: string, avatar: string, gameMode: GameMode['id'], translationMode: TranslationMode['id'] | undefined, difficulty: 'easy' | 'medium' | 'hard') => void
+  onStartSpeechTraining: (playerName: string, avatar: string) => void
 }
 
 export default function EnhancedEntryScreen({ 
   onStartGame, 
   onCreatePrivateRoom, 
-  onJoinPrivateRoom 
+  onJoinPrivateRoom,
+  onStartSinglePlayer,
+  onStartSpeechTraining
 }: EnhancedEntryScreenProps) {
   const [playerName, setPlayerName] = useState('')
-  const [selectedAvatar, setSelectedAvatar] = useState('🥷')
+  const [selectedAvatar, setSelectedAvatar] = useState('https://api.dicebear.com/9.x/adventurer/svg?seed=Jude&flip=false')
   const [isJoining, setIsJoining] = useState(false)
-  const [mode, setMode] = useState<'random' | 'create' | 'join'>('random')
+  const [mode, setMode] = useState<'single' | 'random' | 'create' | 'join'>('single')
+  const [singlePlayerDifficulty, setSinglePlayerDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium')
   const [roomCode, setRoomCode] = useState('')
   const [selectedUnifiedMode, setSelectedUnifiedMode] = useState<UnifiedGameMode['id']>('story-writing')
   const [gameMode, setGameMode] = useState<GameMode['id']>('story-writing')
@@ -374,6 +293,12 @@ export default function EnhancedEntryScreen({
 
   const handleSubmit = () => {
     if (playerName.trim() && !isJoining) {
+      if (gameMode === 'speech-training') {
+        setIsJoining(true)
+        onStartSpeechTraining(playerName.trim(), selectedAvatar)
+        return
+      }
+      
       if (gameMode === 'translation' && !translationMode) {
         alert('Please select a translation mode first')
         return
@@ -381,7 +306,9 @@ export default function EnhancedEntryScreen({
 
       setIsJoining(true)
       
-      if (mode === 'random') {
+      if (mode === 'single') {
+        onStartSinglePlayer(playerName.trim(), selectedAvatar, gameMode, translationMode, singlePlayerDifficulty)
+      } else if (mode === 'random') {
         onStartGame(playerName.trim(), selectedAvatar, gameMode, translationMode)
       } else if (mode === 'create') {
         onCreatePrivateRoom(playerName.trim(), selectedAvatar, gameMode, translationMode)
@@ -396,12 +323,17 @@ export default function EnhancedEntryScreen({
     }
   }
 
-  const canSubmit = playerName.trim() && (gameMode !== 'translation' || translationMode)
+  const canSubmit = playerName.trim() && (
+    gameMode === 'story-writing' ||
+           gameMode === 'conversation-generator' ||
+           gameMode === 'speech-training' ||
+           (gameMode === 'translation' && translationMode)
+  )
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 mobile-safe-area">
-      <Card className="w-full max-w-md p-6 bg-white/95 backdrop-blur-sm shadow-2xl game-card">
-        {/* Header - More Compact */}
+      <Card className="w-full max-w-lg p-6 bg-white/95 backdrop-blur-sm shadow-2xl game-card">
+        {/* Header */}
         <div className="text-center mb-6">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-2 text-shadow">
             WordMash Battle
@@ -411,9 +343,9 @@ export default function EnhancedEntryScreen({
           </p>
         </div>
 
-        <div className="space-y-5">
-          {/* Player Setup - Compact Layout */}
-          <div className="space-y-4">
+        <div className="space-y-6">
+          {/* Player Setup */}
+          <div className="space-y-5">
             {/* Player Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -435,84 +367,143 @@ export default function EnhancedEntryScreen({
               />
             </div>
 
-            {/* Avatar Selection - Much More Compact */}
+            {/* Modern Avatar Carousel */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Choose Avatar
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Choose Your Avatar
               </label>
-              <CompactAvatarSelector 
+              <EmblaAvatarCarousel 
                 selectedAvatar={selectedAvatar}
                 onAvatarChange={setSelectedAvatar}
               />
             </div>
           </div>
 
-          {/* Game Mode Selection - Compact */}
+          {/* Game Mode Selection */}
           <CompactGameModeSelector
             selectedMode={selectedUnifiedMode}
             onModeSelect={handleUnifiedModeSelect}
           />
 
-          {/* Room Mode Selection - Compact */}
-          {/* Room Mode Selection - Compact */}
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-800 text-center">
-                How to Play
-              </h3>
+          {/* Room Mode Selection */}
+          {selectedUnifiedMode !== 'speech-training' && (() => {
+            // Game modes that support Solo mode
+            const soloSupportedModes = ['story-writing', 'translation-multiple-choice', 'translation-typing', 'translation-metaphorical'];
+            const showSoloButton = soloSupportedModes.includes(selectedUnifiedMode);
+            
+            return (
+              <div className="space-y-3">
+                <h3 className="text-lg font-semibold text-gray-800 text-center">
+                  How to Play
+                </h3>
+                
+                <div className={`grid gap-2 ${showSoloButton ? 'grid-cols-2 lg:grid-cols-4' : 'grid-cols-3'}`}>
+                    {showSoloButton && (
+                      <Button
+                        type="button"
+                        variant={mode === 'single' ? 'default' : 'outline'}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          setMode('single')
+                        }}
+                        className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                          mode === 'single' 
+                            ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
+                            : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
+                        }`}
+                      >
+                        💔 Solo
+                      </Button>
+                    )}
               
-              <div className="grid grid-cols-3 gap-2">
-                <Button
-                  type="button"
-                  variant={mode === 'random' ? 'default' : 'outline'}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    setMode('random')
-                  }}
-                  className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
-                    mode === 'random' 
-                      ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
-                      : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
-                  }`}
-                >
-                  🎲 Random
-                </Button>
-                
-                <Button
-                  type="button"
-                  variant={mode === 'create' ? 'default' : 'outline'}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    setMode('create')
-                  }}
-                  className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
-                    mode === 'create' 
-                      ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
-                      : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
-                  }`}
-                >
-                  🏠 Create
-                </Button>
-                
-                <Button
-                  type="button"
-                  variant={mode === 'join' ? 'default' : 'outline'}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    setMode('join')
-                  }}
-                  className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
-                    mode === 'join' 
-                      ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
-                      : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
-                  }`}
-                >
-                  🔗 Join
-                </Button>
-              </div>
+              <Button
+                type="button"
+                variant={mode === 'random' ? 'default' : 'outline'}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setMode('random')
+                }}
+                className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                  mode === 'random' 
+                    ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
+                    : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
+                }`}
+              >
+                🎲 Random
+              </Button>
+              
+              <Button
+                type="button"
+                variant={mode === 'create' ? 'default' : 'outline'}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setMode('create')
+                }}
+                className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                  mode === 'create' 
+                    ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
+                    : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
+                }`}
+              >
+                🏠 Create Room
+              </Button>
+              
+              <Button
+                type="button"
+                variant={mode === 'join' ? 'default' : 'outline'}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  setMode('join')
+                }}
+                className={`py-2 text-xs font-semibold border-2 transition-all duration-200 hover:scale-105 active:scale-95 ${
+                  mode === 'join' 
+                    ? 'bg-black text-white border-black shadow-lg hover:bg-gray-800' 
+                    : 'bg-white text-black border-gray-800 hover:bg-gray-50 hover:border-black shadow-md'
+                }`}
+              >
+                🔗 Join Room
+              </Button>
+                </div>
 
+                {mode === 'single' && showSoloButton && (
+                <div className="animate-in slide-in-from-top-4">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700 text-center">
+                      AI Difficulty
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {(['easy', 'medium', 'hard'] as const).map((difficulty) => (
+                        <Button
+                          key={difficulty}
+                          type="button"
+                          variant={singlePlayerDifficulty === difficulty ? 'default' : 'outline'}
+                          onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            setSinglePlayerDifficulty(difficulty)
+                          }}
+                          className={`py-1.5 text-xs font-medium transition-all duration-200 ${
+                            singlePlayerDifficulty === difficulty
+                              ? difficulty === 'easy' ? 'bg-green-500 text-white border-green-500 hover:bg-green-600'
+                                : difficulty === 'medium' ? 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600'
+                                : 'bg-red-500 text-white border-red-500 hover:bg-red-600'
+                              : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                          }`}
+                        >
+                          {difficulty === 'easy' && '😊 Easy'}
+                          {difficulty === 'medium' && '🤔 Medium'}
+                          {difficulty === 'hard' && '😰 Hard'}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+              
               {mode === 'join' && (
                 <div className="animate-in slide-in-from-top-4">
                   <Input
@@ -530,7 +521,9 @@ export default function EnhancedEntryScreen({
                   />
                 </div>
               )}
-            </div>
+              </div>
+            );
+          })()}
 
           {/* Submit Button */}
           <Button
@@ -542,19 +535,21 @@ export default function EnhancedEntryScreen({
               <div className="flex items-center gap-2">
                 <div className="animate-spin">⏳</div>
                 <span className="text-sm">
-                  {mode === 'random' ? 'Finding Match...' : 
+                  {mode === 'single' ? 'Starting vs AI...' :
+                   mode === 'random' ? 'Finding Match...' : 
                    mode === 'create' ? 'Creating Room...' : 'Joining Room...'}
                 </span>
               </div>
             ) : (
               <>
-                {mode === 'random' ? '🚀 Find Match' : 
+                {mode === 'single' ? '🤖 Play vs AI' :
+                 mode === 'random' ? '🚀 Find Match' : 
                  mode === 'create' ? '🏠 Create Room' : '🔗 Join Room'}
               </>
             )}
           </Button>
 
-          {/* Selected Mode Info - Compact */}
+          {/* Selected Mode Info */}
           {canSubmit && (
             <div className="p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg text-center border border-blue-100 animate-in fade-in">
               <p className="text-blue-700 text-sm font-medium">
@@ -563,7 +558,9 @@ export default function EnhancedEntryScreen({
                   selectedUnifiedMode === 'story-writing' ? 'Story Writing' :
                   selectedUnifiedMode === 'translation-multiple-choice' ? 'Quick Translation' :
                   selectedUnifiedMode === 'translation-typing' ? 'Type Challenge' :
-                  selectedUnifiedMode === 'translation-metaphorical' ? 'Metaphor Master' : ''
+                  selectedUnifiedMode === 'translation-metaphorical' ? 'Metaphor Master' :
+                  selectedUnifiedMode === 'speech-training' ? 'Speech Training' :
+                  selectedUnifiedMode === 'conversation-generator' ? 'AI Conversations' : ''
                 }
               </p>
             </div>

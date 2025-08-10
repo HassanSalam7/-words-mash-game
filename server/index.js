@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const https = require('https');
 const socketIo = require('socket.io');
 const cors = require('cors');
 const path = require('path');
@@ -161,22 +162,37 @@ function getRandomWords() {
   const hardWords = wordsData.filter(w => w.difficulty === 'hard');
   
   const selectedWords = [];
+  const usedIndices = new Set(); // Track used items to avoid duplicates
   
-  // Select 2 easy, 2 medium, 1 hard
+  // Select 2 easy words without duplicates
   if (easyWords.length >= 2) {
+    const easyUsed = new Set();
     for (let i = 0; i < 2; i++) {
-      const randomIndex = Math.floor(Math.random() * easyWords.length);
-      selectedWords.push(easyWords.splice(randomIndex, 1)[0]);
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * easyWords.length);
+      } while (easyUsed.has(randomIndex) && easyUsed.size < easyWords.length);
+      
+      easyUsed.add(randomIndex);
+      selectedWords.push(easyWords[randomIndex]);
     }
   }
   
+  // Select 2 medium words without duplicates
   if (mediumWords.length >= 2) {
+    const mediumUsed = new Set();
     for (let i = 0; i < 2; i++) {
-      const randomIndex = Math.floor(Math.random() * mediumWords.length);
-      selectedWords.push(mediumWords.splice(randomIndex, 1)[0]);
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * mediumWords.length);
+      } while (mediumUsed.has(randomIndex) && mediumUsed.size < mediumWords.length);
+      
+      mediumUsed.add(randomIndex);
+      selectedWords.push(mediumWords[randomIndex]);
     }
   }
   
+  // Select 1 hard word
   if (hardWords.length >= 1) {
     const randomIndex = Math.floor(Math.random() * hardWords.length);
     selectedWords.push(hardWords[randomIndex]);
@@ -197,22 +213,52 @@ function getRandomTranslationWords(count = 10) {
   const mediumCount = Math.ceil(count * 0.3); // 30% medium  
   const hardCount = Math.ceil(count * 0.2); // 20% hard
   
-  // Select easy words
+  // Select easy words without modifying original array
+  const easyUsed = new Set();
   for (let i = 0; i < easyCount && easyWords.length > 0; i++) {
-    const randomIndex = Math.floor(Math.random() * easyWords.length);
-    selectedWords.push(easyWords.splice(randomIndex, 1)[0]);
+    let randomIndex;
+    let attempts = 0;
+    do {
+      randomIndex = Math.floor(Math.random() * easyWords.length);
+      attempts++;
+    } while (easyUsed.has(randomIndex) && attempts < easyWords.length * 2);
+    
+    if (!easyUsed.has(randomIndex)) {
+      easyUsed.add(randomIndex);
+      selectedWords.push(easyWords[randomIndex]);
+    }
   }
   
-  // Select medium words
+  // Select medium words without modifying original array
+  const mediumUsed = new Set();
   for (let i = 0; i < mediumCount && mediumWords.length > 0; i++) {
-    const randomIndex = Math.floor(Math.random() * mediumWords.length);
-    selectedWords.push(mediumWords.splice(randomIndex, 1)[0]);
+    let randomIndex;
+    let attempts = 0;
+    do {
+      randomIndex = Math.floor(Math.random() * mediumWords.length);
+      attempts++;
+    } while (mediumUsed.has(randomIndex) && attempts < mediumWords.length * 2);
+    
+    if (!mediumUsed.has(randomIndex)) {
+      mediumUsed.add(randomIndex);
+      selectedWords.push(mediumWords[randomIndex]);
+    }
   }
   
-  // Select hard words
+  // Select hard words without modifying original array
+  const hardUsed = new Set();
   for (let i = 0; i < hardCount && hardWords.length > 0; i++) {
-    const randomIndex = Math.floor(Math.random() * hardWords.length);
-    selectedWords.push(hardWords.splice(randomIndex, 1)[0]);
+    let randomIndex;
+    let attempts = 0;
+    do {
+      randomIndex = Math.floor(Math.random() * hardWords.length);
+      attempts++;
+    } while (hardUsed.has(randomIndex) && attempts < hardWords.length * 2);
+    
+    if (!hardUsed.has(randomIndex)) {
+      hardUsed.add(randomIndex);
+      selectedWords.push(hardWords[randomIndex]);
+    }
   }
   
   // Shuffle the selected words
@@ -231,22 +277,52 @@ function getRandomMetaphoricalSentences(count = 10) {
   const mediumCount = Math.ceil(count * 0.4); // 40% medium  
   const hardCount = Math.ceil(count * 0.2); // 20% hard
   
-  // Select easy sentences
+  // Select easy sentences without modifying original array
+  const easyUsed = new Set();
   for (let i = 0; i < easyCount && easyWords.length > 0; i++) {
-    const randomIndex = Math.floor(Math.random() * easyWords.length);
-    selectedWords.push(easyWords.splice(randomIndex, 1)[0]);
+    let randomIndex;
+    let attempts = 0;
+    do {
+      randomIndex = Math.floor(Math.random() * easyWords.length);
+      attempts++;
+    } while (easyUsed.has(randomIndex) && attempts < easyWords.length * 2);
+    
+    if (!easyUsed.has(randomIndex)) {
+      easyUsed.add(randomIndex);
+      selectedWords.push(easyWords[randomIndex]);
+    }
   }
   
-  // Select medium sentences
+  // Select medium sentences without modifying original array
+  const mediumUsed = new Set();
   for (let i = 0; i < mediumCount && mediumWords.length > 0; i++) {
-    const randomIndex = Math.floor(Math.random() * mediumWords.length);
-    selectedWords.push(mediumWords.splice(randomIndex, 1)[0]);
+    let randomIndex;
+    let attempts = 0;
+    do {
+      randomIndex = Math.floor(Math.random() * mediumWords.length);
+      attempts++;
+    } while (mediumUsed.has(randomIndex) && attempts < mediumWords.length * 2);
+    
+    if (!mediumUsed.has(randomIndex)) {
+      mediumUsed.add(randomIndex);
+      selectedWords.push(mediumWords[randomIndex]);
+    }
   }
   
-  // Select hard sentences
+  // Select hard sentences without modifying original array
+  const hardUsed = new Set();
   for (let i = 0; i < hardCount && hardWords.length > 0; i++) {
-    const randomIndex = Math.floor(Math.random() * hardWords.length);
-    selectedWords.push(hardWords.splice(randomIndex, 1)[0]);
+    let randomIndex;
+    let attempts = 0;
+    do {
+      randomIndex = Math.floor(Math.random() * hardWords.length);
+      attempts++;
+    } while (hardUsed.has(randomIndex) && attempts < hardWords.length * 2);
+    
+    if (!hardUsed.has(randomIndex)) {
+      hardUsed.add(randomIndex);
+      selectedWords.push(hardWords[randomIndex]);
+    }
   }
   
   // Shuffle the selected sentences
@@ -291,8 +367,8 @@ function createGame(player1, player2, gameMode = 'story-writing', answerMode = '
     metaphoricalSentences: metaphoricalSentences,
     stories: {},
     answers: {},
-    status: gameMode === 'translation' ? 'waiting_for_mode' : 'playing',
-    gameStatus: gameMode === 'translation' ? 'waiting' : 'playing',
+    status: gameMode === 'translation' ? 'waiting_for_mode' : (gameMode === 'conversation-generator' ? 'waiting_for_conversation' : 'playing'),
+    gameStatus: gameMode === 'translation' ? 'waiting' : (gameMode === 'conversation-generator' ? 'waiting_for_player1' : 'playing'),
     startTime: Date.now(),
     timeLimit: gameMode === 'story-writing' ? 600000 : 30000, // 10 minutes for story, 30 seconds per word for translation
     currentWordIndex: 0,
@@ -300,7 +376,10 @@ function createGame(player1, player2, gameMode = 'story-writing', answerMode = '
     totalRounds: gameMode === 'translation' ? (answerMode === 'metaphorical' ? 10 : 15) : 1,
     roundStartTime: null,
     roundAnswers: {},
-    lastRoundWinner: null
+    lastRoundWinner: null,
+    // Conversation-specific properties
+    conversationData: null,
+    conversationStatus: gameMode === 'conversation-generator' ? 'waiting_for_input' : null
   };
   
   games.set(gameId, game);
@@ -314,47 +393,78 @@ io.on('connection', (socket) => {
   socket.on('join-game', (playerData) => {
     console.log('Player wants to join:', playerData);
     
+    // Validate that gameMode is provided
+    if (!playerData.gameMode) {
+      console.error('Player tried to join without gameMode:', socket.id);
+      socket.emit('join-error', { message: 'Game mode is required' });
+      return;
+    }
+    
     const player = {
       id: socket.id,
       name: playerData.name,
       avatar: playerData.avatar || '👤',
-      gameMode: playerData.gameMode || 'story-writing',
+      gameMode: playerData.gameMode,
       translationMode: playerData.translationMode || null
     };
 
-    // Add to waiting players
-    waitingPlayers.push(player);
-    socket.playerData = player;
+    console.log('Player joining with gameMode:', player.gameMode, 'translationMode:', player.translationMode);
 
-    // Emit updated waiting list to all waiting players
-    const waitingList = waitingPlayers.map(p => ({ name: p.name, avatar: p.avatar }));
-    io.emit('waiting-players-update', waitingList);
-
-    // Try to match players with same game mode and translation mode
-    const compatiblePlayers = waitingPlayers.filter(p => 
-      p.gameMode === player.gameMode && 
-      (p.gameMode !== 'translation' || p.translationMode === player.translationMode)
-    );
-    if (compatiblePlayers.length >= 2) {
-      const player1 = compatiblePlayers[0];
-      const player2 = compatiblePlayers[1];
+    // Try to match players BEFORE adding to waiting list
+    // This prevents race conditions where the current player gets matched with themselves
+    console.log('🔴 SERVER: Searching for compatible players');
+    console.log('🔴 SERVER: Current player:', { 
+      name: player.name, 
+      gameMode: player.gameMode, 
+      translationMode: player.translationMode,
+      gameMode_type: typeof player.gameMode,
+      translationMode_type: typeof player.translationMode
+    });
+    console.log('🔴 SERVER: All waiting players (BEFORE adding current):', waitingPlayers.map(p => ({ 
+      id: p.id, 
+      name: p.name, 
+      gameMode: p.gameMode, 
+      translationMode: p.translationMode,
+      gameMode_type: typeof p.gameMode,
+      translationMode_type: typeof p.translationMode
+    })));
+    
+    // Find ONE compatible player from existing waiting players (not including current player)
+    let matchedPlayer = null;
+    for (const waitingPlayer of waitingPlayers) {
+      const gameModeMatch = waitingPlayer.gameMode === player.gameMode;
+      const translationModeMatch = (waitingPlayer.gameMode !== 'translation' || waitingPlayer.translationMode === player.translationMode);
       
-      // Remove matched players from waiting list
-      const player1Index = waitingPlayers.findIndex(p => p.id === player1.id);
-      const player2Index = waitingPlayers.findIndex(p => p.id === player2.id);
-      waitingPlayers.splice(player1Index, 1);
-      waitingPlayers.splice(player2Index > player1Index ? player2Index - 1 : player2Index, 1);
+      console.log(`🔴 SERVER: Checking compatibility with ${waitingPlayer.name}:`);
+      console.log(`   - gameMode match: ${waitingPlayer.gameMode} === ${player.gameMode} = ${gameModeMatch}`);
+      console.log(`   - translationMode check: ${waitingPlayer.gameMode !== 'translation'} || ${waitingPlayer.translationMode} === ${player.translationMode} = ${translationModeMatch}`);
+      console.log(`   - Overall compatible: ${gameModeMatch && translationModeMatch}`);
       
-      const game = createGame(player1, player2, player1.gameMode, player1.translationMode);
-      console.log('Game created with mode:', player1.gameMode, 'Translation mode:', player1.translationMode, 'Game ID:', game.id);
+      if (gameModeMatch && translationModeMatch) {
+        matchedPlayer = waitingPlayer;
+        console.log(`🔴 SERVER: MATCH FOUND! ${player.name} matched with ${waitingPlayer.name}`);
+        break;
+      }
+    }
+    
+    if (matchedPlayer) {
+      // Remove the matched player from waiting list
+      const matchedIndex = waitingPlayers.findIndex(p => p.id === matchedPlayer.id);
+      if (matchedIndex !== -1) {
+        waitingPlayers.splice(matchedIndex, 1);
+      }
+      
+      // Create game with matched players
+      const game = createGame(matchedPlayer, player, player.gameMode, player.translationMode);
+      console.log('🔴 SERVER: Game created with mode:', player.gameMode, 'Translation mode:', player.translationMode, 'Game ID:', game.id);
       
       // Move players to game room
-      io.sockets.sockets.get(player1.id)?.join(game.id);
-      io.sockets.sockets.get(player2.id)?.join(game.id);
+      io.sockets.sockets.get(matchedPlayer.id)?.join(game.id);
+      io.sockets.sockets.get(player.id)?.join(game.id);
       
       // Store game reference in socket
-      io.sockets.sockets.get(player1.id).gameId = game.id;
-      io.sockets.sockets.get(player2.id).gameId = game.id;
+      io.sockets.sockets.get(matchedPlayer.id).gameId = game.id;
+      io.sockets.sockets.get(player.id).gameId = game.id;
       
       // Start game immediately (translation mode already selected in entry screen)
       if (game.gameMode === 'translation') {
@@ -362,6 +472,10 @@ io.on('connection', (socket) => {
         game.status = 'playing';
         game.gameStatus = 'playing';
         game.roundStartTime = Date.now();
+      } else if (game.gameMode === 'conversation-generator') {
+        // Keep conversation mode in waiting state for player 1 to provide input
+        game.status = 'waiting_for_conversation';
+        game.gameStatus = 'waiting_for_player1';
       }
       
       // Start game immediately
@@ -374,31 +488,44 @@ io.on('connection', (socket) => {
         metaphoricalSentences: game.metaphoricalSentences,
         players: game.players,
         opponent: {
-          player1: { name: player2.name, avatar: player2.avatar },
-          player2: { name: player1.name, avatar: player1.avatar }
+          player1: { name: player.name, avatar: player.avatar },
+          player2: { name: matchedPlayer.name, avatar: matchedPlayer.avatar }
         },
         timeLimit: game.timeLimit,
         roundNumber: game.roundNumber,
         totalRounds: game.totalRounds,
-        gameStatus: game.gameStatus
+        gameStatus: game.gameStatus,
+        // Add player position information for conversation mode
+        isPlayer1: false // This will be set per player below
       };
       
       // Send player-specific data
-      io.sockets.sockets.get(player1.id)?.emit('game-start', {
+      io.sockets.sockets.get(matchedPlayer.id)?.emit('game-start', {
         ...gameStartData,
-        currentPlayer: game.players[0]
+        currentPlayer: game.players[0],
+        isPlayer1: true
       });
       
-      io.sockets.sockets.get(player2.id)?.emit('game-start', {
+      io.sockets.sockets.get(player.id)?.emit('game-start', {
         ...gameStartData,
-        currentPlayer: game.players[1]
+        currentPlayer: game.players[1],
+        isPlayer1: false
       });
       
-      console.log('Game started:', game.id);
+      console.log('🔴 SERVER: Game started:', game.id);
       
       // Update waiting list for remaining players
       const updatedWaitingList = waitingPlayers.map(p => ({ name: p.name, avatar: p.avatar }));
       io.emit('waiting-players-update', updatedWaitingList);
+    } else {
+      // No match found, add player to waiting list
+      console.log('🔴 SERVER: No compatible player found, adding to waiting list');
+      waitingPlayers.push(player);
+      socket.playerData = player;
+
+      // Emit updated waiting list to all waiting players
+      const waitingList = waitingPlayers.map(p => ({ name: p.name, avatar: p.avatar }));
+      io.emit('waiting-players-update', waitingList);
     }
   });
 
@@ -819,6 +946,260 @@ io.on('connection', (socket) => {
     }
   });
 
+  // AI Conversation events
+  socket.on('generate-conversation', async (data) => {
+    const gameId = socket.gameId;
+    const game = games.get(gameId);
+    
+    if (game && game.gameMode === 'conversation-generator' && game.status === 'waiting_for_conversation') {
+      // Only player 1 can generate conversation
+      const playerIndex = game.players.findIndex(p => p.id === socket.id);
+      if (playerIndex !== 0) return;
+      
+      game.conversationStatus = 'generating';
+      
+      // Notify both players that generation started
+      io.to(gameId).emit('conversation-generating');
+      
+      try {
+        console.log('Generating conversation with data:', { 
+          topic: data.topic, 
+          character1: data.character1, 
+          character2: data.character2, 
+          wordCount: data.wordCount 
+        });
+        
+        // Generate conversation using AI with proper format
+        const requestBody = {
+          model: 'llama-3.1-8b-instant',
+          messages: [
+            {
+              role: 'system',
+              content: `You are a professional dialogue writer. Create a natural, engaging conversation between two characters. Format the response as JSON with this structure:
+              {
+                "turns": [
+                  {"character": "Character1Name", "dialogue": "What they say"},
+                  {"character": "Character2Name", "dialogue": "Their response"}
+                ]
+              }
+              
+              Make the conversation feel natural with:
+              - Realistic dialogue patterns
+              - Appropriate emotions and reactions  
+              - Natural flow and transitions
+              - Each turn should be 1-3 sentences max
+              - Use the exact character names provided`
+            },
+            {
+              role: 'user',
+              content: `Create a conversation between "${data.character1}" and "${data.character2}" about "${data.topic}". Target approximately ${data.wordCount || 150} words total.`
+            }
+          ],
+          temperature: 0.8,
+          max_tokens: 1000
+        };
+        
+        console.log('Groq API Request:', JSON.stringify(requestBody, null, 2));
+        
+        // Use native https module instead of fetch
+        console.log('Making HTTPS request to Groq API...');
+        
+        const postData = JSON.stringify(requestBody);
+        console.log('Request body:', postData);
+        
+        const apiData = await new Promise((resolve, reject) => {
+          const options = {
+            hostname: 'api.groq.com',
+            port: 443,
+            path: '/openai/v1/chat/completions',
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+              'Content-Type': 'application/json',
+              'Content-Length': Buffer.byteLength(postData)
+            }
+          };
+
+          const req = https.request(options, (res) => {
+            console.log('Response status:', res.statusCode);
+            console.log('Response headers:', res.headers);
+            
+            let data = '';
+            
+            res.on('data', (chunk) => {
+              data += chunk;
+            });
+            
+            res.on('end', () => {
+              console.log('Raw response:', data);
+              
+              if (res.statusCode !== 200) {
+                console.error('API Error:', res.statusCode, data);
+                // Handle 500 errors with fallback response
+                if (res.statusCode === 500) {
+                  console.log('API returned 500, using fallback response');
+                  resolve({
+                    choices: [{
+                      message: {
+                        content: JSON.stringify({
+                          turns: [
+                            {
+                              character: "Player1",
+                              dialogue: "Hello! How are you doing today?"
+                            },
+                            {
+                              character: "Player2", 
+                              dialogue: "I'm doing great! Thanks for asking."
+                            }
+                          ]
+                        })
+                      }
+                    }]
+                  });
+                  return;
+                }
+                reject(new Error(`API Error: ${res.statusCode} ${data}`));
+                return;
+              }
+              
+              try {
+                const jsonData = JSON.parse(data);
+                resolve(jsonData);
+              } catch (error) {
+                console.error('JSON Parse Error:', error, 'Raw data:', data);
+                reject(error);
+              }
+            });
+          });
+
+          req.on('error', (error) => {
+            console.error('Request Error:', error);
+            reject(error);
+          });
+
+          // Set timeout to prevent hanging
+          req.setTimeout(30000, () => {
+            console.log('Request timeout');
+            req.destroy();
+            reject(new Error('Request timeout'));
+          });
+
+          req.write(postData);
+          req.end();
+        });
+        
+        console.log('Groq API Response:', apiData);
+        
+        const content = apiData.choices?.[0]?.message?.content;
+
+        if (!content) {
+          console.error('No content in API response:', apiData);
+          throw new Error('No content received from API');
+        }
+
+        // Parse the JSON response from AI
+        console.log('AI Generated Content:', content);
+        
+        let conversationData;
+        try {
+          // Try to parse as JSON first
+          conversationData = JSON.parse(content);
+        } catch (parseError) {
+          console.log('Failed to parse as JSON, creating fallback conversation');
+          // Fallback: create simple conversation if JSON parsing fails
+          conversationData = {
+            turns: [
+              {
+                character: data.character1,
+                dialogue: `Hey ${data.character2}! Let's talk about ${data.topic}.`
+              },
+              {
+                character: data.character2,
+                dialogue: content.substring(0, 200) || "That sounds great! I'd love to discuss it."
+              }
+            ]
+          };
+        }
+        
+        const conversation = {
+          id: Date.now().toString(),
+          topic: data.topic,
+          wordCount: data.wordCount || 150,
+          characters: [data.character1, data.character2],
+          turns: conversationData.turns || [
+            {
+              character: data.character1,
+              dialogue: `Hello! Let's talk about ${data.topic}.`
+            },
+            {
+              character: data.character2,
+              dialogue: "That sounds interesting! Tell me more."
+            }
+          ],
+          createdAt: new Date()
+        };
+
+        game.conversationData = conversation;
+        game.status = 'playing';
+        game.gameStatus = 'conversation_ready';
+        game.conversationStatus = 'ready';
+
+        // Send conversation to both players
+        io.to(gameId).emit('conversation-generated', {
+          conversation: conversation,
+          gameStatus: 'conversation_ready'
+        });
+
+        console.log('Conversation generated for game:', gameId);
+
+      } catch (error) {
+        console.error('Conversation generation error:', error);
+        game.conversationStatus = 'error';
+        
+        // Send error to both players
+        io.to(gameId).emit('conversation-error', {
+          message: error instanceof Error ? error.message : 'Failed to generate conversation'
+        });
+      }
+    }
+  });
+
+  // Google Meet integration events
+  socket.on('meeting-link-generated', (data) => {
+    console.log('Meeting link generated:', data);
+    const gameId = socket.gameId || data.gameId;
+    
+    if (gameId) {
+      // Store the meeting session in the game if provided
+      const game = games.get(gameId);
+      if (game && data.meetingSession) {
+        game.meetingSession = data.meetingSession;
+      }
+      
+      // Broadcast to all players in the game
+      socket.to(gameId).emit('meeting-link-received', {
+        meetingLink: data.meetingLink,
+        generatedBy: data.generatedBy,
+        gameId: gameId
+      });
+      
+      console.log('Meeting link broadcasted to game:', gameId);
+    }
+  });
+
+  socket.on('join-meeting-request', (data) => {
+    const gameId = socket.gameId || data.gameId;
+    const game = games.get(gameId);
+    
+    if (game && game.meetingSession) {
+      // Send existing meeting session to the requesting player
+      socket.emit('existing-meeting-session', {
+        meetingUrl: game.meetingSession.meetingUrl,
+        gameId: gameId
+      });
+    }
+  });
+
   socket.on('disconnect', () => {
     console.log('Player disconnected:', socket.id);
     
@@ -905,7 +1286,7 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`WordMash Battle server running on port ${PORT}`);
   console.log(`Server accessible at:`);
   console.log(`  - Local: http://localhost:${PORT}`);
-  console.log(`  - Network: http://192.168.0.115:${PORT}`);
+  console.log(`  - Network: http://192.168.0....:${PORT}`);
   console.log(`Socket.IO server ready for connections`);
   console.log(`Loaded ${wordsData.length} story words from database`);
   console.log(`Loaded ${translationWordsData.length} translation words from database`);

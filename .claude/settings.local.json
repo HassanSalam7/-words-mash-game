@@ -23,7 +23,17 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(timeout 5 npm run dev)",
+      "Bash(timeout 5 npm run dev:next)",
+      "WebFetch(domain:www.dicebear.com)",
+      "Bash(timeout 10 npm run dev:next)",
+      "WebFetch(domain:api.dicebear.com)",
+      "Bash(npm uninstall:*)",
+      "WebFetch(domain:developers.google.com)",
+      "Bash(pkill:*)",
+      "Bash(timeout:*)",
+      "Bash(git reset:*)"
     ],
     "deny": []
   }

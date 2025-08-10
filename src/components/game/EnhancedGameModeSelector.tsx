@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
 export interface GameMode {
-  id: 'story-writing' | 'translation'
+  id: 'story-writing' | 'translation' | 'speech-training' | 'conversation-generator'
   name: string
   description: string
   icon: string
@@ -41,6 +41,13 @@ const gameModes: GameMode[] = [
     description: 'Test your Arabic translation skills',
     icon: '🌍',
     features: ['English to Arabic translation', 'Multiple game modes', 'Score-based competition', 'Real-time battles']
+  },
+  {
+    id: 'conversation-generator',
+    name: 'AI Conversation',
+    description: 'Generate and perform AI conversations together',
+    icon: '🎭',
+    features: ['AI-generated dialogues', 'Real-time collaboration', 'Character role-play', 'Interactive conversations']
   }
 ]
 
@@ -166,7 +173,7 @@ export default function EnhancedGameModeSelector({
       <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">
         Choose Your Game Mode
       </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {gameModes.map((mode) => (
           <Card
             key={mode.id}
