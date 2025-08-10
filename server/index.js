@@ -72,7 +72,7 @@ app.get('/', (req, res) => {
   res.json({ 
     message: 'WordMash Battle Server',
     status: 'running',
-    version: '1.0.0'
+    version: '1.0.1'
   });
 });
 
