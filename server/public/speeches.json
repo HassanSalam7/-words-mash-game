@@ -1,0 +1,64 @@
+{
+  "speeches": [
+    {
+      "id": 1,
+      "title": "Believe in Yourself",
+      "content": "Success is not final, failure is not fatal: it is the courage to continue that counts. You have within you right now, everything you need to deal with whatever life throws at you. Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
+      "author": "Motivational"
+    },
+    {
+      "id": 2,
+      "title": "Dream Big",
+      "content": "The future belongs to those who believe in the beauty of their dreams. Don't let anyone tell you that your dreams are too big or too impossible. Every great achievement was once considered impossible. Dream big, work hard, stay focused, and surround yourself with good people who believe in your vision.",
+      "author": "Inspirational"
+    },
+    {
+      "id": 3,
+      "title": "Never Give Up",
+      "content": "Champions are made when nobody's watching. The difference between ordinary and extraordinary is practice. When you feel like giving up, remember why you started. Every master was once a disaster. Every expert was once a beginner. Every success story started with someone who refused to quit.",
+      "author": "Motivational"
+    },
+    {
+      "id": 4,
+      "title": "Embrace Change",
+      "content": "Change is the only constant in life. Those who cannot change their minds cannot change anything. Be yourself, everyone else is already taken. The only person you are destined to become is the person you decide to be. Embrace change, for it is the pathway to growth and new opportunities.",
+      "author": "Life Coach"
+    },
+    {
+      "id": 5,
+      "title": "Take Action",
+      "content": "A year from now you may wish you had started today. The way to get started is to quit talking and begin doing. You don't have to be great to get started, but you have to get started to be great. Take the first step, and the universe will conspire to help you achieve your goals.",
+      "author": "Success Coach"
+    },
+    {
+      "id": 6,
+      "title": "Overcome Fear",
+      "content": "Fear is nothing more than an obstacle that stands in the way of progress. The only thing we have to fear is fear itself. Courage is not the absence of fear, but feeling the fear and taking action anyway. Face your fears head-on, for they are often smaller than they appear in your mind.",
+      "author": "Courage Speaker"
+    },
+    {
+      "id": 7,
+      "title": "Stay Positive",
+      "content": "Your attitude determines your direction. Positive thinking will let you do everything better than negative thinking will. Keep your face always toward the sunshine, and shadows will fall behind you. Choose to see the good in every situation, and watch your life transform before your eyes.",
+      "author": "Positive Mindset"
+    },
+    {
+      "id": 8,
+      "title": "Work Hard",
+      "content": "There are no shortcuts to any place worth going. Hard work beats talent when talent doesn't work hard. Success is where preparation and opportunity meet. The elevator to success is out of order. You'll have to use the stairs, one step at a time. Make each step count.",
+      "author": "Work Ethic"
+    },
+    {
+      "id": 9,
+      "title": "Be Grateful",
+      "content": "Gratitude turns what we have into enough. The happiest people don't have the best of everything, they make the best of everything. Count your blessings, not your problems. A grateful heart is a magnet for miracles. Start each day with gratitude and watch your world change.",
+      "author": "Gratitude Guide"
+    },
+    {
+      "id": 10,
+      "title": "Create Your Legacy",
+      "content": "The best time to plant a tree was twenty years ago. The second best time is now. You are never too old to set another goal or to dream a new dream. Your legacy is being written by your actions today. Make it count. Leave the world a little better than you found it.",
+      "author": "Legacy Builder"
+    }
+  ]
+}
