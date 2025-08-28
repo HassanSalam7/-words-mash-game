@@ -314,6 +314,7 @@ useEffect(() => {
     console.log('🎯 Round result received:', data)
     setGameData(prevData => ({
       ...prevData,
+      gameId: prevData?.gameId || '',
       roundNumber: data.round,
       lastRoundWinner: data.roundWinner,
       correctAnswer: data.correctAnswer,
