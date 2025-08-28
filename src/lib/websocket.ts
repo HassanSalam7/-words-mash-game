@@ -18,7 +18,7 @@ export class GameWebSocket {
 
   constructor() {
     this.url = process.env.NODE_ENV === 'production'
-      ? `wss://${window.location.hostname}/ws`
+      ? 'wss://words-mash-game-production.up.railway.app/ws'
       : this.getMobileUrl();
     
     this.isMobile = this.detectMobile();

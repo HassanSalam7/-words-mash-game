@@ -4,7 +4,7 @@ import { io, Socket } from 'socket.io-client'
 
 export function createSocket(): Socket {
   const socketUrl = process.env.NODE_ENV === 'production'
-    ? `https://${window.location.hostname}`
+    ? 'https://words-mash-game-production.up.railway.app'
     : 'http://localhost:4567'
 
   console.log('Creating clean socket connection to:', socketUrl)
