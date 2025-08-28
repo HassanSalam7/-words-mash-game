@@ -136,23 +136,23 @@ export default function ResultsScreen({ results, onPlayAgain, onBackToHome, onSh
             <div className="text-lg font-semibold text-gray-700 mb-2">Winner:</div>
             <div className="flex items-center justify-center gap-3 bg-yellow-100 rounded-lg p-4">
               <img 
-                src={results.winner.avatar} 
+                src={results.winner?.avatar || ''} 
                 alt="Winner avatar"
                 className="w-12 h-12 rounded-full"
               />
               <div>
-                <div className="font-bold text-lg text-yellow-700">{results.winner.name}</div>
-                <div className="text-sm text-yellow-600">Score: {results.winner.score}</div>
+                <div className="font-bold text-lg text-yellow-700">{results.winner?.name || 'Unknown'}</div>
+                <div className="text-sm text-yellow-600">Score: {results.winner?.score || 0}</div>
               </div>
             </div>
           </div>
 
           {/* Final Scores */}
-          {results.finalScores && (
+          {results.players && (
             <div className="mb-6">
               <div className="text-lg font-semibold text-gray-700 mb-2">Final Scores:</div>
               <div className="space-y-2">
-                {results.finalScores.map((player: any, index: number) => (
+                {results.players.map((player: any, index: number) => (
                   <div key={index} className="flex items-center justify-between bg-gray-100 rounded-lg p-3">
                     <div className="flex items-center gap-2">
                       <img 

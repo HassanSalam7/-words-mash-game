@@ -28,7 +28,7 @@ export class GameWebSocket {
   private detectMobile(): boolean {
     if (typeof window === 'undefined') return false;
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-           (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
+           !!(navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
   }
 
   private getMobileUrl(): string {
@@ -168,14 +168,14 @@ export class GameWebSocket {
         };
 
         this.ws.onerror = (error) => {
-          console.error(`❌ WebSocket error: ${error.message || 'Connection failed'} (Mobile: ${this.isMobile})`);
+          console.error(`❌ WebSocket error: ${(error as any).message || 'Connection failed'} (Mobile: ${this.isMobile})`);
           this.clearTimeouts();
           this.emit('connect_error', { 
-            message: error.message || 'WebSocket connection failed',
-            type: error.type || 'error',
+            message: (error as any).message || 'WebSocket connection failed',
+            type: (error as any).type || 'error',
             isMobile: this.isMobile
           });
-          reject(new Error(error.message || 'WebSocket connection failed'));
+          reject(new Error((error as any).message || 'WebSocket connection failed'));
         };
 
       } catch (error) {

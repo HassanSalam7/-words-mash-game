@@ -299,50 +299,49 @@ useEffect(() => {
   })
 
   newSocket.on('round-feedback', (data) => {
-    setGameData(prevData => ({
+    setGameData(prevData => prevData ? ({
       ...prevData,
       ...data,
       gameStatus: data.gameStatus,
       lastRoundWinner: data.lastRoundWinner,
       correctAnswer: data.correctAnswer,
       players: data.players
-    }))
+    }) : null)
   })
 
   // Translation game events
   newSocket.on('round-result', (data) => {
     console.log('🎯 Round result received:', data)
-    setGameData(prevData => ({
+    setGameData(prevData => prevData ? ({
       ...prevData,
-      gameId: prevData?.gameId || '',
       roundNumber: data.round,
       lastRoundWinner: data.roundWinner,
       correctAnswer: data.correctAnswer,
-      players: data.playerScores?.map(score => {
-        const player = prevData?.players?.find(p => p.id === score.id)
-        return player ? { ...player, score: score.score } : {
+      players: data.playerScores?.map((score: any) => {
+        const existingPlayer = prevData?.players?.find(p => p.id === score.id)
+        return existingPlayer ? { ...existingPlayer, score: score.score } : {
           id: score.id,
           name: score.name,
-          avatar: player?.avatar || 'https://api.dicebear.com/9.x/adventurer/svg?seed=default',
+          avatar: 'https://api.dicebear.com/9.x/adventurer/svg?seed=default',
           score: score.score,
-          color: player?.color || '#8B5CF6'
+          color: '#8B5CF6'
         }
       }) || prevData?.players || [],
       gameStatus: 'showing-result'
-    }))
+    }) : null)
     
     // Show round result for 1 second before next round (fast-paced)
     setTimeout(() => {
-      setGameData(prevData => ({
+      setGameData(prevData => prevData ? ({
         ...prevData,
         gameStatus: 'playing'
-      }))
+      }) : null)
     }, 1000)
   })
 
   newSocket.on('next-round', (data) => {
     console.log('▶️ Next round received:', data)
-    setGameData(prevData => ({
+    setGameData(prevData => prevData ? ({
       ...prevData,
       roundNumber: data.round,
       totalRounds: data.totalRounds,
@@ -350,7 +349,7 @@ useEffect(() => {
       translationWords: data.question?.type === 'translation' ? [data.question] : prevData?.translationWords,
       metaphoricalSentences: data.question?.type === 'metaphorical' ? [data.question] : prevData?.metaphoricalSentences,
       currentQuestion: data.question
-    }))
+    }) : null)
   })
 
   newSocket.on('player-submitted', (data) => {
@@ -608,9 +607,9 @@ useEffect(() => {
           ) : gameData.gameMode === 'translation' ? (
             <TranslationChallengeScreen
               words={
-                gameData.currentQuestion ? [gameData.currentQuestion] : 
-                gameData.answerMode === 'metaphorical' ? gameData.metaphoricalSentences || [] : 
-                gameData.translationWords || []
+                gameData.currentQuestion ? [gameData.currentQuestion] as any : 
+                gameData.answerMode === 'metaphorical' ? (gameData.metaphoricalSentences || []) as any : 
+                (gameData.translationWords || []) as any
               }
               players={gameData.players || []}
               currentPlayer={gameData.currentPlayer || { 
@@ -697,7 +696,7 @@ useEffect(() => {
   return (
     <main className="min-h-screen relative bg-gradient-to-br from-white via-blue-500 to-cyan-400">
       {/* Enhanced Connection Status */}
-      <ConnectionStatus connectionStatus={connectionStatus} />
+      <ConnectionStatus connectionStatus={connectionStatus === 'reconnecting' ? 'connecting' : connectionStatus as 'connected' | 'connecting' | 'disconnected'} />
       
       {/* Legacy connection indicator for fallback */}
       {connectionStatus !== 'connected' && (

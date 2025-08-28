@@ -107,7 +107,7 @@ export async function createBestConnection(): Promise<GameConnection> {
     console.log('✅ WebSocket connection successful')
     return wsConnection
   } catch (error) {
-    console.log('❌ WebSocket failed, trying Socket.IO...', error.message)
+    console.log('❌ WebSocket failed, trying Socket.IO...', error instanceof Error ? error.message : 'Unknown error')
     
     // Fallback to Socket.IO only for desktop
     if (!isMobile) {
