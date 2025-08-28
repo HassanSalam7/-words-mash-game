@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import "@/styles/globals.css"
+import ReactQueryProvider from "@/components/providers/ReactQueryProvider"
 
 export const metadata: Metadata = {
   title: "WordMash Battle",
@@ -27,7 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen">
-        {children}
+        <ReactQueryProvider>
+          {children}
+        </ReactQueryProvider>
       </body>
     </html>
   )

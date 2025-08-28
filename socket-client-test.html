@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Connection Test</title>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Socket.IO Connection Test</h1>
+    <div id="status">Connecting...</div>
+    <div id="messages"></div>
+    
+    <script>
+        const statusDiv = document.getElementById('status');
+        const messagesDiv = document.getElementById('messages');
+        
+        function addMessage(msg) {
+            const p = document.createElement('p');
+            p.textContent = new Date().toLocaleTimeString() + ': ' + msg;
+            messagesDiv.appendChild(p);
+        }
+        
+        // Test connection to both servers
+        const servers = [
+            { url: 'http://localhost:4567', name: 'Main Server' },
+            { url: 'http://localhost:4568', name: 'Test Server' }
+        ];
+        
+        servers.forEach(server => {
+            addMessage(`Testing connection to ${server.name} (${server.url})...`);
+            
+            const socket = io(server.url, {
+                transports: ['polling', 'websocket'],
+                upgrade: true,
+                rememberUpgrade: true
+            });
+            
+            socket.on('connect', () => {
+                addMessage(`✅ Connected to ${server.name}!`);
+                statusDiv.textContent = 'Connected!';
+            });
+            
+            socket.on('connect_error', (error) => {
+                addMessage(`❌ Connection error to ${server.name}: ${error.message}`);
+                console.error('Connection error:', error);
+            });
+            
+            socket.on('disconnect', (reason) => {
+                addMessage(`🔌 Disconnected from ${server.name}: ${reason}`);
+            });
+            
+            socket.on('message', (msg) => {
+                addMessage(`📩 Message from ${server.name}: ${msg}`);
+            });
+        });
+    </script>
+</body>
+</html>

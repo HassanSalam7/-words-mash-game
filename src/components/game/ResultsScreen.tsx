@@ -15,6 +15,7 @@ interface StoryResult {
 }
 
 interface Player {
+  id: string;
   name: string;
   avatar: string;
   score: number;
@@ -118,6 +119,67 @@ export default function ResultsScreen({ results, onPlayAgain, onBackToHome, onSh
             </CardContent>
           </Card>
         </div>
+      </div>
+    )
+  }
+
+  // Handle translation game results
+  if (results.gameMode === 'translation') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-white flex items-center justify-center p-4">
+        <Card className="w-full max-w-md p-8 text-center bg-white/95 backdrop-blur-md shadow-2xl">
+          <div className="text-6xl mb-6">🏆</div>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">Game Complete!</h2>
+          
+          {/* Winner */}
+          <div className="mb-6">
+            <div className="text-lg font-semibold text-gray-700 mb-2">Winner:</div>
+            <div className="flex items-center justify-center gap-3 bg-yellow-100 rounded-lg p-4">
+              <img 
+                src={results.winner.avatar} 
+                alt="Winner avatar"
+                className="w-12 h-12 rounded-full"
+              />
+              <div>
+                <div className="font-bold text-lg text-yellow-700">{results.winner.name}</div>
+                <div className="text-sm text-yellow-600">Score: {results.winner.score}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Final Scores */}
+          {results.finalScores && (
+            <div className="mb-6">
+              <div className="text-lg font-semibold text-gray-700 mb-2">Final Scores:</div>
+              <div className="space-y-2">
+                {results.finalScores.map((player: any, index: number) => (
+                  <div key={index} className="flex items-center justify-between bg-gray-100 rounded-lg p-3">
+                    <div className="flex items-center gap-2">
+                      <img 
+                        src={player.avatar} 
+                        alt={`${player.name} avatar`}
+                        className="w-8 h-8 rounded-full"
+                      />
+                      <span className="font-medium">{player.name}</span>
+                    </div>
+                    <span className="font-bold text-blue-600">{player.score}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex gap-3">
+            <Button onClick={onPlayAgain} className="flex-1">
+              Play Again
+            </Button>
+            {onBackToHome && (
+              <Button onClick={onBackToHome} variant="outline" className="flex-1">
+                Home
+              </Button>
+            )}
+          </div>
+        </Card>
       </div>
     )
   }

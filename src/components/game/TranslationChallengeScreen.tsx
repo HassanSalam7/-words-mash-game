@@ -58,7 +58,7 @@ export default function TranslationChallengeScreen({
   const [hasAnswered, setHasAnswered] = useState(false)
   const [startTime, setStartTime] = useState<number>(Date.now())
 
-  const currentWord = words[currentWordIndex]
+  const currentWord = words[0] || words[currentWordIndex]
   const allOptions = currentWord?.options || (currentWord ? [currentWord.arabic, ...currentWord.wrongOptions] : [])
 
   // Timer effect
@@ -96,18 +96,11 @@ export default function TranslationChallengeScreen({
   // Show result notification - keeps game flow
   const showResultNotification = gameStatus === 'showing-result'
 
-  if (!currentWord || gameStatus === 'completed') {
-    return (
-      <div className="h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-white flex items-center justify-center p-4">
-        <div className="w-full max-w-sm mx-auto text-center bg-white/95 backdrop-blur-md rounded-3xl p-8 shadow-2xl border border-white/20">
-          <div className="text-6xl mb-6 animate-bounce">🏆</div>
-          <h2 className="text-2xl font-black text-gray-800 mb-4">Challenge Complete!</h2>
-          <p className="text-gray-600 font-medium">Final results coming up...</p>
-          <div className="mt-4 w-full bg-gradient-to-r from-green-400 to-blue-500 h-2 rounded-full animate-pulse"></div>
-        </div>
-      </div>
-    )
+  // If no current word, just render empty div to avoid errors
+  if (!currentWord) {
+    return <div></div>
   }
+
 
   if (gameStatus === 'waiting') {
     return (

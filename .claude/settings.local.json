@@ -33,7 +33,10 @@
       "WebFetch(domain:developers.google.com)",
       "Bash(pkill:*)",
       "Bash(timeout:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(npx http-server:*)",
+      "Bash(rs)",
+      "Bash(start test-websocket.html)"
     ],
     "deny": []
   }

@@ -1,26 +1,24 @@
 'use client'
 
 import { useState, useEffect, useRef, useMemo } from 'react'
+import { useSpeeches } from '@/lib/hooks/useGameData'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 
-interface Speech {
-  id: number
-  title: string
-  content: string
-  author: string
-}
+import { Speech } from '@/lib/gameApi'
 
 interface SpeechTrainingScreenProps {
   onBackToHome: () => void
 }
 
 export default function SpeechTrainingScreen({ onBackToHome }: SpeechTrainingScreenProps) {
-  const [speeches, setSpeeches] = useState<Speech[]>([])
+  // Use React Query hook for speeches data
+  const { data: speechesData, isLoading, error } = useSpeeches()
+  const speeches = speechesData || []
+  
   const [currentSpeech, setCurrentSpeech] = useState<Speech | null>(null)
   const [gameState, setGameState] = useState<'menu' | 'countdown' | 'speaking' | 'finished'>('menu')
   const [countdown, setCountdown] = useState(3)
-  const [isLoading, setIsLoading] = useState(true)
   
   // Simple timing system
   const [timeRemaining, setTimeRemaining] = useState(60)
@@ -45,21 +43,7 @@ export default function SpeechTrainingScreen({ onBackToHome }: SpeechTrainingScr
     return durationInSeconds
   }
 
-  // Load speeches on component mount
-  useEffect(() => {
-    const loadSpeeches = async () => {
-      try {
-        const response = await fetch('/speeches.json')
-        const data = await response.json()
-        setSpeeches(data.speeches || [])
-        setIsLoading(false)
-      } catch (error) {
-        console.error('Error loading speeches:', error)
-        setIsLoading(false)
-      }
-    }
-    loadSpeeches()
-  }, [])
+  // Speeches are now loaded via React Query hook
 
   // Countdown effect
   useEffect(() => {

@@ -1,12 +1,12 @@
 interface PlayerAvatarProps {
-  avatar: string
+  avatar?: string
   className?: string
   size?: 'sm' | 'md' | 'lg' | 'xl'
 }
 
 export function PlayerAvatar({ avatar, className = '', size = 'md' }: PlayerAvatarProps) {
   // Check if avatar is a data URL (base64 image) or HTTP URL (Dicebear)
-  const isImage = avatar.startsWith('data:image/') || avatar.startsWith('http')
+  const isImage = avatar && (avatar.startsWith('data:image/') || avatar.startsWith('http'))
   
   // Size classes
   const sizeClasses = {
@@ -38,10 +38,10 @@ export function PlayerAvatar({ avatar, className = '', size = 'md' }: PlayerAvat
     )
   }
   
-  // For emoji avatars
+  // For emoji avatars or fallback
   return (
     <div className={baseClasses}>
-      {avatar}
+      {avatar || '👤'}
     </div>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useGenerateConversation } from '@/lib/hooks/useGameData'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -49,8 +50,28 @@ export default function ConversationGeneratorScreen({
   const [savedConversations, setSavedConversations] = useState<GeneratedConversation[]>([])
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState('')
-  // API key from environment
-  const apiKey = process.env.NEXT_PUBLIC_GROQ_API_KEY || ''
+  
+  // Use React Query mutation for conversation generation
+  const generateConversationMutation = useGenerateConversation({
+    onSuccess: (data) => {
+      setGeneratedConversation(data)
+      setIsGenerating(false)
+      setGameState('display')
+      
+      // Save to localStorage
+      const saved = localStorage.getItem('ai-conversations')
+      const conversations = saved ? JSON.parse(saved) : []
+      conversations.unshift(data)
+      localStorage.setItem('ai-conversations', JSON.stringify(conversations.slice(0, 10)))
+      setSavedConversations(conversations.slice(0, 10))
+    },
+    onError: (error) => {
+      console.error('Conversation generation failed:', error)
+      setError('Failed to generate conversation. Please try again.')
+      setIsGenerating(false)
+      setGameState('setup')
+    }
+  })
 
   // Load saved conversations from localStorage
   useEffect(() => {
@@ -76,95 +97,33 @@ export default function ConversationGeneratorScreen({
   }
 
 
-  // Generate conversation using Groq API
+  // Generate conversation using React Query mutation
   const generateConversation = async () => {
+    console.log('🎭 Generate conversation clicked!', { topic, character1, character2, wordCount })
+    
     if (!topic.trim() || !character1.trim() || !character2.trim()) {
+      console.log('❌ Validation failed - missing fields')
       setError('Please fill in all fields')
       return
     }
 
+    console.log('✅ Validation passed, starting generation...')
     setIsGenerating(true)
     setError('')
     setGameState('generating')
 
-    try {
-      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'llama-3.1-8b-instant',
-          messages: [
-            {
-              role: 'system',
-              content: `You are a professional dialogue writer. Create a natural, engaging conversation between two characters about the given topic. Format the response as JSON with this structure:
-              {
-                "turns": [
-                  {"character": "Character1Name", "dialogue": "What they say"},
-                  {"character": "Character2Name", "dialogue": "Their response"}
-                ]
-              }
-              
-              Make the conversation feel natural with:
-              - Realistic dialogue patterns
-              - Appropriate emotions and reactions  
-              - Natural flow and transitions
-              - Approximately ${wordCount} words total
-              - Each turn should be 1-3 sentences max
-              - Use the exact character names provided`
-            },
-            {
-              role: 'user',
-              content: `Create a conversation between "${character1}" and "${character2}" about "${topic}". Target approximately ${wordCount} words total.`
-            }
-          ],
-          temperature: 0.8,
-          max_tokens: 1000
-        })
-      })
-
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status} ${response.statusText}`)
-      }
-
-      const data = await response.json()
-      const content = data.choices?.[0]?.message?.content
-
-      if (!content) {
-        throw new Error('No content received from API')
-      }
-
-      // Parse the JSON response
-      const conversationData = JSON.parse(content)
-      
-      const conversation: GeneratedConversation = {
-        id: Date.now().toString(),
-        topic,
-        wordCount,
-        characters: [character1, character2],
-        turns: conversationData.turns,
-        createdAt: new Date()
-      }
-
-      setGeneratedConversation(conversation)
-      saveConversation(conversation)
-      
-      // If multiplayer, call the callback instead of directly setting state
-      if (isMultiplayer && onConversationGenerated) {
-        onConversationGenerated(conversation)
-      } else {
-        setGameState('display')
-      }
-
-    } catch (error) {
-      console.error('Generation error:', error)
-      setError(error instanceof Error ? error.message : 'Failed to generate conversation')
-      setGameState('setup')
-    } finally {
-      setIsGenerating(false)
-    }
+    // The mutation handles the API call and success/error states
+    console.log('📡 Calling mutation with:', {
+      topic,
+      wordCount,
+      characters: [character1, character2]
+    })
+    
+    generateConversationMutation.mutate({
+      topic,
+      wordCount,
+      characters: [character1, character2]
+    })
   }
 
   // Load saved conversation
@@ -350,7 +309,15 @@ export default function ConversationGeneratorScreen({
 
                 {/* Generate Button */}
                 <Button
-                  onClick={generateConversation}
+                  onClick={() => {
+                    console.log('🔥 BUTTON CLICKED! State check:', { 
+                      isGenerating, 
+                      isMultiplayer, 
+                      currentPlayer,
+                      disabled: isGenerating || (isMultiplayer && currentPlayer === 2)
+                    })
+                    generateConversation()
+                  }}
                   disabled={isGenerating || (isMultiplayer && currentPlayer === 2)}
                   className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 text-lg font-semibold shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >

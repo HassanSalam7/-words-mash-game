@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev:next\" \"npm run dev:server\"",
+    "dev": "concurrently \"npm run dev:next\" \"npm run dev:ws\"",
     "dev:next": "next dev --turbopack",
-    "dev:server": "nodemon server/index.js",
+    "dev:server": "cd server && npm start",
+    "dev:ws": "cd server && npm run ws-dev",
+    "dev:standalone": "cd server && node app.js",
     "build": "next build",
     "start": "next start",
+    "start:prod": "concurrently \"npm run start\" \"cd server && npm run start\"",
     "lint": "next lint",
-    "update-ip": "node update-env-ip.js"
+    "update-ip": "node update-env-ip.js",
+    "deploy:docker": "docker-compose up -d",
+    "deploy:build": "npm run build && cd server && npm ci --only=production"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
@@ -20,7 +25,11 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.2.5",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@tanstack/react-query": "^5.85.5",
+    "@tanstack/react-query-devtools": "^5.85.5",
+    "@types/axios": "^0.9.36",
     "api-hooks-generator": "^1.0.0",
+    "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-auto-scroll": "^8.6.0",

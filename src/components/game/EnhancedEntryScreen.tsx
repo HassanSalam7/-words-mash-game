@@ -363,6 +363,7 @@ export default function EnhancedEntryScreen({
                 placeholder="Enter your name"
                 className="w-full text-center text-base h-10"
                 maxLength={20}
+                autoFocus
                 required
               />
             </div>
@@ -384,6 +385,7 @@ export default function EnhancedEntryScreen({
             selectedMode={selectedUnifiedMode}
             onModeSelect={handleUnifiedModeSelect}
           />
+
 
           {/* Room Mode Selection */}
           {selectedUnifiedMode !== 'speech-training' && (() => {
