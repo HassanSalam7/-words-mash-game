@@ -22,7 +22,7 @@ class SocketIOWrapper implements GameConnection {
 
   constructor() {
     const socketUrl = process.env.NODE_ENV === 'production'
-      ? `https://${window.location.hostname}`
+      ? 'https://words-mash-game-production.up.railway.app'
       : 'http://localhost:4567'
 
     this.socket = io(socketUrl, {

@@ -36,13 +36,18 @@ export class GameWebSocket {
     
     const hostname = window.location.hostname;
     
-    // If already on a network IP (mobile accessing dev server), use that IP
-    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
-      return `ws://${hostname}:4568/ws`;
+    // If on production (Vercel), connect to Railway backend
+    if (hostname.includes('vercel.app') || hostname.includes('localhost') === false) {
+      return 'wss://words-mash-game-production.up.railway.app/ws';
     }
     
-    // For localhost development, try to get the actual network IP
-    return `ws://${this.getLocalIP()}:4568/ws`;
+    // For local development
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return `ws://${this.getLocalIP()}:4568/ws`;
+    }
+    
+    // Fallback to Railway for any other case
+    return 'wss://words-mash-game-production.up.railway.app/ws';
   }
 
   private getLocalIP(): string {
