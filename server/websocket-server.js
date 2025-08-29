@@ -146,7 +146,8 @@ class WebSocketGameServer {
   }
 
   detectMobileClient(userAgent) {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent) ||
+    // Enhanced mobile detection to match client-side logic
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobi/i.test(userAgent) ||
            /Mobile|Tablet/i.test(userAgent);
   }
 
@@ -179,11 +180,32 @@ class WebSocketGameServer {
   checkMobileConnections() {
     const now = Date.now();
     const mobileTimeout = 90000; // 90 seconds timeout for mobile
+    const desktopTimeout = 120000; // 2 minutes for desktop
 
     this.clients.forEach((client, clientId) => {
-      if (client.isMobile && (now - client.lastPing) > mobileTimeout) {
-        console.log(`⚠️ Mobile client ${clientId} ping timeout, disconnecting...`);
-        this.handleDisconnect(clientId);
+      const timeout = client.isMobile ? mobileTimeout : desktopTimeout;
+      
+      if ((now - client.lastPing) > timeout) {
+        console.log(`⚠️ Client ${clientId} (${client.isMobile ? 'Mobile' : 'Desktop'}) ping timeout, disconnecting...`);
+        
+        // Check if WebSocket is actually still open
+        if (client.ws.readyState === 1) {
+          // Try one more ping before disconnecting
+          try {
+            client.ws.ping();
+            console.log(`🔄 Sent final ping to ${clientId} before timeout`);
+            // Give it 10 more seconds
+            setTimeout(() => {
+              if ((Date.now() - client.lastPing) > timeout) {
+                this.handleDisconnect(clientId);
+              }
+            }, 10000);
+          } catch (error) {
+            this.handleDisconnect(clientId);
+          }
+        } else {
+          this.handleDisconnect(clientId);
+        }
       }
     });
   }
@@ -251,23 +273,41 @@ class WebSocketGameServer {
       }
       
       const client = this.clients.get(clientId);
+      if (!client) {
+        console.error(`❌ Client ${clientId} not found when joining game`);
+        return;
+      }
+      
       client.playerData = data;
       
       // Remove from waiting list if already there
       this.removeFromWaitingList(clientId);
       
       // Add to waiting list
-      this.waitingPlayers.push({
+      const playerData = {
         id: clientId,
         name: data.name,
         avatar: data.avatar,
         gameMode: data.gameMode,
         translationMode: data.translationMode,
         joinedAt: Date.now()
+      };
+      
+      this.waitingPlayers.push(playerData);
+      console.log(`➕ Added player to waiting list: ${data.name} (${data.gameMode}${data.translationMode ? `, ${data.translationMode}` : ''}) - Total waiting: ${this.waitingPlayers.length}`);
+      
+      // Send immediate feedback to player
+      this.sendToClient(clientId, 'queue-joined', { 
+        position: this.waitingPlayers.length,
+        waitingPlayers: this.waitingPlayers.length 
       });
       
       this.broadcastWaitingPlayers();
-      this.tryMatchPlayers();
+      
+      // Try matching with a small delay to ensure both players are ready
+      setTimeout(() => {
+        this.tryMatchPlayers();
+      }, 100);
       
     } catch (error) {
       console.error('Error in join-game handler:', error);
@@ -294,15 +334,41 @@ class WebSocketGameServer {
 
   tryMatchPlayers() {
     if (this.waitingPlayers.length >= 2) {
+      console.log(`🔍 Trying to match players from ${this.waitingPlayers.length} waiting players`);
+      
       const player1 = this.waitingPlayers[0];
       let player2 = null;
+      
+      // Verify player1 client is still connected
+      const client1 = this.clients.get(player1.id);
+      if (!client1 || client1.ws.readyState !== 1) {
+        console.log(`❌ Player1 ${player1.name} is disconnected, removing from queue`);
+        this.removeFromWaitingList(player1.id);
+        this.broadcastWaitingPlayers();
+        return this.tryMatchPlayers(); // Try again with remaining players
+      }
       
       // Find compatible players
       for (let i = 1; i < this.waitingPlayers.length; i++) {
         const candidate = this.waitingPlayers[i];
-        if (candidate.gameMode === player1.gameMode && 
-            candidate.translationMode === player1.translationMode) {
+        const candidateClient = this.clients.get(candidate.id);
+        
+        // Check if candidate is still connected
+        if (!candidateClient || candidateClient.ws.readyState !== 1) {
+          console.log(`❌ Candidate ${candidate.name} is disconnected, removing from queue`);
+          this.removeFromWaitingList(candidate.id);
+          continue;
+        }
+        
+        // Check game mode compatibility
+        const modesMatch = candidate.gameMode === player1.gameMode;
+        const translationModesMatch = candidate.translationMode === player1.translationMode;
+        
+        console.log(`🔍 Checking match: ${player1.name} (${player1.gameMode}, ${player1.translationMode}) vs ${candidate.name} (${candidate.gameMode}, ${candidate.translationMode})`);
+        
+        if (modesMatch && translationModesMatch) {
           player2 = candidate;
+          console.log(`✅ Found match! ${player1.name} vs ${player2.name}`);
           break;
         }
       }
@@ -314,12 +380,18 @@ class WebSocketGameServer {
         this.waitingPlayers.splice(Math.max(index1, index2), 1);
         this.waitingPlayers.splice(Math.min(index1, index2), 1);
         
+        console.log(`🎮 Creating game between ${player1.name} and ${player2.name}`);
+        
         // Create game
         this.createGame(player1, player2);
         
         // Broadcast updated waiting list
         this.broadcastWaitingPlayers();
+      } else {
+        console.log(`⏳ No compatible matches found for ${player1.name} yet`);
       }
+    } else {
+      console.log(`⏳ Only ${this.waitingPlayers.length} players waiting, need at least 2`);
     }
   }
 

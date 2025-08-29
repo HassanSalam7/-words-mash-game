@@ -279,7 +279,14 @@ useEffect(() => {
     setWaitingPlayers(players)
   })
 
+  newSocket.on('queue-joined', (data) => {
+    console.log('✅ Joined queue:', data)
+    // Provide immediate feedback to user that they're in the queue
+    setGameState('waiting')
+  })
+
   newSocket.on('game-start', (data: GameData) => {
+    console.log('🎮 Game starting:', data)
     setGameData(data)
     if (data.gameMode === 'conversation-generator') {
       setGameState('challenge')

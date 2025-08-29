@@ -99,16 +99,6 @@ export default function WaitingRoom({ playerName, waitingPlayers, onGameStart, o
             </div>
           )}
 
-          <div className="bg-blue-50 rounded-xl p-6">
-            <h4 className="font-semibold text-gray-800 mb-3">🎯 Game Rules:</h4>
-            <ul className="text-sm text-gray-600 space-y-2">
-              <li>• Both players get the same 5 random English words</li>
-              <li>• Create a short story using ALL words in 10 minutes</li>
-              <li>• Be creative, funny, or dramatic - it's your choice!</li>
-              <li>• React with emojis when stories are revealed</li>
-              <li>• No winners or losers - just fun and creativity!</li>
-            </ul>
-          </div>
         </div>
       </Card>
     </div>

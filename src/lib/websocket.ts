@@ -233,13 +233,28 @@ export class GameWebSocket {
   }
 
   private startPing() {
-    // Ping every 25 seconds to keep connection alive (for all connections)
+    // For mobile devices, use more frequent pings with proper WebSocket ping frames
+    const pingInterval = this.isMobile ? 25000 : 30000;
+    
     this.pingInterval = setInterval(() => {
       if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-        this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
-        console.log(`🏓 Ping sent (Mobile: ${this.isMobile})`);
+        if (this.isMobile) {
+          // Use WebSocket ping frame for mobile (matches server expectations)
+          try {
+            (this.ws as any).ping?.();
+            console.log(`🏓 WebSocket ping sent (Mobile: ${this.isMobile})`);
+          } catch (error) {
+            // Fallback to JSON message if ping() is not available
+            this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
+            console.log(`🏓 JSON ping sent (Mobile: ${this.isMobile})`);
+          }
+        } else {
+          // Desktop uses JSON ping
+          this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
+          console.log(`🏓 Ping sent (Mobile: ${this.isMobile})`);
+        }
       }
-    }, 25000);
+    }, pingInterval);
   }
 
   private scheduleReconnect(delay: number) {
