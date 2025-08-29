@@ -28,21 +28,32 @@ export class GameWebSocket {
   private detectMobile(): boolean {
     if (typeof window === 'undefined') return false;
     
-    // Check user agent
+    // Check user agent - most reliable method
     const userAgentMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Check touch capability
-    const touchMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    // Enhanced touch capability detection
+    const touchMobile = (
+      'ontouchstart' in window ||
+      'ontouchend' in window ||
+      'ontouchmove' in window ||
+      navigator.maxTouchPoints > 0 ||
+      (window as any).DocumentTouch && document instanceof (window as any).DocumentTouch ||
+      /Mobi|Android/i.test(navigator.userAgent)
+    );
     
-    // Check screen size (mobile-like dimensions)
-    const screenMobile = window.innerWidth <= 768 || window.innerHeight <= 768;
+    // Check screen size (mobile-like dimensions) - more flexible
+    const screenMobile = window.innerWidth <= 768;
     
     // iPad detection (reports as desktop but is mobile)
     const iPadMobile = navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform);
     
-    const isMobile = userAgentMobile || touchMobile || screenMobile || iPadMobile;
+    // Modern mobile detection for newer browsers
+    const modernMobile = ('navigator' in window && 'userAgentData' in navigator && 
+      (navigator as any).userAgentData?.mobile);
     
-    console.log(`📱 Mobile detection: ${isMobile} (UA: ${userAgentMobile}, Touch: ${touchMobile}, Screen: ${screenMobile}, iPad: ${iPadMobile})`);
+    const isMobile = userAgentMobile || touchMobile || screenMobile || iPadMobile || modernMobile;
+    
+    console.log(`📱 Mobile detection: ${isMobile} (UA: ${userAgentMobile}, Touch: ${touchMobile}, Screen: ${screenMobile}, iPad: ${iPadMobile}, Modern: ${modernMobile})`);
     
     return isMobile;
   }

@@ -522,3 +522,65 @@ input:focus-visible {
     font-weight: 500;
   }
 }
+
+/* Mobile game interaction fixes */
+@media (max-width: 768px) {
+  /* Fix carousel touch scrolling */
+  .embla__container {
+    touch-action: pan-x pinch-zoom;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Improve button touch response */
+  button, [role="button"] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    tap-highlight-color: transparent;
+    outline: none;
+  }
+  
+  /* Fix double-tap zoom on buttons */
+  button:focus {
+    outline: none;
+  }
+  
+  /* Prevent 300ms click delay on mobile */
+  a, button, input, select, textarea {
+    touch-action: manipulation;
+  }
+  
+  /* Better mobile form inputs */
+  input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 8px;
+  }
+}
+
+/* Mobile WebSocket connection status indicator */
+.mobile-connection-status {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.mobile-connection-status.connected {
+  background-color: #10b981;
+  color: white;
+}
+
+.mobile-connection-status.disconnected {
+  background-color: #ef4444;
+  color: white;
+}
+
+.mobile-connection-status.connecting {
+  background-color: #f59e0b;
+  color: white;
+}
