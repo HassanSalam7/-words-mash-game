@@ -27,8 +27,24 @@ export class GameWebSocket {
 
   private detectMobile(): boolean {
     if (typeof window === 'undefined') return false;
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-           !!(navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
+    
+    // Check user agent
+    const userAgentMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Check touch capability
+    const touchMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // Check screen size (mobile-like dimensions)
+    const screenMobile = window.innerWidth <= 768 || window.innerHeight <= 768;
+    
+    // iPad detection (reports as desktop but is mobile)
+    const iPadMobile = navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform);
+    
+    const isMobile = userAgentMobile || touchMobile || screenMobile || iPadMobile;
+    
+    console.log(`📱 Mobile detection: ${isMobile} (UA: ${userAgentMobile}, Touch: ${touchMobile}, Screen: ${screenMobile}, iPad: ${iPadMobile})`);
+    
+    return isMobile;
   }
 
   private getMobileUrl(): string {
@@ -206,14 +222,13 @@ export class GameWebSocket {
   }
 
   private startPing() {
-    if (this.isMobile) {
-      // Mobile ping every 25 seconds to keep connection alive
-      this.pingInterval = setInterval(() => {
-        if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-          this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
-        }
-      }, 25000);
-    }
+    // Ping every 25 seconds to keep connection alive (for all connections)
+    this.pingInterval = setInterval(() => {
+      if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+        this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
+        console.log(`🏓 Ping sent (Mobile: ${this.isMobile})`);
+      }
+    }, 25000);
   }
 
   private scheduleReconnect(delay: number) {
