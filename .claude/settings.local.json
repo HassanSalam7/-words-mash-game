@@ -36,7 +36,8 @@
       "Bash(git reset:*)",
       "Bash(npx http-server:*)",
       "Bash(rs)",
-      "Bash(start test-websocket.html)"
+      "Bash(start test-websocket.html)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }

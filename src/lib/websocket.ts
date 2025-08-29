@@ -24,6 +24,47 @@ export class GameWebSocket {
     
     this.isMobile = this.detectMobile();
     this.isIOS = this.detectiOS();
+    
+    // Manual iOS mode activation via URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceIOS = urlParams.get('ios') === 'true' || localStorage.getItem('forceIOSMode') === 'true';
+    
+    if (forceIOS) {
+      console.log('🍎 MANUAL iOS MODE ACTIVATED');
+      this.isIOS = true;
+    }
+    
+    // Force iOS optimizations for Safari on mobile (regardless of detection)
+    const isSafariMobile = this.isMobile && /Safari/.test(navigator.userAgent) && !/Chrome|CriOS/.test(navigator.userAgent);
+    if (isSafariMobile && !this.isIOS) {
+      console.log('🍎 Forcing iOS optimizations for Safari Mobile');
+      this.isIOS = true;
+    }
+    
+    // Show iOS mode instructions for mobile users
+    if (this.isMobile && !this.isIOS) {
+      console.log('📱 MOBILE DETECTED BUT NOT iOS - To force iOS mode:');
+      console.log('📱 Method 1: Add ?ios=true to URL');
+      console.log('📱 Method 2: Run: localStorage.setItem("forceIOSMode", "true") then refresh');
+      console.log('📱 Method 3: Type: window.forceIOSMode() in console');
+      
+      // Create helper function
+      (window as any).forceIOSMode = () => {
+        localStorage.setItem('forceIOSMode', 'true');
+        console.log('🍎 iOS mode will activate on next refresh');
+        alert('iOS mode will activate on next refresh. Please refresh the page.');
+      };
+    }
+    
+    // iOS-specific debugging
+    if (this.isIOS) {
+      console.log('🍎 iOS WebSocket initialized with SUPER AGGRESSIVE settings')
+      console.log('🍎 URL:', this.url)
+      console.log('🍎 User Agent:', navigator.userAgent)
+      console.log('🍎 Platform:', navigator.platform)
+      console.log('🍎 Mode:', forceIOS ? 'FORCED' : 'AUTO-DETECTED')
+    }
+    
     this.setupMobileHandlers();
   }
 
@@ -63,8 +104,47 @@ export class GameWebSocket {
   private detectiOS(): boolean {
     if (typeof window === 'undefined') return false;
     
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-           (navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
+    const userAgent = navigator.userAgent;
+    const platform = navigator.platform;
+    
+    // Method 1: Traditional user agent check
+    const userAgentCheck = /iPad|iPhone|iPod/.test(userAgent);
+    
+    // Method 2: iPad on iOS 13+ (reports as MacIntel)
+    const iPadCheck = navigator.maxTouchPoints > 2 && /MacIntel/.test(platform);
+    
+    // Method 3: Check for iOS-specific properties
+    const iosSpecificCheck = (
+      'ontouchstart' in window &&
+      'orientation' in window &&
+      /Safari/.test(userAgent) &&
+      !/Chrome|CriOS|FxiOS/.test(userAgent)
+    );
+    
+    // Method 4: Check for iOS-specific navigator properties
+    const navigatorCheck = (
+      (navigator as any).standalone !== undefined ||
+      /iPhone|iPad|iPod/.test(userAgent)
+    );
+    
+    const isIOS = userAgentCheck || iPadCheck || iosSpecificCheck || navigatorCheck;
+    
+    // Detailed logging for debugging
+    console.log('🍎 iOS Detection Debug:', {
+      userAgent,
+      platform,
+      maxTouchPoints: navigator.maxTouchPoints,
+      userAgentCheck,
+      iPadCheck,
+      iosSpecificCheck,
+      navigatorCheck,
+      finalResult: isIOS,
+      standalone: (navigator as any).standalone,
+      orientation: 'orientation' in window,
+      ontouchstart: 'ontouchstart' in window
+    });
+    
+    return isIOS;
   }
 
   private getMobileUrl(): string {
@@ -276,6 +356,18 @@ export class GameWebSocket {
         this.ws.onerror = (error) => {
           console.error(`❌ WebSocket error: ${(error as any).message || 'Connection failed'} (Mobile: ${this.isMobile}, iOS: ${this.isIOS})`);
           console.error('Full error details:', error);
+          
+          // iOS-specific error handling
+          if (this.isIOS) {
+            console.error('🍎 iOS WebSocket error - likely Safari restriction');
+            console.error('🍎 Checking connection state:', {
+              readyState: this.ws?.readyState,
+              url: this.url,
+              online: navigator.onLine,
+              cookieEnabled: navigator.cookieEnabled
+            });
+          }
+          
           this.clearTimeouts();
           this.emit('connect_error', { 
             message: (error as any).message || 'WebSocket connection failed',
@@ -309,14 +401,27 @@ export class GameWebSocket {
   }
 
   private startPing() {
-    // iOS needs more frequent pings due to aggressive power management
-    const pingInterval = this.isIOS ? 15000 : (this.isMobile ? 25000 : 30000);
+    // iOS Safari needs very frequent pings (every 10 seconds) due to aggressive background suspension
+    const pingInterval = this.isIOS ? 10000 : (this.isMobile ? 25000 : 30000);
+    
+    console.log(`🏓 Starting ping system: iOS=${this.isIOS}, interval=${pingInterval}ms`);
     
     this.pingInterval = setInterval(() => {
       if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-        // Browser WebSockets don't support ping() frames, always use JSON
-        this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
-        console.log(`🏓 Ping sent (iOS: ${this.isIOS}, Mobile: ${this.isMobile})`);
+        try {
+          // Browser WebSockets don't support ping() frames, always use JSON
+          this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
+          console.log(`🏓 Ping sent (iOS: ${this.isIOS}, Mobile: ${this.isMobile})`);
+        } catch (error) {
+          console.error(`❌ Ping failed:`, error);
+          if (this.isIOS) {
+            console.log('🍎 iOS ping failed, connection may be dead');
+            this.attemptReconnect();
+          }
+        }
+      } else if (this.isIOS) {
+        console.log('🍎 iOS WebSocket not open, attempting reconnect');
+        this.attemptReconnect();
       }
     }, pingInterval);
   }

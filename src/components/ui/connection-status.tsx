@@ -9,8 +9,28 @@ interface ConnectionStatusProps {
 export default function ConnectionStatus({ connectionStatus }: ConnectionStatusProps) {
   const [showDetails, setShowDetails] = useState(false)
   const [networkInfo, setNetworkInfo] = useState<any>(null)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isOnline, setIsOnline] = useState(true)
+  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => {
+    // Set client-side only state to prevent hydration errors
+    setIsClient(true)
+    setIsMobile(/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
+    setIsOnline(navigator.onLine)
+
+    // Listen for online/offline events
+    const handleOnline = () => setIsOnline(true)
+    const handleOffline = () => setIsOnline(false)
+    
+    window.addEventListener('online', handleOnline)
+    window.addEventListener('offline', handleOffline)
+
+    // Cleanup listeners
+    const cleanupOnlineListeners = () => {
+      window.removeEventListener('online', handleOnline)
+      window.removeEventListener('offline', handleOffline)
+    }
     // Get network information if available
     if (typeof window !== 'undefined' && 'navigator' in window) {
       const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection
@@ -29,9 +49,12 @@ export default function ConnectionStatus({ connectionStatus }: ConnectionStatusP
         
         return () => {
           connection.removeEventListener('change', updateNetworkInfo)
+          cleanupOnlineListeners()
         }
       }
     }
+
+    return cleanupOnlineListeners
   }, [])
 
   const getStatusColor = () => {
@@ -60,7 +83,10 @@ export default function ConnectionStatus({ connectionStatus }: ConnectionStatusP
     }
   }
 
-  const isMobile = typeof window !== 'undefined' && /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  // Don't render until client-side to prevent hydration mismatch
+  if (!isClient) {
+    return null
+  }
 
   return (
     <div className="fixed top-4 right-4 z-50">
@@ -80,7 +106,7 @@ export default function ConnectionStatus({ connectionStatus }: ConnectionStatusP
           <div className="space-y-1">
             <div><strong>Status:</strong> {getStatusText()}</div>
             <div><strong>Device:</strong> {isMobile ? 'Mobile' : 'Desktop'}</div>
-            <div><strong>Online:</strong> {typeof window !== 'undefined' && navigator.onLine ? 'Yes' : 'No'}</div>
+            <div><strong>Online:</strong> {isOnline ? 'Yes' : 'No'}</div>
             
             {networkInfo && (
               <>

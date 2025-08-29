@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { GameWebSocket, createWebSocket } from '@/lib/websocket'
+import { useCleanConnection } from '@/hooks/useCleanConnection'
 import { useWords, useTranslationWords, useMetaphoricalSentences } from '@/lib/hooks/useGameData'
 import EnhancedEntryScreen from '@/components/game/EnhancedEntryScreen'
 import WaitingRoom from '@/components/game/WaitingRoom'
@@ -206,12 +206,14 @@ const getTranslationWords = (
 export default function Home() {
   const [gameState, setGameState] = useState<GameState>('entry')
   const [playerName, setPlayerName] = useState('')
-  const [socket, setSocket] = useState<GameWebSocket | null>(null)
+  // Use clean connection hook
+  const { socket, connectionStatus, isClient } = useCleanConnection()
+  
+  // Game state
   const [gameData, setGameData] = useState<GameData | null>(null)
   const [gameResults, setGameResults] = useState<GameResults | null>(null)
   const [waitingPlayers, setWaitingPlayers] = useState<Array<{name: string, avatar: string}>>([])
   const [incomingReactions, setIncomingReactions] = useState<Record<number, string[]>>({})
-  const [connectionStatus, setConnectionStatus] = useState<'connecting' | 'connected' | 'disconnected' | 'reconnecting'>('connecting')
   const [playerAvatar, setPlayerAvatar] = useState('https://api.dicebear.com/9.x/adventurer/svg?seed=Jude&flip=false')
   const [gameMode, setGameMode] = useState<GameMode['id']>('story-writing')
   const [translationMode, setTranslationMode] = useState<TranslationMode['id'] | undefined>(undefined)
@@ -228,45 +230,25 @@ export default function Home() {
   const { data: translationWordsData, isLoading: translationWordsLoading, error: translationWordsError } = useTranslationWords()
   const { data: metaphoricalSentencesData, isLoading: metaphoricalSentencesLoading, error: metaphoricalSentencesError } = useMetaphoricalSentences()
 
-  // Enhanced Socket.IO connection configuration for page.tsx
-// Add this to your useEffect in page.tsx
+  // Setup game event handlers when socket is available
+  useEffect(() => {
+    if (!socket || !isClient) return
 
-useEffect(() => {
-  // Only create socket connection once
-  if (socket) {
-    return () => {
-      if (socket) {
-        socket.close()
-      }
-    }
-  }
-  
-  // iOS-optimized WebSocket connection with logging
-  const isIOS = typeof window !== 'undefined' && (
-    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-    (navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform))
-  );
-  
-  console.log(`🍎 iOS Detection: ${isIOS} | User Agent: ${typeof window !== 'undefined' ? navigator.userAgent : 'N/A'}`)
-  
-  const newSocket = createWebSocket()
-  
-  setSocket(newSocket)
+    console.log('🎮 Setting up game event handlers')
 
-  // Game event listeners (your existing code...)
-  newSocket.on('waiting-players-update', (players) => {
-    setWaitingPlayers(players)
-  })
+    // Game event listeners
+    socket.on('waiting-players-update', (players: any) => {
+      setWaitingPlayers(players)
+    })
 
-  newSocket.on('queue-joined', (data) => {
-    console.log('✅ Joined queue:', data)
-    // Provide immediate feedback to user that they're in the queue
-    setGameState('waiting')
-  })
+    socket.on('queue-joined', (data: any) => {
+      console.log('✅ Joined queue:', data)
+      setGameState('waiting')
+    })
 
-  newSocket.on('game-start', (data: GameData) => {
-    console.log('🎮 Game starting:', data)
-    setGameData(data)
+    socket.on('game-start', (data: GameData) => {
+      console.log('🎮 Game starting:', data)
+      setGameData(data)
     if (data.gameMode === 'conversation-generator') {
       setGameState('challenge')
     } else {
@@ -274,17 +256,17 @@ useEffect(() => {
     }
   })
 
-  newSocket.on('game-update', (data: GameData) => {
-    setGameData(data)
-  })
+    socket.on('game-update', (data: GameData) => {
+      setGameData(data)
+    })
 
-  newSocket.on('select-answer-mode', (data) => {
-    console.log('Received select-answer-mode event:', data)
-    setIsHost(data.isHost)
-    setGameState('answer-mode-selection')
-  })
+    socket.on('select-answer-mode', (data: any) => {
+      console.log('Received select-answer-mode event:', data)
+      setIsHost(data.isHost)
+      setGameState('answer-mode-selection')
+    })
 
-  newSocket.on('round-feedback', (data) => {
+    socket.on('round-feedback', (data: any) => {
     setGameData(prevData => prevData ? ({
       ...prevData,
       ...data,
@@ -296,8 +278,8 @@ useEffect(() => {
   })
 
   // Translation game events
-  newSocket.on('round-result', (data) => {
-    console.log('🎯 Round result received:', data)
+    socket.on('round-result', (data: any) => {
+      console.log('🎯 Round result received:', data)
     setGameData(prevData => prevData ? ({
       ...prevData,
       roundNumber: data.round,
@@ -325,7 +307,7 @@ useEffect(() => {
     }, 1000)
   })
 
-  newSocket.on('next-round', (data) => {
+    socket.on('next-round', (data: any) => {
     console.log('▶️ Next round received:', data)
     setGameData(prevData => prevData ? ({
       ...prevData,
@@ -338,28 +320,28 @@ useEffect(() => {
     }) : null)
   })
 
-  newSocket.on('player-submitted', (data) => {
+    socket.on('player-submitted', (data: any) => {
     console.log('👥 Player submitted:', data)
     // Optional: Show submission status to players
   })
 
-  newSocket.on('game-results', (results: GameResults) => {
+    socket.on('game-results', (results: GameResults) => {
     setGameResults(results)
     setGameState('results')
   })
 
-  newSocket.on('join-error', (error: { message: string }) => {
+    socket.on('join-error', (error: { message: string }) => {
     console.error('Join error:', error)
     alert(`Error joining game: ${error.message}`)
     setGameState('entry')
   })
 
-  newSocket.on('opponent-finished', () => {
+    socket.on('opponent-finished', () => {
     console.log('Opponent has finished their story!')
   })
 
   // Private room events
-  newSocket.on('room-created', (data) => {
+    socket.on('room-created', (data: any) => {
     setPrivateRoom({
       code: data.room.code,
       players: data.room.players.map((p: any) => ({ name: p.name, avatar: p.avatar })),
@@ -368,31 +350,30 @@ useEffect(() => {
     setGameState('private-room')
   })
 
-  newSocket.on('room-updated', (data) => {
+    socket.on('room-updated', (data: any) => {
     setPrivateRoom(prev => prev ? {
       ...prev,
       players: data.room.players.map((p: any) => ({ name: p.name, avatar: p.avatar }))
     } : null)
   })
 
-  newSocket.on('room-error', (error) => {
+    socket.on('room-error', (error: any) => {
     setRoomError(error.message)
     setTimeout(() => setRoomError(null), 5000)
   })
 
-  newSocket.on('player-left', (data) => {
-    console.log(`Player ${data.playerName} left the room`)
-  })
+    socket.on('player-left', (data: any) => {
+      console.log(`Player ${data.playerName} left the room`)
+    })
 
-  // Cleanup function
-  return () => {
-    console.log('🧹 Cleaning up socket connection')
-    if (newSocket) {
-      newSocket.removeAllListeners()
-      newSocket.close()
+    // Cleanup function
+    return () => {
+      console.log('🎮 Cleaning up game event handlers')
+      if (socket) {
+        socket.removeAllListeners()
+      }
     }
-  }
-}, []) // Empty dependency array to run only once
+  }, [socket, isClient]) // Depend on socket and isClient
 
   const handleStartGame = (name: string, avatar: string, selectedGameMode: GameMode['id'], selectedTranslationMode?: TranslationMode['id']) => {
     console.log('🔵 FRONTEND: handleStartGame called with:', {
