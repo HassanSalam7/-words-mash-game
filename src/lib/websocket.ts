@@ -64,7 +64,7 @@ export class GameWebSocket {
     if (typeof window === 'undefined') return false;
     
     return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-           (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
+           (navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
   }
 
   private getMobileUrl(): string {
