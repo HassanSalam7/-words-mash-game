@@ -15,6 +15,7 @@ export class GameWebSocket {
   private reconnectTimeout: NodeJS.Timeout | null = null;
   private connectionTimeout: NodeJS.Timeout | null = null;
   private isMobile = false;
+  private isIOS = false;
 
   constructor() {
     this.url = process.env.NODE_ENV === 'production'
@@ -22,6 +23,7 @@ export class GameWebSocket {
       : this.getMobileUrl();
     
     this.isMobile = this.detectMobile();
+    this.isIOS = this.detectiOS();
     this.setupMobileHandlers();
   }
 
@@ -56,6 +58,13 @@ export class GameWebSocket {
     console.log(`📱 Mobile detection: ${isMobile} (UA: ${userAgentMobile}, Touch: ${touchMobile}, Screen: ${screenMobile}, iPad: ${iPadMobile}, Modern: ${modernMobile})`);
     
     return isMobile;
+  }
+
+  private detectiOS(): boolean {
+    if (typeof window === 'undefined') return false;
+    
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+           (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform));
   }
 
   private getMobileUrl(): string {
@@ -103,21 +112,53 @@ export class GameWebSocket {
   private setupMobileHandlers() {
     if (typeof window === 'undefined' || !this.isMobile) return;
 
-    // Handle mobile app state changes
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        console.log('📱 App became visible, checking connection...');
-        if (!this.isConnected) {
-          this.attemptReconnect();
+    // iOS Safari specific handling
+    if (this.isIOS) {
+      // iOS Safari suspends WebSockets when tab goes background
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          console.log('🍎 iOS app became visible, forcing reconnect...');
+          // Force reconnect on iOS when app becomes visible
+          setTimeout(() => {
+            if (!this.isConnected) {
+              this.attemptReconnect();
+            } else {
+              // Test connection with ping
+              this.testConnection();
+            }
+          }, 100);
+        } else {
+          console.log('🍎 iOS app went background, connection may suspend');
         }
-      }
-    });
+      });
 
-    // Handle network changes
+      // iOS specific pageshow/pagehide events
+      window.addEventListener('pageshow', () => {
+        console.log('🍎 iOS pageshow event');
+        setTimeout(() => this.testConnection(), 200);
+      });
+
+      window.addEventListener('pagehide', () => {
+        console.log('🍎 iOS pagehide event');
+      });
+    } else {
+      // Standard mobile handling for non-iOS
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          console.log('📱 App became visible, checking connection...');
+          if (!this.isConnected) {
+            this.attemptReconnect();
+          }
+        }
+      });
+    }
+
+    // Handle network changes - iOS network events are less reliable
     window.addEventListener('online', () => {
       console.log('📡 Network came online');
       if (!this.isConnected) {
-        setTimeout(() => this.attemptReconnect(), 1000);
+        const delay = this.isIOS ? 2000 : 1000; // iOS needs more time
+        setTimeout(() => this.attemptReconnect(), delay);
       }
     });
 
@@ -126,12 +167,42 @@ export class GameWebSocket {
       this.handleNetworkDisconnection();
     });
 
-    // Handle page focus/blur for mobile Safari
+    // Handle page focus/blur - critical for iOS Safari
     window.addEventListener('focus', () => {
-      if (!this.isConnected) {
+      if (this.isIOS) {
+        console.log('🍎 iOS focus - testing connection');
+        setTimeout(() => {
+          if (!this.isConnected) {
+            this.attemptReconnect();
+          } else {
+            this.testConnection();
+          }
+        }, 100);
+      } else if (!this.isConnected) {
         setTimeout(() => this.attemptReconnect(), 500);
       }
     });
+
+    window.addEventListener('blur', () => {
+      if (this.isIOS) {
+        console.log('🍎 iOS blur - connection may be suspended');
+      }
+    });
+  }
+
+  private testConnection() {
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      try {
+        this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
+        console.log('🔍 Testing connection with ping');
+      } catch (error) {
+        console.log('❌ Connection test failed, reconnecting...');
+        this.attemptReconnect();
+      }
+    } else {
+      console.log('🔍 Connection not open, attempting reconnect...');
+      this.attemptReconnect();
+    }
   }
 
   connect(): Promise<void> {
@@ -149,14 +220,15 @@ export class GameWebSocket {
         console.log(`🔌 Connecting to ${this.url} (Mobile: ${this.isMobile})...`);
         this.ws = new WebSocket(this.url);
 
-        // Connection timeout for mobile
+        // Connection timeout - iOS needs more time
+        const timeoutMs = this.isIOS ? 15000 : (this.isMobile ? 10000 : 5000);
         this.connectionTimeout = setTimeout(() => {
           if (this.ws && this.ws.readyState === WebSocket.CONNECTING) {
             console.log('⏱️ Connection timeout, closing...');
             this.ws.close();
             reject(new Error('Connection timeout'));
           }
-        }, this.isMobile ? 10000 : 5000);
+        }, timeoutMs);
 
         this.ws.onopen = () => {
           console.log('✅ WebSocket connected successfully');
@@ -189,11 +261,13 @@ export class GameWebSocket {
           this.clearTimeouts();
           this.emit('disconnect', { reason: event.reason, code: event.code });
           
-          // Mobile-specific reconnection logic
+          // Mobile-specific reconnection logic - iOS gets more aggressive reconnection
           if (this.shouldReconnect && this.reconnectAttempts < this.maxReconnectAttempts) {
-            const delay = this.isMobile ? 
-              Math.min(5000, this.reconnectDelay * Math.pow(2, this.reconnectAttempts)) :
-              this.reconnectDelay * Math.pow(1.5, this.reconnectAttempts - 1);
+            const delay = this.isIOS ? 
+              Math.min(3000, this.reconnectDelay * Math.pow(1.5, this.reconnectAttempts)) :
+              (this.isMobile ? 
+                Math.min(5000, this.reconnectDelay * Math.pow(2, this.reconnectAttempts)) :
+                this.reconnectDelay * Math.pow(1.5, this.reconnectAttempts - 1));
             
             this.scheduleReconnect(delay);
           }
@@ -233,26 +307,14 @@ export class GameWebSocket {
   }
 
   private startPing() {
-    // For mobile devices, use more frequent pings with proper WebSocket ping frames
-    const pingInterval = this.isMobile ? 25000 : 30000;
+    // iOS needs more frequent pings due to aggressive power management
+    const pingInterval = this.isIOS ? 15000 : (this.isMobile ? 25000 : 30000);
     
     this.pingInterval = setInterval(() => {
       if (this.ws && this.ws.readyState === WebSocket.OPEN) {
-        if (this.isMobile) {
-          // Use WebSocket ping frame for mobile (matches server expectations)
-          try {
-            (this.ws as any).ping?.();
-            console.log(`🏓 WebSocket ping sent (Mobile: ${this.isMobile})`);
-          } catch (error) {
-            // Fallback to JSON message if ping() is not available
-            this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
-            console.log(`🏓 JSON ping sent (Mobile: ${this.isMobile})`);
-          }
-        } else {
-          // Desktop uses JSON ping
-          this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
-          console.log(`🏓 Ping sent (Mobile: ${this.isMobile})`);
-        }
+        // Browser WebSockets don't support ping() frames, always use JSON
+        this.ws.send(JSON.stringify({ type: 'ping', data: {} }));
+        console.log(`🏓 Ping sent (iOS: ${this.isIOS}, Mobile: ${this.isMobile})`);
       }
     }, pingInterval);
   }
