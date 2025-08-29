@@ -83,6 +83,22 @@ interface GameData {
     metaphor?: string;
     options?: string[];
   };
+  conversation?: {
+    topic: string;
+    dialogue: Array<{
+      character: string;
+      text: string;
+    }>;
+  };
+  submissions?: Array<{
+    playerId: string;
+    playerName: string;
+    avatar: string;
+    story: string;
+    usedWords: string[];
+    wordsCount: number;
+    submittedAt: number;
+  }>;
 }
 
 interface GameResults {
@@ -225,54 +241,17 @@ useEffect(() => {
     }
   }
   
-  // Clean WebSocket connection - much more reliable!
+  // iOS-optimized WebSocket connection with logging
+  const isIOS = typeof window !== 'undefined' && (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform))
+  );
+  
+  console.log(`🍎 iOS Detection: ${isIOS} | User Agent: ${typeof window !== 'undefined' ? navigator.userAgent : 'N/A'}`)
+  
   const newSocket = createWebSocket()
   
   setSocket(newSocket)
-
-  // Make socket available globally for components
-  if (typeof window !== 'undefined') {
-    (window as any).socket = newSocket
-  }
-
-  // Connect to WebSocket server
-  newSocket.connect().then(() => {
-    console.log('WebSocket connection established')
-  }).catch((error) => {
-    console.error('Failed to connect:', error)
-    setConnectionStatus('disconnected')
-  })
-
-  // Basic network detection
-  if (typeof window !== 'undefined') {
-    window.addEventListener('online', () => {
-      console.log('📶 Network online')
-      if (newSocket.disconnected) {
-        newSocket.connect()
-      }
-    })
-    
-    window.addEventListener('offline', () => {
-      console.log('📴 Network offline')
-      setConnectionStatus('disconnected')
-    })
-  }
-
-  // Clean WebSocket event listeners
-  newSocket.on('connect', () => {
-    console.log('✅ WebSocket connected successfully')
-    setConnectionStatus('connected')
-  })
-
-  newSocket.on('connect_error', (error) => {
-    console.error('❌ WebSocket connection error:', error.message || error)
-    setConnectionStatus('disconnected')
-  })
-
-  newSocket.on('disconnect', (data) => {
-    console.log('🔌 WebSocket disconnected:', data.reason)
-    setConnectionStatus('disconnected')
-  })
 
   // Game event listeners (your existing code...)
   newSocket.on('waiting-players-update', (players) => {

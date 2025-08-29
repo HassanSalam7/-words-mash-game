@@ -97,7 +97,44 @@ export async function createBestConnection(): Promise<GameConnection> {
     (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
      (navigator.maxTouchPoints && navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform)));
   
-  console.log(`🔄 Testing connection types... (Mobile: ${isMobile})`)
+  const isIOS = typeof window !== 'undefined' &&
+    (/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+     (navigator.maxTouchPoints > 2 && /MacIntel/.test(navigator.platform)));
+  
+  console.log(`🔄 Testing connection types... (Mobile: ${isMobile}, iOS: ${isIOS})`)
+  
+  // iOS specific connection strategy
+  if (isIOS) {
+    console.log('🍎 iOS detected - using iOS-optimized connection strategy')
+    
+    // Try multiple connection attempts for iOS
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        console.log(`🍎 iOS WebSocket attempt ${attempt}/3...`)
+        const wsConnection = createWebSocket()
+        await wsConnection.connect()
+        console.log('✅ iOS WebSocket connection successful')
+        return wsConnection
+      } catch (error) {
+        console.log(`❌ iOS WebSocket attempt ${attempt} failed:`, error instanceof Error ? error.message : 'Unknown error')
+        if (attempt < 3) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt)) // Progressive delay
+        }
+      }
+    }
+    
+    // If all WebSocket attempts fail on iOS, try Socket.IO as fallback
+    try {
+      console.log('🍎 iOS WebSocket failed, trying Socket.IO fallback...')
+      const socketIOConnection = new SocketIOWrapper()
+      await socketIOConnection.connect()
+      console.log('✅ iOS Socket.IO fallback successful')
+      return socketIOConnection
+    } catch (socketIOError) {
+      console.error('❌ All iOS connection attempts failed')
+      throw new Error('Unable to establish iOS connection')
+    }
+  }
   
   // Try WebSocket first (preferred for mobile)
   try {

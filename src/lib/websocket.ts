@@ -217,7 +217,7 @@ export class GameWebSocket {
         // Clear existing timeouts
         this.clearTimeouts();
 
-        console.log(`🔌 Connecting to ${this.url} (Mobile: ${this.isMobile})...`);
+        console.log(`🔌 Connecting to ${this.url} (Mobile: ${this.isMobile}, iOS: ${this.isIOS})...`);
         this.ws = new WebSocket(this.url);
 
         // Connection timeout - iOS needs more time
@@ -274,12 +274,14 @@ export class GameWebSocket {
         };
 
         this.ws.onerror = (error) => {
-          console.error(`❌ WebSocket error: ${(error as any).message || 'Connection failed'} (Mobile: ${this.isMobile})`);
+          console.error(`❌ WebSocket error: ${(error as any).message || 'Connection failed'} (Mobile: ${this.isMobile}, iOS: ${this.isIOS})`);
+          console.error('Full error details:', error);
           this.clearTimeouts();
           this.emit('connect_error', { 
             message: (error as any).message || 'WebSocket connection failed',
             type: (error as any).type || 'error',
-            isMobile: this.isMobile
+            isMobile: this.isMobile,
+            isIOS: this.isIOS
           });
           reject(new Error((error as any).message || 'WebSocket connection failed'));
         };
